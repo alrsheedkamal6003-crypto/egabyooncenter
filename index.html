@@ -612,18 +612,18 @@
         </div>
 
         <div class="contact-container">
-            <form id="contactForm" action="https://formspree.io/f/mbdpgvpn" method="POST">
+            <form id="contactForm">
                 <div class="form-group">
                     <label for="name">الاسم الرباعي</label>
-                    <input type="text" id="name" name="Full_Name" class="form-control" placeholder="أدخل اسمك الكامل" required>
+                    <input type="text" id="name" name="الاسم_الكامل" class="form-control" placeholder="أدخل اسمك الكامل" required>
                 </div>
                 <div class="form-group">
                     <label for="phone">رقم الهاتف / واتساب</label>
-                    <input type="tel" id="phone" name="Phone_WhatsApp" class="form-control" placeholder="أدخل رقم الهاتف" required>
+                    <input type="tel" id="phone" name="الهاتف" class="form-control" placeholder="أدخل رقم الهاتف" required>
                 </div>
                 <div class="form-group">
                     <label for="course">الدورة المطلوبة</label>
-                    <select id="course" name="Selected_Course" class="form-control" required>
+                    <select id="course" name="الدورة_المطلوبة" class="form-control" required>
                         <option value="" disabled selected>اختر الدورة...</option>
                         <option value="web">تطوير تطبيقات الويب والموبايل</option>
                         <option value="spss">التحليل الإحصائي SPSS</option>
@@ -633,7 +633,7 @@
                 </div>
                 <div class="form-group">
                     <label for="message">رسالتك (اختياري)</label>
-                    <textarea id="message" name="Message" class="form-control" placeholder="اكتب استفسارك هنا..."></textarea>
+                    <textarea id="message" name="الرسالة" class="form-control" placeholder="اكتب استفسارك هنا..."></textarea>
                 </div>
                 <button type="submit" class="btn-submit">إرسال طلب التسجيل</button>
             </form>
@@ -674,6 +674,7 @@
     </footer>
 
     <script>
+        // 1. تفعيل قائمة الموبايل
         const mobileMenu = document.getElementById('mobile-menu');
         const navLinks = document.getElementById('nav-links');
 
@@ -681,6 +682,7 @@
             navLinks.classList.toggle('active');
         });
 
+        // 2. تغيير ستايل الهيدر عند السكرول
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
             if (window.scrollY > 50) {
@@ -692,9 +694,44 @@
             }
         });
 
-        // تم تعديل هذا الجزء للسماح لـ Formspree بالعمل بشكل طبيعي
+        // 3. إرسال الفورم بدون مغادرة الصفحة (AJAX)
         const contactForm = document.getElementById('contactForm');
-        // ملاحظة: تم إزالة e.preventDefault() لضمان إرسال البيانات للإيميل
+        
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault(); 
+            
+            const submitBtn = contactForm.querySelector('.btn-submit');
+            const originalBtnText = submitBtn.innerText;
+            
+            // تغيير حالة الزر
+            submitBtn.innerText = 'جاري الإرسال...';
+            submitBtn.disabled = true;
+
+            const formData = new FormData(this);
+            
+            try {
+                const response = await fetch("https://formspree.io/f/mbdpgvpn", {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // رسالة نجاح احترافية في الموقع نفسه
+                    alert('✨ تم استلام طلبك بنجاح! \nشكراً لتواصلك مع مركز إيجابيون، سيتواصل معك فريقنا قريباً.');
+                    contactForm.reset(); 
+                } else {
+                    alert('عذراً، حدث خطأ ما أثناء الإرسال. يرجى المحاولة مرة أخرى.');
+                }
+            } catch (error) {
+                alert('عذراً، يرجى التأكد من اتصالك بالإنترنت والمحاولة مجدداً.');
+            } finally {
+                submitBtn.innerText = originalBtnText;
+                submitBtn.disabled = false;
+            }
+        });
     </script>
 </body>
 </html>
