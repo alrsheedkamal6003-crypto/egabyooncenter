@@ -3,664 +3,1777 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مركز إيجابيون للتدريب | الصفحة الرئيسية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        /* ================= المتغيرات الأساسية ================= */
-        :root {
-            --primary-color: #1e3a8a; /* أزرق داكن احترافي */
-            --secondary-color: #f59e0b; /* أصفر/ذهبي للفت الانتباه */
-            --text-dark: #1f2937;
-            --text-light: #6b7280;
-            --bg-light: #f3f4f6;
-            --white: #ffffff;
-            --transition: all 0.3s ease-in-out;
-        }
-
-        /* ================= إعادة ضبط المتصفح ================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        body {
-            background-color: var(--white);
-            color: var(--text-dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        /* ================= شريط التنقل (Navbar) ================= */
-        header {
-            background-color: var(--white);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: var(--transition);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--primary-color);
-        }
-
-        .logo span {
-            color: var(--secondary-color);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-
-        .nav-links a {
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--secondary-color);
-        }
-
-        .btn-register {
-            background-color: var(--primary-color);
-            color: var(--white);
-            padding: 10px 25px;
-            border-radius: 5px;
-            font-weight: 700;
-            transition: var(--transition);
-        }
-
-        .btn-register:hover {
-            background-color: var(--secondary-color);
-            color: var(--text-dark);
-        }
-
-        .menu-toggle {
-            display: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--primary-color);
-        }
-
-        /* ================= قسم البداية (Hero Section) ================= */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(30, 58, 138, 0.8), rgba(30, 58, 138, 0.9)), url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--white);
-            padding: 0 5%;
-            margin-top: 70px;
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            animation: fadeInDown 1s ease;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            animation: fadeInUp 1s ease 0.5s both;
-        }
-
-        .hero-buttons {
-            animation: fadeInUp 1s ease 0.8s both;
-        }
-
-        .btn-primary, .btn-secondary {
-            display: inline-block;
-            padding: 15px 35px;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin: 10px;
-            transition: var(--transition);
-        }
-
-        .btn-primary {
-            background-color: var(--secondary-color);
-            color: var(--text-dark);
-        }
-
-        .btn-primary:hover {
-            background-color: #d97706;
-            color: var(--white);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            border: 2px solid var(--white);
-            color: var(--white);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--white);
-            color: var(--primary-color);
-        }
-
-        /* ================= الأقسام العامة ================= */
-        .section-padding {
-            padding: 80px 5%;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            width: 50%;
-            height: 4px;
-            background-color: var(--secondary-color);
-            bottom: -10px;
-            left: 25%;
-            border-radius: 2px;
-        }
-
-        .section-title p {
-            color: var(--text-light);
-            font-size: 1.1rem;
-            margin-top: 15px;
-        }
-
-        /* ================= قسم الدورات ================= */
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .course-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: var(--transition);
-            border: 1px solid #e5e7eb;
-        }
-
-        .course-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-
-        .course-img {
-            width: 100%;
-            height: 200px;
-            background-color: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: var(--primary-color);
-            position: relative;
-        }
-
-        .course-content {
-            padding: 25px;
-        }
-
-        .course-content h3 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-        }
-
-        .course-content p {
-            color: var(--text-light);
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-        }
-
-        .course-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
-        }
-
-        .course-price {
-            font-weight: 700;
-            color: var(--secondary-color);
-            font-size: 1.2rem;
-        }
-
-        /* ================= قسم المميزات (عن المركز) ================= */
-        .features {
-            background-color: var(--bg-light);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .feature-box {
-            text-align: center;
-            padding: 40px 20px;
-            background: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: var(--transition);
-        }
-
-        .feature-box:hover {
-            background-color: var(--primary-color);
-            color: var(--white);
-        }
-
-        .feature-box:hover .feature-icon, .feature-box:hover p {
-            color: var(--white);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-
-        .feature-box h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-        }
-
-        .feature-box p {
-            color: var(--text-light);
-            font-size: 0.95rem;
-        }
-
-        /* ================= قسم تواصل معنا ================= */
-        .contact-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--white);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 5px rgba(30, 58, 138, 0.3);
-        }
-
-        textarea.form-control {
-            height: 150px;
-            resize: vertical;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 15px;
-            background-color: var(--primary-color);
-            color: var(--white);
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn-submit:hover {
-            background-color: var(--secondary-color);
-            color: var(--text-dark);
-        }
-
-        /* ================= التذييل (Footer) ================= */
-        footer {
-            background-color: #111827;
-            color: var(--white);
-            padding: 60px 5% 20px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-            margin-bottom: 40px;
-        }
-
-        .footer-col h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: var(--secondary-color);
-        }
-
-        .footer-col p {
-            color: #9ca3af;
-            line-height: 1.8;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: #374151;
-            border-radius: 50%;
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            background-color: var(--secondary-color);
-            color: var(--text-dark);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #374151;
-            color: #9ca3af;
-            font-size: 0.9rem;
-        }
-
-        /* ================= الحركات (Animations) ================= */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ================= الاستجابة للشاشات الصغيرة (Media Queries) ================= */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background-color: var(--white);
-                padding: 20px;
-                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .section-title h2 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="/assets/index-aRN_iAqd.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CcJOC98Y.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <title>مركز إيجابيون للتدريب | دورات تدريبية بمختلف المجالات المهنية والطبية </title>
+
+  <meta name="description" content="مركز إيجابيون للتدريب يقدم برامج ودورات معتمدة في المجال الصحي، وتقنية المعلومات، والموارد البشرية وغيرها. تعلم من نخبة المدربين بخطط تدريبية حديثة مع شهادات معتمدة.">
+
+  <meta name="keywords" content="مركز تدريب, الدورات التدريبية, دورات معتمدة, التدريب الصحي, السلامة المهنية, التدريب المهني, مركز إيجابيون للتدريب, تطوير المهارات, شهادات معتمدة">
+
+  <meta name="author" content="مركز إيجابيون للتدريب">
+
+
+  <link rel="icon" type="image/png" sizes="180x180" href="images/favicon.png">
+
+
+  <meta property="og:title" content="مركز إيجابيون للتدريب | برامج ودورات تطويرية معتمدة">
+  <meta property="og:description" content="دورات معتمدة في المجال الصحي والمجالات التقنية والمهنية.">
+  <meta property="og:image" content="https://rawnaqtraining.com/images/og-images-socail-media-1200w.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rawnaqtraining.com/">
+
+  <meta name="robots" content="index, follow">
+
+  <style>
+    /* ================= المتغيرات الجديدة لهوية إيجابيون ================= */
+    :root {
+        --primary-color: #1e3a8a; /* أزرق داكن */
+        --primary-light: #3b82f6; 
+        --secondary-color: #f59e0b; /* ذهبي */
+        --secondary-hover: #d97706;
+        --dark-bg: #0f172a;
+        --light-bg: #f3f4f6;
+        --white: #ffffff;
+        --text-dark: #1f2937;
+        --glass-bg: rgba(255, 255, 255, 0.1);
+        --glass-border: rgba(255, 255, 255, 0.2);
+        --glow-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+        --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    body {
+      margin: 0;
+       font-family: 'Cairo', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* حركات الأنيميشن الفاخرة */
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0px); }
+    }
+    @keyframes pulseGlow {
+        0% { box-shadow: 0 0 10px rgba(245, 158, 11, 0.4); }
+        50% { box-shadow: 0 0 25px rgba(245, 158, 11, 0.8); }
+        100% { box-shadow: 0 0 10px rgba(245, 158, 11, 0.4); }
+    }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+/* الهيدر */
+header {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 0 30px;
+  padding-right: 100px;
+  padding-left: 105px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  position: relative;
+  z-index: 1000;  
+  border-bottom: 2px solid var(--secondary-color);
+}
+
+/* للجوال */
+@media (max-width: 768px) {
+  header {
+    position: fixed;   
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 70px;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+  }
+
+  body {
+    padding-top: 80px; 
+  }
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 75px;
+}
+
+/* الشعار */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-container img {
+  height: 65px;
+  width: auto;
+  border-radius: 10px;
+  display: none; /* إخفاء الصورة واستخدام النص */
+}
+
+.logo-text h1 {
+  margin: 0;
+  font-size: 28px;
+  color: var(--primary-color);
+  font-weight: 900;
+}
+.logo-text h1 span { color: var(--secondary-color); }
+
+.logo-text p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+/* القوائم */
+.main-nav {
+  display: flex;
+  gap: 15px;
+}
+
+.main-nav a {
+  text-decoration: none;
+  font-size: 16px;
+  position: relative;
+  padding: 10px 20px;
+  border-radius: 30px;
+  transition: var(--transition);
+  color: var(--primary-color);
+  font-weight: 700;
+  overflow: hidden;
+}
+
+.main-nav a::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--secondary-color);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+    z-index: -1;
+    border-radius: 30px;
+}
+
+.main-nav a:hover::before { transform: scaleX(1); transform-origin: left; }
+.main-nav a:hover { color: var(--white); box-shadow: var(--glow-shadow); }
+
+.main-nav a.selected {
+  color: var(--white);
+  background-color: var(--secondary-color);
+  box-shadow: var(--glow-shadow);
+}
+
+/* اللغات  */
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lang-switch a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.lang-switch a:hover { color: var(--secondary-color); }
+
+.divider { color: var(--secondary-color); }
+
+/* أيقونة منيو */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  color: var(--secondary-color);
+  cursor: pointer;
+}
+
+/* استجابة للجوال */
+@media (max-width: 768px) {
+  header { padding: 10px 20px; }
+  .menu-toggle { display: block; color: var(--white);}
+  .main-nav {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--primary-color);
+    position: absolute;
+    top: 70px;
+    right: 0;
+    padding: 20px 0;
+    margin-top: 0px;
+    text-align: right;
+    gap: 8px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  }
+  
+.main-nav a {
+  color: #fff;
+  border-radius: 15px;
+  margin: 0 15px;
+}
+.main-nav a:hover { color: var(--primary-color); }
+.main-nav a.selected { color: var(--primary-color); background-color: var(--secondary-color); } 
+  .main-nav.active { display: flex; animation: fadeInUp 0.4s ease; }
+  .main-nav a { padding: 12px; }
+  .lang-switch { margin-top: 5px; margin-right: 15px;}
+  .lang-switch a { color: var(--white);}
+  .logo-text h1 { color: var(--white); }
+  .logo-text p { color: #ddd; }
+  .lang-switch2{ display: none; }
+}
+
+/* ============================= */
+/* القواعد العامة – الديسكتوب الكبير */
+/* ============================= */
+header { padding: 0 60px; }
+.nav-container { max-width: 1400px; margin: 0 auto; }
+.logo-container img { max-width: 180px; height: auto; }
+
+@media (max-width: 1200px) {
+  header { padding: 0 40px; }
+  .main-nav { gap: 12px; }
+  .main-nav a { font-size: 15px; padding: 8px 16px; }
+  .logo-container img { max-width: 150px; }
+}
+
+@media (max-width: 992px) {
+  header { padding: 0 30px; }
+  .main-nav { gap: 10px; }
+  .main-nav a { font-size: 14px; padding: 8px 14px; }
+  .logo-container img { max-width: 130px; }
+}
+
+@media (max-width: 820px) {
+  .logo-text p { display: none; }
+  .main-nav { gap: 8px; }
+  .main-nav a { font-size: 14px; padding: 8px 12px; }
+}
+
+/* القسم الاول في الهيدر في بيانات السوشل ميديا و الاتصال  */
+    .contact-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 40px;
+      background: linear-gradient(90deg, var(--primary-dark), var(--primary-color));
+      color: white;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .social-icons a {
+      margin-left: 15px;
+      font-size: 18px;
+      text-decoration: none;
+      color: var(--secondary-color);
+      transition: var(--transition);
+      display: inline-block;
+    }
+
+    /* Hover colors */
+    .social-icons a:hover { transform: translateY(-3px) scale(1.2); color: var(--white); text-shadow: var(--glow-shadow);}
+    .social-icons a.x:hover svg {fill: #ffffff;}
+
+    .contact-info {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .contact-info a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+      font-weight: 600;
+    }
+
+    .contact-info a i { color: var(--secondary-color); }
+    .contact-info a:hover { color: var(--secondary-color); transform: translateX(-5px); }
+
+    /* Responsive: Hide on mobile */
+    @media (max-width: 768px) { .contact-bar { display: none; } }
+    
+    /* قسم الهيرو (تأثير زجاجي و 3D) */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: right;
+      background: 
+        linear-gradient(rgba(15, 23, 42, 0.85), rgba(30, 58, 138, 0.85)),
+        url("https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80") center/cover no-repeat fixed;
+      overflow: hidden;
+    }
+
+    /* أشكال هندسية عائمة في الهيرو */
+    .hero::before {
+        content: ''; position: absolute; width: 300px; height: 300px;
+        background: var(--secondary-color); border-radius: 50%;
+        filter: blur(80px); top: -50px; right: -50px; opacity: 0.4;
+        animation: float 8s infinite alternate;
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 50px;
+      max-width: 1400px;
+      width: 100%;
+      padding: 0 5%;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* الصورة */
+    .hero-image {
+      position: relative;
+      flex: 1;
+      perspective: 1000px;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      transform: rotateY(-10deg) rotateX(5deg);
+      transition: var(--transition);
+      border: 2px solid rgba(255,255,255,0.1);
+    }
+    
+    .hero-image:hover img { transform: rotateY(0deg) rotateX(0deg) scale(1.05); }
+
+    /* مربع الإحصائية الزجاجي */
+    .stat-box {
+      position: absolute;
+      bottom: -20px;
+      left: -20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--secondary-color);
+      padding: 20px 30px;
+      border-radius: 16px;
+      font-size: 20px;
+      font-weight: 900;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: float 4s infinite ease-in-out;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    /* النص */
+    .hero-text {
+      flex: 1;
+      max-width: 650px;
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero-text h1 {
+      font-size: 3.8rem;
+      margin-bottom: 20px;
+      font-weight: 900;
+      line-height: 1.2;
+      text-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      color: #e2e8f0;
+      line-height: 1.8;
+    }
+
+    /* الأزرار الفاخرة */
+    .buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 15px 35px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      text-decoration: none;
+      font-weight: 800;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn-primary {
+      background: var(--secondary-color);
+      color: var(--text-dark);
+      box-shadow: var(--glow-shadow);
+      border: none;
+    }
+
+    .btn-primary::after {
+        content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+        background: linear-gradient(to right, transparent, rgba(255,255,255,0.5), transparent);
+        transform: skewX(-20deg); transition: 0.5s; z-index: -1;
+    }
+
+    .btn-primary:hover::after { left: 150%; }
+    .btn-primary:hover {
+      background: var(--secondary-hover);
+      transform: translateY(-5px); 
+      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      color: white;
+      border: 2px solid rgba(255,255,255,0.5);
+    }
+
+    .btn-secondary:hover {
+      background: var(--white);
+      color: var(--primary-color);
+      border-color: var(--white);
+      transform: translateY(-5px); 
+      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+    }
+
+  /* البادجات الزجاجية */
+    .badges {
+      margin-top: 40px;
+      font-size: 16px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: nowrap;
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 8px 20px;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(5px);
+      white-space: normal;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+    
+    .badge:hover { transform: translateY(-3px); background: rgba(0,0,0,0.5); border-color: var(--secondary-color);}
+
+    .badge::before {
+      content: "\f058";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      color: var(--secondary-color);
+      font-size: 20px;
+      filter: drop-shadow(0 0 5px var(--secondary-color));
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 991px) {
+      .hero-content { flex-direction: column; text-align: right; padding-top: 50px;}
+      .hero-text h1 { font-size: 38px; }
+      .hero-text p { font-size: 18px; }
+      .buttons { justify-content: right; }
+      .badges { justify-content: right; flex-wrap: wrap; }
+      .hero-image { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 30px 15px; min-height: 82vh; }
+      .hero-text h1 { font-size: 32px; }
+      .hero-text p { font-size: 16px; }
+      .btn { font-size: 16px; padding: 12px 25px; }
+    }
+
+    /* قسم الإحصائيات (تأثير Glassmorphism فوق الأزرق) */
+.stats-section {
+  background: var(--bg-light);
+  color: var(--text-dark);
+  text-align: center;
+  padding: 40px 0;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  padding: 20px 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.stat-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 30px 20px;
+  transition: var(--transition);
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+/* شكل جمالي داخل الكارت */
+.stat-card::before {
+    content: ''; position: absolute; top: -50px; right: -50px; width: 100px; height: 100px;
+    background: linear-gradient(135deg, var(--secondary-color), transparent); border-radius: 50%; opacity: 0.2;
+}
+
+.stat-card:hover {
+  transform: translateY(-15px) rotateX(5deg) rotateY(-5deg);
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+  box-shadow: 0 20px 40px rgba(30, 58, 138, 0.2);
+  border-color: var(--primary-color);
+}
+
+.stat-card:hover h2, .stat-card:hover p { color: var(--white); }
+
+.stat-icon {
+  font-size: 45px;
+  color: var(--secondary-color);
+  margin-bottom: 15px;
+  transition: var(--transition);
+  filter: drop-shadow(0 5px 10px rgba(245, 158, 11, 0.3));
+}
+
+.stat-card h2 {
+  font-size: 40px;
+  font-weight: 900;
+  margin: 0;
+  color: var(--primary-dark);
+  transition: var(--transition);
+}
+
+.stat-card p {
+  margin: 10px 0 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-light);
+  transition: var(--transition);
+}
+
+.stat-card:hover .stat-icon {
+  transform: scale(1.3) translateZ(30px);
+  color: var(--secondary-light);
+}
+
+/* للجوال */
+@media (max-width: 600px) {
+  .stats-container { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+  .stat-card { padding: 25px 15px; }
+  .stat-card h2 { font-size: 28px; }
+  .stat-card p { font-size: 15px; }
+}
+
+/* القسم الثالث من نحن */
+.about-section {
+  padding: 100px 5%;
+  background: var(--white);
+  direction: rtl; 
+}
+
+.about-container {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  max-width: 1400px;
+  margin: auto;
+}
+
+/* الصورة */
+.about-image {
+  position: relative;
+  flex: 1;
+  perspective: 1000px;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  transform: rotateY(5deg);
+  transition: var(--transition);
+  border: 5px solid var(--white);
+}
+
+.about-image:hover img { transform: rotateY(0deg) scale(1.02); }
+
+/* صندوق الخبرة الفاخر */
+.experience-box {
+  position: absolute;
+  top: 30px;
+  right: -30px; /* تغيير لليمين للغة العربية */
+  background: linear-gradient(135deg, var(--secondary-color), var(--secondary-hover));
+  border-radius: 15px;
+  padding: 20px 30px;
+  text-align: center;
+  box-shadow: var(--glow-shadow);
+  color: var(--white);
+  animation: float 5s infinite;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+.experience-box h3 { font-size: 35px; font-weight: 900; margin: 0; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+.experience-box p { margin: 5px 0 0; font-size: 16px; font-weight: 700; }
+
+/* النص */
+.about-content { flex: 1; }
+.about-content h2 {
+  font-size: 38px;
+  color: var(--primary-dark);
+  margin-bottom: 25px;
+  text-align: right;
+  font-weight: 900;
+  position: relative;
+  display: inline-block;
+}
+.about-content h2::after {
+    content: ''; position: absolute; bottom: -10px; right: 0; width: 60%; height: 5px;
+    background: var(--secondary-color); border-radius: 5px;
+}
+
+.about-content p {
+  font-size: 18px;
+  line-height: 1.9;
+  margin-bottom: 40px;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+/* المميزات */
+.about-features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  background: var(--bg-light);
+  padding: 20px;
+  border-radius: 15px;
+  transition: var(--transition);
+  border: 1px solid #e5e7eb;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+    background: var(--white);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border-color: var(--secondary-color);
+}
+
+.feature i {
+  font-size: 35px;
+  color: var(--primary-light);
+  background: rgba(59, 130, 246, 0.1);
+  width: 60px; height: 60px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 12px;
+  transition: var(--transition);
+}
+.feature:hover i { background: var(--secondary-color); color: var(--white); transform: rotate(10deg); }
+
+.feature div { flex: 1;}
+.feature h4 { margin: 0 0 5px; font-size: 18px; color: var(--primary-dark); font-weight: 800; }
+.feature p { margin: 0; font-size: 14px; color: var(--text-light); font-weight: 600; }
+
+/* للموبايل */
+@media (max-width: 900px) {
+  .about-container { flex-direction: column-reverse; text-align: right; }
+  .about-features { grid-template-columns: 1fr; }
+  .experience-box { right: 20px; top: -20px; }  
+}
+
+/* القسم الرابع المجالات التدريبية  */
+    .section-title { text-align: center; margin-bottom: 60px; margin-top: 50px; padding: 0 5%;}
+    .subtitle-box {
+      display: inline-block;
+      background: rgba(245, 158, 11, 0.1);
+      color: var(--secondary-color);
+      font-size: 16px;
+      font-weight: 800;
+      padding: 8px 25px;
+      border-radius: 30px;
+      margin-bottom: 20px;
+      transition: var(--transition);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+    .subtitle-box:hover { background: var(--secondary-color); color: var(--white); box-shadow: var(--glow-shadow); }
+    .section-title h2 { color: var(--primary-dark); font-size: 38px; margin: 10px 0; font-weight: 900; }
+    .section-title p { color: var(--text-light); font-size: 18px; font-weight: 600; max-width: 800px; margin: 0 auto;}
+
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      background: var(--bg-light);
+      margin: 0;
+      padding: 60px 5%;
+      max-width: 1500px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 992px) { .cards-container { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .cards-container { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 25px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+      transition: var(--transition);
+      border: 1px solid #e5e7eb;
+      transform-style: preserve-3d;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card::before {
+        content: ''; position: absolute; right: 0; top: 0; width: 5px; height: 100%;
+        background: var(--secondary-color); transform: scaleY(0); transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-10px) rotateX(5deg) scale(1.02);
+      box-shadow: 0 20px 40px rgba(30, 58, 138, 0.1);
+      border-color: transparent;
+    }
+    .card:hover::before { transform: scaleY(1); }
+
+    .card-content { flex: 1; text-align: right; padding-right: 20px; }
+    .card h3 { margin: 0; font-size: 22px; color: var(--primary-dark); transition: var(--transition); font-weight: 800; }
+    .card:hover h3 { color: var(--primary-color); }
+    .card p { font-size: 15px; color: var(--text-light); margin: 10px 0 15px; font-weight: 600;}
+
+    .icon-box {
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      color: #fff;
+      font-size: 30px;
+      flex-shrink: 0;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      transition: var(--transition);
+      transform: translateZ(20px);
+    }
+    .card:hover .icon-box { transform: translateZ(40px) scale(1.1) rotate(10deg); }
+
+    /* تدرجات ألوان الأيقونات الفاخرة */
+    .red { background: linear-gradient(135deg, #ef4444, #991b1b); }
+    .teal { background: linear-gradient(135deg, #06b6d4, #155e75); }
+    .yellow { background: linear-gradient(135deg, #f59e0b, #b45309); }
+    .pink { background: linear-gradient(135deg, #ec4899, #be185d); }
+    .orange { background: linear-gradient(135deg, #f97316, #c2410c); }
+    .gray { background: linear-gradient(135deg, #64748b, #334155); }
+    .green { background: linear-gradient(135deg, #10b981, #047857); }
+    .blue { background: linear-gradient(135deg, #3b82f6, #1e3a8a); }
+    .purple { background: linear-gradient(135deg, #8b5cf6, #5b21b6); }
+
+    .card a {
+      font-size: 15px;
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-weight: 800;
+      transition: var(--transition);
+      display: inline-block;
+    }
+    .card a:hover { transform: translateX(-8px); color: var(--secondary-hover); }
+
+    /* زر عرض جميع الدورات */
+    .contaniner-show-all-btn{ background: var(--bg-light); padding: 20px; padding-bottom: 60px; text-align: center; }
+    .show-all-btn {
+      display: inline-flex; align-items: center; justify-content: center; margin: 0 auto;
+      padding: 15px 40px; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: #fff; font-size: 18px; font-weight: 800; border: none; border-radius: 50px;
+      cursor: pointer; text-decoration: none; transition: var(--transition);
+      box-shadow: 0 10px 20px rgba(30, 58, 138, 0.3); position: relative; overflow: hidden;
+    }
+    .show-all-btn::after {
+        content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+        background: rgba(255,255,255,0.2); transform: rotate(45deg); opacity: 0; transition: 0.5s;
+    }
+    .show-all-btn i { margin-left: 10px; font-size: 20px;}
+    .show-all-btn:hover::after { left: 100%; opacity: 1; transition: left 0.7s ease;}
+    .show-all-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 30px rgba(30, 58, 138, 0.4); } 
+
+    /* الدورات المميزة (محتوى إيجابيون) */
+    .full-contaniner-for-courses{
+      background: var(--white);
+      padding: 80px 0px;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    .full-contaniner-for-courses h2 { text-align: center; color: var(--primary-dark); margin-bottom: 60px; font-weight: 900; font-size: 2.8rem; }
+
+    .courses-container {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;
+      max-width: 1400px; margin: auto; padding: 0px 5%; perspective: 1000px;
+    }
+
+    .course-card {
+      background: var(--bg-light); border-radius: 20px; overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column;
+      transition: var(--transition); border: 1px solid #e5e7eb; transform-style: preserve-3d;
+      position: relative;
+    }
+    .course-card::before {
+        content: ''; position: absolute; inset: 0; border: 2px solid transparent; border-radius: 20px;
+        transition: var(--transition); pointer-events: none; z-index: 10;
+    }
+
+    .course-card:hover { transform: translateY(-15px) rotateX(5deg); box-shadow: 0 25px 50px rgba(30, 58, 138, 0.15); }
+    .course-card:hover::before { border-color: var(--secondary-color); }
+
+    /* استخدام أيقونات كبيرة بدلاً من الصور ليتناسب مع البيانات الوهمية */
+    .course-card .course-img-placeholder {
+      width: 100%; height: 220px; background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+      display: flex; align-items: center; justify-content: center; font-size: 5rem; color: var(--white);
+      transition: var(--transition); position: relative; overflow: hidden;
+    }
+    
+    .course-card .course-img-placeholder::after {
+        content: ''; position: absolute; inset: 0; background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjwvc3ZnPg==');
+    }
+
+    .course-card:hover .course-img-placeholder { transform: scale(1.05); }
+    .course-card:hover .course-img-placeholder i { transform: scale(1.2) translateZ(30px); color: var(--secondary-color); filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));}
+
+    .course-content {
+      flex: 1; display: flex; flex-direction: column; justify-content: space-between;
+      padding: 25px; text-align: center; background: var(--white); transform: translateZ(20px);
+    }
+
+    .course-text { flex-grow: 1; }
+    
+    .course-category {
+      font-size: 14px; color: var(--white); margin-bottom: 15px; font-weight: 800;
+      background: var(--secondary-color); padding: 5px 15px; border-radius: 20px; display: inline-block;
+      box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+    }
+
+    .course-accreditation { font-size: 13px; color: var(--text-light); font-weight: bold; margin-bottom: 15px; }
+
+    .course-title {
+      font-size: 18px; font-weight: 900; color: var(--primary-dark); margin-bottom: 15px; line-height: 1.6; transition: var(--transition);
+    }
+    .course-card:hover .course-title { color: var(--primary-color); }
+    
+    .course-desc-text { font-size: 14px; color: var(--text-light); margin-bottom: 20px; font-weight: 600;}
+
+    .course-button {
+      display: inline-block; padding: 14px 25px; border-radius: 12px;
+      background: var(--bg-light); color: var(--primary-color); border: 2px solid var(--primary-light);
+      text-decoration: none; font-weight: 800; transition: var(--transition); margin-top: auto; font-size: 16px;
+    }
+    .course-button:hover { background: var(--primary-color); color: var(--white); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(30, 58, 138, 0.2); }
+
+    @media (max-width: 1200px) { .courses-container { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 900px) { .courses-container { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .courses-container { grid-template-columns: 1fr; } }
+
+    /* الخدمات  */
+    .services-section-wrapper {
+        background: linear-gradient(to bottom, var(--bg-light), var(--white)); padding: 80px 5%; text-align: right; direction: rtl;
+    }
+    .services-section { max-width: 1400px; margin: 0 auto; padding: 0; }
+    .services-header {
+        font-size: 2.8em; color: var(--primary-dark); border-bottom: 5px solid var(--secondary-color);
+        display: inline-block; padding-bottom: 10px; margin-bottom: 50px; font-weight: 900; border-radius: 3px;
+    }
+
+    .services-grid { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; }
+
+    .service-card {
+        background-color: var(--white); border: 1px solid #e5e7eb; border-radius: 20px; padding: 40px 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04); text-align: center; transition: var(--transition);
+        position: relative; overflow: hidden; cursor: pointer; flex: 1 1 calc(16.66% - 30px); min-width: 180px;
+        transform-style: preserve-3d;
+    }
+
+    .service-card::before {
+        content: ''; position: absolute; top: 0; right: 0; left: 0; height: 8px;
+        background: linear-gradient(to left, var(--secondary-color), var(--primary-color)); transition: height 0.4s ease;
+    }
+
+    .service-card:hover { transform: translateY(-15px) rotateX(10deg); box-shadow: 0 25px 50px rgba(30, 58, 138, 0.1); border-color: transparent;}
+    .service-card:hover::before { height: 100%; opacity: 0.05; }
+
+    .icon-container {
+        width: 90px; height: 90px; background: rgba(59, 130, 246, 0.05); border-radius: 50%; margin: 0 auto 25px;
+        display: flex; align-items: center; justify-content: center; transition: var(--transition); border: 2px dashed var(--primary-light);
+        transform: translateZ(20px);
+    }
+    .service-card:hover .icon-container { background: var(--primary-color); border-color: var(--secondary-color); border-style: solid; transform: translateZ(40px) scale(1.1) rotate(15deg); box-shadow: var(--shadow-lg);}
+    
+    .icon-container i { font-size: 2.8em; color: var(--primary-color); transition: var(--transition); }
+    .service-card:hover .icon-container i { color: var(--secondary-color); }
+    
+    .service-title { font-size: 1.2em; color: var(--primary-dark); margin: 0; line-height: 1.5; font-weight: 800; transform: translateZ(20px);}
+
+    @media (max-width: 1200px) and (min-width: 601px) { .service-card { flex: 1 1 calc(33.33% - 30px); } }
+    @media (max-width: 600px) { .service-card { flex: 1 1 100%; } }
+
+    /* الاعتمادات  */
+    .section {
+      padding: 60px 5%; background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+      color: #fff; text-align: center; position: relative; overflow: hidden;
+    }
+    
+    /* شبكة خلفية للاعتمادات */
+    .section::before {
+        content: ''; position: absolute; inset: 0; opacity: 0.1;
+        background-image: radial-gradient(var(--white) 1px, transparent 1px); background-size: 20px 20px;
+    }
+
+    .section-title-Accreditations { display: flex; align-items: center; justify-content: center; gap: 15px; flex-direction: row-reverse; font-weight: 900; font-size: 2.5rem; margin-bottom: 15px; position: relative; z-index: 2;}
+    .section-desc { margin-bottom: 60px; font-size: 1.2rem; font-weight: 600; color: #cbd5e1; position: relative; z-index: 2;}
+    .title-icon { font-size: 1.2em; color: var(--secondary-color); filter: drop-shadow(0 0 10px var(--secondary-color));}
+
+    .carousel-wrapper { overflow: hidden; position: relative; width: 100%; max-width: 1400px; margin: 0 auto; z-index: 2; padding: 20px 0;}
+    .carousel-track { display: flex; gap: 30px; will-change: transform; align-items: center;}
+    .carousel-track .card { flex: 0 0 calc((100% - (30px * 5)) / 6); box-sizing: border-box; background: transparent; padding: 0; box-shadow: none; border: none; }
+    .carousel-track .card-inner { 
+        background: rgba(255, 255, 255, 0.95); border-radius: 20px; display: flex; align-items: center; justify-content: center; 
+        height: 120px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); transition: var(--transition);
+        border: 2px solid rgba(255,255,255,0.2);
+    }
+    .carousel-track .card-inner:hover { transform: scale(1.1) translateY(-10px); box-shadow: 0 15px 35px rgba(245, 158, 11, 0.4); border-color: var(--secondary-color);}
+    .carousel-track .card img { max-width: 100%; max-height: 100%; object-fit: contain; filter: grayscale(100%); transition: var(--transition);}
+    .carousel-track .card-inner:hover img { filter: grayscale(0%); transform: scale(1.1);}
+
+    @media (max-width: 900px) { .carousel-track .card { flex: 0 0 calc((100% - (30px * 2)) / 3); } }
+    @media (max-width: 600px) { .carousel-track .card { flex: 0 0 50%; } .carousel-track .card-inner { height: 90px; } }
+
+    /* قسم التواصل المدمج مع نموذج التسجيل (Contact Pro Section) */
+    .contact-pro{
+        background: radial-gradient(1200px 600px at 100% -10%, rgba(245, 158, 11, 0.1), transparent 60%), 
+                    radial-gradient(800px 500px at -10% 110%, rgba(30, 58, 138, 0.15), transparent 55%), var(--bg-light);
+        padding: 100px 5%; width: 100%; box-sizing: border-box; position: relative;
+    }
+    .contact-wrap{ max-width: 1400px; margin-inline: auto; }
+    .contact-head{ text-align: center; margin-bottom: 60px; }
+    .contact-head h2{ font-size: 3.2rem; color: var(--primary-dark); margin: 0 0 15px; font-weight: 900; }
+    .contact-head p{ color: var(--text-light); font-size: 1.25rem; margin: 0; font-weight: 600;}
+
+    .contact-grid{ display: grid; grid-template-columns: repeat(12, 1fr); gap: 30px; margin-bottom: 80px;}
+    .contact-card{
+        grid-column: span 3; display: grid; grid-template-columns: 60px 1fr auto; align-items: center; gap: 20px;
+        padding: 25px; border-radius: 20px; background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.5); box-shadow: var(--shadow-md); text-decoration: none; position: relative;
+        overflow: hidden; isolation: isolate; transition: var(--transition); color: var(--text-dark);
+        transform-style: preserve-3d;
+    }
+    .contact-card::after{
+        content:""; position:absolute; inset: -30% -10% auto auto; width: 220px; height: 220px;
+        background: radial-gradient(closest-side, rgba(245, 158, 11, 0.15), transparent 60%); transform: rotate(12deg); pointer-events:none; z-index:-1;
+    }
+    .contact-card:hover{ transform: translateY(-10px) rotateX(5deg); box-shadow: var(--shadow-lg); border-color: rgba(30, 58, 138, 0.3); }
+    .contact-card .icon{
+        width: 60px; height: 60px; display:grid; place-items:center; border-radius: 15px;
+        background: linear-gradient(135deg, var(--primary-light), var(--primary-color)); box-shadow: 0 5px 15px rgba(30, 58, 138, 0.3); flex-shrink: 0;
+        transition: var(--transition); transform: translateZ(20px);
+    }
+    .contact-card:hover .icon { transform: translateZ(40px) scale(1.1) rotate(10deg); background: linear-gradient(135deg, var(--secondary-color), var(--secondary-dark));}
+    .contact-card .icon i{ font-size: 24px; color: var(--white); }
+    .contact-card .info h3{ margin: 0 0 5px; font-size: 1.2rem; color: var(--primary-dark); font-weight: 800; transform: translateZ(20px);}
+    .contact-card .info p{ margin: 0; color: var(--text-light); font-size: 0.95rem; font-weight: 600; transform: translateZ(20px);}
+    .contact-card .cta{
+        font-size: 0.9rem; padding: 10px 15px; border-radius: 30px; border: 2px solid var(--primary-light);
+        color: var(--primary-color); background: var(--white); white-space: nowrap; transition: var(--transition);
+        font-weight: 800; transform: translateZ(30px);
+    }
+    .contact-card:hover .cta{ background: var(--secondary-color); color: var(--white); border-color: var(--secondary-color); box-shadow: var(--shadow-gold);}
+
+    /* ألوان الماركات */
+    .contact-card[href^="https://wa.me"]:hover .icon { background: #25D366; }
+    .contact-card[href^="mailto:"]:hover .icon { background: #EA4335; }
+
+    @media (max-width: 1200px){ .contact-card{ grid-column: span 6; } }
+    @media (max-width: 600px){
+        .contact-grid{ grid-template-columns: 1fr; }
+        .contact-card{ grid-template-columns: 50px 1fr; padding: 20px; text-align: right; grid-column: span 12;}
+        .contact-card .cta{ grid-column: 1 / -1; justify-self: start; margin-top: 10px; }
+    }
+
+    /* فورم التسجيل الخاص بك المدمج بتصميم زجاجي فاخر */
+    .form-registration-wrapper { margin-top: 30px; position: relative; z-index: 5;}
+    .contact-form-container {
+        max-width: 900px; margin: 0 auto; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px);
+        padding: 50px; border-radius: 30px; box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.6);
+        border-top: 8px solid var(--primary-color); position: relative;
+    }
+    .contact-form-container::before {
+        content: 'سجل إلكترونياً'; position: absolute; top: -45px; right: 50px;
+        background: var(--primary-color); color: var(--white); padding: 8px 25px;
+        border-radius: 15px 15px 0 0; font-weight: 900; font-size: 1.2rem; box-shadow: 0 -5px 15px rgba(30, 58, 138, 0.2);
+    }
+    .form-group { margin-bottom: 25px; text-align: right; position: relative;}
+    .form-group label { display: block; margin-bottom: 10px; font-weight: 800; color: var(--primary-dark); font-size: 1.1rem;}
+    .form-control {
+        width: 100%; padding: 18px 20px; border: 2px solid #cbd5e1; border-radius: 15px; background: var(--bg-light);
+        font-size: 1.1rem; transition: var(--transition); font-family: 'Cairo'; color: var(--text-dark); font-weight: 600;
+    }
+    .form-control:focus { outline: none; border-color: var(--primary-light); background: var(--white); box-shadow: 0 0 0 5px rgba(59, 130, 246, 0.15); transform: translateY(-2px);}
+    textarea.form-control { height: 140px; resize: vertical; }
+    .btn-submit-form {
+        width: 100%; padding: 20px; background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+        color: var(--white); border: none; border-radius: 15px; font-size: 1.4rem; font-weight: 900;
+        cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-md); position: relative; overflow: hidden;
+    }
+    .btn-submit-form::after {
+        content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+        background: rgba(255,255,255,0.2); transform: rotate(45deg); opacity: 0; transition: var(--transition);
+    }
+    .btn-submit-form:hover::after { left: 100%; opacity: 1; transition: left 0.7s ease;}
+    .btn-submit-form:hover { background: linear-gradient(135deg, var(--secondary-color), var(--secondary-dark)); box-shadow: var(--shadow-gold); transform: translateY(-5px) scale(1.02); }
+
+    /* الفوتر */
+    .rawnaq-footer-container { background-color: var(--white); display: flex; flex-direction: column; align-items: center; }
+    .rawnaq-footer {
+        background: linear-gradient(to top, var(--primary-dark), #172554); padding: 80px 5% 30px; 
+        color: #cbd5e1; direction: rtl; text-align: right; width: 100%; box-sizing: border-box;
+        border-top: 5px solid var(--secondary-color); position: relative; overflow: hidden;
+    }
+    .rawnaq-footer::before {
+        content: ''; position: absolute; top: -100px; right: -100px; width: 300px; height: 300px;
+        background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%); border-radius: 50%;
+    }
+    .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 50px; margin-bottom: 50px; max-width: 1400px; margin-inline: auto; position: relative; z-index: 2;}
+    .footer-info-col { max-width: 400px; min-width: 250px; }
+    .footer-info-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+    
+    .footer-info-title h3 { font-size: 28px; font-weight: 900; margin: 0; color: var(--white); }
+    .footer-info-title h3 span { color: var(--secondary-color);}
+    .footer-info-title .tagline { font-weight: 700; margin-top: 5px; color: var(--secondary-light); font-size: 1.1rem;}
+    .footer-info-text p { font-size: 1.1rem; font-weight: 600; line-height: 1.8; margin: 20px 0 0 0; color: #94a3b8; }
+    
+    .footer-links-col { min-width: 180px; }
+    .footer-links-col h3 { margin-bottom: 25px; color: var(--secondary-color); font-size: 1.4rem; font-weight: 900; }
+    .footer-links-col ul { list-style: none; padding: 0; margin: 0; }
+    .footer-links-col li { margin-bottom: 15px; font-size: 1.1rem; font-weight: 600;}
+    .footer-links-col a { color: #cbd5e1; text-decoration: none; transition: var(--transition); display: flex; align-items: center; gap: 8px;}
+    .footer-links-col a::before { content: '\f104'; font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 0.8rem; color: var(--primary-light); transition: var(--transition);}
+    .footer-links-col a:hover { color: var(--secondary-light); transform: translateX(-5px);}
+    .footer-links-col a:hover::before { color: var(--secondary-color); }
+
+    .footer-contact-info { display: flex; justify-content: flex-start; flex-wrap: wrap; gap: 20px 40px; margin: 30px 0; }
+    .contact-item { display: inline-flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.05); padding: 10px 20px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); transition: var(--transition);}
+    .contact-item:hover { background: rgba(245, 158, 11, 0.1); border-color: var(--secondary-color); transform: translateY(-3px);}
+    .contact-item i { font-size: 1.2rem; color: var(--secondary-color); }
+    .contact-item a { color: var(--white); font-size: 1.1rem; font-weight: 700; }
+    
+    .footer-divider { border: none; border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 30px 0; }
+    .footer-copyright { padding-top: 15px; font-size: 1rem; color: #94a3b8; text-align: center; font-weight: 600; line-height: 1.8;}
+    .developed-by{ color: var(--secondary-light); font-weight: 800; transition: var(--transition); }
+    .developed-by:hover { color: var(--white); text-shadow: 0 0 10px var(--secondary-glow);}
+
+    @media (max-width: 900px) {
+        .footer-content { flex-direction: column; gap: 40px; }
+        .footer-contact-info { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+
 </head>
 <body>
 
-    <header id="header">
-        <div class="nav-container">
-            <a href="#" class="logo">إيجابيون <span>للتدريب</span></a>
-            
-            <i class="fas fa-bars menu-toggle" id="mobile-menu"></i>
+  <div class="contact-bar">
+    <div class="contact-info">
+      <a href="mailto:info@ejabyoon.com">
+        info@ejabyoon.com <i class="fas fa-envelope"></i> 
+      </a>
+      <a href="tel:+249123456789">
+        +249 123 456 789 <i class="fa-solid fa-phone"></i> 
+      </a>
+    </div>
+    
+    <div class="social-icons">
+      <a href="#" target="_blank" class="facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" target="_blank" class="x">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M20.292 3H23L15.625 10.625L24 21H17.292L11.875 14.042L5.833 21H3L10.792 12.792L2 3H8.875L13.958 9.5L20.292 3Z"/>
+  </svg>
+</a>
+      <a href="#" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" target="_blank" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" target="_blank" class="tiktok"><i class="fab fa-tiktok"></i></a>
+    </div>
+  </div>
 
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#home">الرئيسية</a></li>
-                <li><a href="#about">عن المركز</a></li>
-                <li><a href="#courses">الدورات التدريبية</a></li>
-                <li><a href="#contact">تواصل معنا</a></li>
-                <li><a href="#contact" class="btn-register">سجل الآن</a></li>
-            </ul>
+  <header id="mainHeader">
+    <div class="nav-container">
+      <a href="index.html" class="logo-container">
+        <div class="logo-text">
+          <h1>إيجابيون <span>للتدريب</span></h1>
+          <p class="your-law-tagline">نبني المستقبل بأسس راسخة</p>
         </div>
-    </header>
-
+      </a>
+  
+      <div class="menu-toggle" id="menu-toggle" ><i class="fas fa-bars"></i></div>
+  
+      <nav class="main-nav" id="main-nav">
+        <a href="#home" class="selected">الرئيسية</a>
+        <a href="#about" >من نحن</a>
+        <a href="#fields" > مجالات التدريب </a>
+        <a href="#featured" > الدورات </a>
+        <a href="#services" > الخدمات </a>
+        <a href="#contact">اتصل وسجل</a>
+      </nav>
+      
+     <div class="lang-switch2"></div>
+    </div>
+  </header>
+  
     <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>نبني المستقبل بأسس راسخة</h1>
-            <p>مركز إيجابيون للتدريب يقدم لك أحدث البرامج التدريبية المعتمدة لتطوير مهاراتك المهنية والتقنية على أيدي نخبة من الخبراء.</p>
-            <div class="hero-buttons">
-                <a href="#courses" class="btn-primary">تصفح الدورات</a>
-                <a href="#about" class="btn-secondary">تعرف علينا أكثر</a>
-            </div>
-        </div>
-    </section>
+    <div class="hero-content">
 
-    <section class="features section-padding" id="about">
-        <div class="section-title">
-            <h2>لماذا تختار مركز إيجابيون؟</h2>
-            <p>نحن نلتزم بتقديم تجربة تعليمية فريدة تدمج بين الجانب النظري والتطبيق العملي.</p>
+      <div class="hero-text">
+        <h1>نبني المستقبل بأسس راسخة</h1>
+        <p>مركز إيجابيون للتدريب يقدم لك أحدث البرامج التدريبية المعتمدة لتطوير مهاراتك المهنية والتقنية على أيدي نخبة من الخبراء في السودان والوطن العربي.</p>
+
+        <div class="buttons">
+          <a href="#featured" class="btn btn-primary"><i class="fas fa-search" style="margin-left: 8px;"></i> تصفح الدورات</a>
+          <a href="#contact" class="btn btn-secondary"><i class="fas fa-phone-alt" style="margin-left: 8px;"></i> تواصل معنا</a>
         </div>
+
+        <div class="badges">
+          <div class="badge">شهادات معتمدة دولياً</div>
+          <div class="badge">نخبة المدربين</div>
+          <div class="badge">تطبيق عملي 100%</div>
+        </div>
+      </div>
+      
+            <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="تدريب إيجابيون">
+        <div class="stat-box"><i class="fas fa-star" style="margin-left: 5px;"></i> التميز هدفنا الأساسي</div>
+      </div>
+      
+    </div>
+  </section>
+
+  <section class="stats-section">
+  <div class="stats-container">
+
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+      <h2 class="counter" data-target="80">0</h2>
+      <p>مدرب خبير</p>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+      <h2 class="counter" data-target="50">0</h2>
+      <p>دورة تدريبية متخصصة</p>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fa-solid fa-layer-group"></i></div>
+      <h2 class="counter" data-target="15">0</h2>
+      <p>مجال مهني وتقني</p>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fa-solid fa-face-smile"></i></div>
+      <h2 class="counter" data-target="100">0</h2>
+      <p>رضا المتدربين</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="about-section" id="about">
+  <div class="about-container">
+
+    <div class="about-content">
+      <h2>لماذا تختار مركز إيجابيون؟</h2>
+      <p>
+        نحن نلتزم بتقديم تجربة تعليمية فريدة تدمج بين الجانب النظري والتطبيق العملي. مركز إيجابيون للتدريب هو مؤسستك الموثوقة لتطوير المهارات والقدرات وتحقيق التميز في مسارك المهني في مختلف القطاعات.
+      </p>
+
+      <div class="about-features">
+        <div class="feature">
+          <i class="fa-solid fa-chalkboard-teacher"></i>
+          <div>
+            <h4>مدربون محترفون</h4>
+            <p>نخبة من المدربين ذوي الخبرة العملية والأكاديمية.</p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <i class="fa-solid fa-laptop-code"></i>
+          <div>
+            <h4>تطبيق عملي</h4>
+            <p>نركز على المشاريع العملية لضمان الفهم الحقيقي.</p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <i class="fa-solid fa-certificate"></i>
+          <div>
+            <h4>شهادات معتمدة</h4>
+            <p>يحصل المتدرب على شهادات موثقة ومعتمدة رسمياً.</p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <i class="fa-solid fa-users"></i>
+          <div>
+            <h4>بيئة محفزة</h4>
+            <p>بيئة إيجابية تفاعلية تدعم الابتكار وتبادل الأفكار.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <div class="about-image">
+      <img src="https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&w=800&q=80" alt="عن المركز">
+      <div class="experience-box">
+        <h3>+15</h3>
+        <p>عاماً من التميز</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  <div class="section-title" id="fields">
+  
+    <div class="subtitle-box">مجالاتنا التدريبية</div>
+    <h2>تخصصات متنوعة لتلبية سوق العمل</h2>
+    <p>استكشف مجموعة متنوعة من الدورات المصممة بعناية على أيدي خبراء لتلبية احتياجاتك التقنية، المهنية، والطبية.</p>
+  </div>
+
+  <div class="cards-container">
+   
+        <div class="card">
+      <div class="icon-box purple">
+        <i class="fa-solid fa-laptop-code"></i>
+      </div>
+      <div class="card-content">
+        <h3>الحاسب الآلي وتقنية المعلومات</h3>
+        <p>تطوير تطبيقات الويب والموبايل، قواعد البيانات، ولغات البرمجة.</p>
+         <a href="#featured">اكتشف الدورات →</a>
+      </div>
+    </div>
+
+        <div class="card">
+      <div class="icon-box pink">
+        <i class="fa-solid fa-heart"></i>
+      </div>
+      <div class="card-content">
+        <h3>المجال الصحي والتمريض</h3>
+        <p>أساسيات الرعاية السريرية، الطوارئ، ودورات مكافحة العدوى.</p>
+        <a href="#featured">اكتشف الدورات →</a>
+      </div>
+    </div>
+
+         <div class="card">
+      <div class="icon-box blue">
+        <i class="fa-solid fa-chart-pie"></i>
+      </div>
+      <div class="card-content">
+        <h3>البحث والتحليل الإحصائي</h3>
+        <p>دورات احترافية في استخدام SPSS ومشاريع التخرج العلمية.</p>
+        <a href="#featured">اكتشف الدورات →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="icon-box red">
+        <i class="fa-solid fa-shield-alt"></i>
+      </div>
+      <div class="card-content">
+        <h3>الأمن السيبراني والشبكات</h3>
+        <p>دورات متقدمة في حماية الأنظمة واختبار الاختراق.</p>
+        <a href="#featured">اكتشف الدورات →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="icon-box orange">
+        <i class="fa-solid fa-user-tie"></i>
+      </div>
+      <div class="card-content">
+        <h3>الإدارة والموارد البشرية</h3>
+        <p>تطوير المهارات القيادية، السلوك التنظيمي، وإدارة المشاريع.</p>
+        <a href="#featured">اكتشف الدورات →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="icon-box yellow">
+        <i class="fa-solid fa-palette"></i>
+      </div>
+      <div class="card-content">
+        <h3>التصميم والمونتاج</h3>
+        <p>دورات الجرافيك، تحرير الفيديو، وتصميم واجهات المستخدم (UI/UX).</p>
+        <a href="#featured">اكتشف الدورات →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="contaniner-show-all-btn">
+    <a href="#featured" class="show-all-btn">
+      <i class="fa-solid fa-book-open"></i>
+      عرض جميع الأقسام والدورات
+    </a>
+  </div>
+
+   <div class="full-contaniner-for-courses" id="featured"> 
+    <h2>أحدث البرامج التدريبية المعتمدة</h2>
+    <div class="courses-container">
+      
+      <div class="course-card">
+        <div class="course-img-placeholder"><i class="fas fa-code"></i></div>
+        <div class="course-content">
+          <div class="course-text">
+            <div class="course-category"> برمجة وتطوير </div>
+            <div class="course-accreditation">باعتماد مركز إيجابيون</div>
+            <div class="course-title">التطوير الشامل لتطبيقات الويب والموبايل<br>(HTML, CSS, JS, Flutter)</div>
+            <p class="course-desc-text">تعلم بناء مواقع وتطبيقات تفاعلية من الصفر حتى الاحتراف باستخدام أحدث التقنيات.</p>
+          </div>
+          <a href="#contact" class="course-button"><i class="fas fa-edit" style="margin-left: 5px;"></i> احجز مقعدك</a>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-img-placeholder"><i class="fas fa-chart-pie"></i></div>
+        <div class="course-content">
+          <div class="course-text">
+            <div class="course-category"> بحث علمي وتحليل</div>
+            <div class="course-accreditation">باعتماد مركز إيجابيون</div>
+            <div class="course-title">
+              التحليل الإحصائي المتقدم<br>
+              باستخدام برنامج SPSS
+            </div>
+            <p class="course-desc-text">دورة متكاملة لتعلم كيفية تحليل البيانات والبحوث العلمية لطلاب الدراسات العليا.</p>
+          </div>
+          <a href="#contact" class="course-button"><i class="fas fa-edit" style="margin-left: 5px;"></i> احجز مقعدك</a>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-img-placeholder"><i class="fas fa-heartbeat"></i></div>
+        <div class="course-content">
+          <div class="course-text">
+            <div class="course-category"> المجال الصحي والتمريض</div>
+            <div class="course-accreditation">  إشراف أكاديمي طبي</div>
+            <div class="course-title">
+             أساسيات الرعاية الصحية والتمريض السريري<br>
+             (Clinical Nursing)
+            </div>
+            <p class="course-desc-text">برنامج تدريبي متخصص لرفع كفاءة الكوادر الطبية والممرضين في التعامل المباشر.</p>
+          </div>
+          <a href="#contact" class="course-button"><i class="fas fa-edit" style="margin-left: 5px;"></i> احجز مقعدك</a>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-img-placeholder"><i class="fas fa-graduation-cap"></i></div>
+        <div class="course-content">
+          <div class="course-text">
+            <div class="course-category"> خدمات أكاديمية</div>
+            <div class="course-accreditation">دعم للطلاب والخريجين</div>
+            <div class="course-title">
+              إعداد وتصميم مشاريع التخرج<br>
+              بامتياز
+            </div>
+            <p class="course-desc-text">ورشة عمل لكتابة الأوراق البحثية، تصميم الـ Posters، وتجهيز عرض المناقشة.</p>
+          </div>
+          <a href="#contact" class="course-button"><i class="fas fa-edit" style="margin-left: 5px;"></i> احجز مقعدك</a>
+        </div>
+      </div>
+
+    </div>
+  </div>   
+
+       <div class="services-section-wrapper" id="services">
+      <div class="services-section">
+        <h2 class="services-header">الخدمات الاستشارية والتقنية</h2>
         
-        <div class="features-grid">
-            <div class="feature-box">
-                <i class="fas fa-chalkboard-teacher feature-icon"></i>
-                <h3>مدربون محترفون</h3>
-                <p>فريقنا يتكون من نخبة من المدربين ذوي الخبرة العملية الأكاديمية العالية في مجالاتهم.</p>
+        <div class="services-grid">
+
+            <div class="service-card">
+                <div class="icon-container"><i class="fas fa-graduation-cap"></i></div>
+                <p class="service-title">إقامة الدورات المعتمدة وورش العمل</p>
             </div>
-            <div class="feature-box">
-                <i class="fas fa-laptop-code feature-icon"></i>
-                <h3>تطبيق عملي</h3>
-                <p>نركز على المشاريع العملية لضمان فهم المتدرب وتأهيله لسوق العمل مباشرة.</p>
+
+            <div class="service-card">
+                <div class="icon-container"><i class="fas fa-laptop-medical"></i></div>
+                <p class="service-title">تصميم الأنظمة التقنية للمستشفيات</p>
             </div>
-            <div class="feature-box">
-                <i class="fas fa-certificate feature-icon"></i>
-                <h3>شهادات معتمدة</h3>
-                <p>يحصل المتدرب على شهادة معتمدة بنهاية كل دورة تدريبية تثبت كفاءته واجتيازه للبرنامج.</p>
+
+            <div class="service-card">
+                <div class="icon-container"><i class="fas fa-desktop"></i></div>
+                <p class="service-title">برمجة تطبيقات سطح المكتب والمخازن</p>
             </div>
-            <div class="feature-box">
-                <i class="fas fa-users feature-icon"></i>
-                <h3>بيئة محفزة</h3>
-                <p>نوفر بيئة إيجابية تفاعلية تدعم الابتكار وتبادل الأفكار بين المتدربين والمدربين.</p>
+
+            <div class="service-card">
+                <div class="icon-container"><i class="fas fa-mobile-alt"></i></div>
+                <p class="service-title">تطوير تطبيقات الهواتف الذكية</p>
+            </div>
+
+            <div class="service-card">
+                <div class="icon-container"><i class="fas fa-building"></i></div>
+                <p class="service-title">طلبات التدريب الخاصة للجهات والشركات</p>
+            </div>
+
+            <div class="service-card">
+                <div class="icon-container"><i class="fas fa-chart-line"></i></div>
+                <p class="service-title">استشارات البحث العلمي والتحليل الإحصائي</p>
             </div>
         </div>
-    </section>
+      </div>
+      </div>
 
-    <section class="courses section-padding" id="courses">
-        <div class="section-title">
-            <h2>أحدث البرامج التدريبية</h2>
-            <p>استكشف مجموعة متنوعة من الدورات المصممة لتلبية احتياجات سوق العمل الحالي.</p>
+     <div class="section">
+  
+    <div class="section-title-Accreditations">  
+      <span>شركاء النجاح والاعتمادات</span>
+        <i class="fas fa-medal title-icon"></i>
+    </div>
+    <p class="section-desc">نفتخر بشركائنا واعتماداتنا لتقديم أفضل مستوى تعليمي</p>
+
+    <div class="carousel-wrapper" id="carouselWrapper">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="card"><div class="card-inner"><i class="fas fa-university" style="font-size: 3rem; color: var(--primary-light);"></i></div></div>
+        <div class="card"><div class="card-inner"><i class="fas fa-hospital" style="font-size: 3rem; color: var(--primary-color);"></i></div></div>
+        <div class="card"><div class="card-inner"><i class="fas fa-laptop-code" style="font-size: 3rem; color: var(--secondary-color);"></i></div></div>
+        <div class="card"><div class="card-inner"><i class="fas fa-chart-bar" style="font-size: 3rem; color: var(--primary-light);"></i></div></div>
+        <div class="card"><div class="card-inner"><i class="fas fa-globe" style="font-size: 3rem; color: var(--primary-color);"></i></div></div>
+        <div class="card"><div class="card-inner"><i class="fas fa-certificate" style="font-size: 3rem; color: var(--secondary-color);"></i></div></div>
+      </div>
+    </div>
+  </div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+
+<section class="contact-pro" dir="rtl" id="contact">
+  <div class="contact-wrap">
+    
+    <div class="contact-head">
+      <h2>تواصل معنا وسجل الآن</h2>
+      <p> هل لديك استفسار أو ترغب في الانضمام لأحد برامجنا؟ نحن جاهزون لتلبية احتياجاتك التدريبية.  </p>
+    </div>
+
+    <div class="contact-grid">
+      <a class="contact-card" href="tel:+249123456789" aria-label="اتصال هاتفي">
+        <div class="icon"><i class="fa-solid fa-phone"></i></div>
+        <div class="info">
+          <h3>اتصال مباشر</h3>
+          <p>+249 123 456 789</p>
         </div>
+        <span class="cta">اتصل الآن</span>
+      </a>
 
-        <div class="courses-grid">
-            <div class="course-card">
-                <div class="course-img">
-                    <i class="fas fa-code"></i>
-                </div>
-                <div class="course-content">
-                    <h3>تطوير تطبيقات الويب والموبايل</h3>
-                    <p>تعلم بناء مواقع وتطبيقات تفاعلية من الصفر باستخدام أحدث التقنيات مثل HTML, CSS, JavaScript, و C++.</p>
-                    <div class="course-footer">
-                        <span class="course-price">متاح التسجيل</span>
-                        <a href="#contact" style="color: var(--primary-color); font-weight: bold;">سجل الآن <i class="fas fa-arrow-left"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="course-card">
-                <div class="course-img">
-                    <i class="fas fa-chart-pie"></i>
-                </div>
-                <div class="course-content">
-                    <h3>التحليل الإحصائي باستخدام SPSS</h3>
-                    <p>دورة متكاملة لتعلم كيفية تحليل البيانات والبحوث العلمية باستخدام برنامج SPSS باحترافية.</p>
-                    <div class="course-footer">
-                        <span class="course-price">متاح التسجيل</span>
-                        <a href="#contact" style="color: var(--primary-color); font-weight: bold;">سجل الآن <i class="fas fa-arrow-left"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="course-card">
-                <div class="course-img">
-                    <i class="fas fa-heartbeat"></i>
-                </div>
-                <div class="course-content">
-                    <h3>أساسيات الرعاية الصحية والتمريض</h3>
-                    <p>برنامج تدريبي متخصص يهدف لتطوير الكوادر الطبية ورفع كفاءة مهارات التمريض السريرية.</p>
-                    <div class="course-footer">
-                        <span class="course-price">قريباً</span>
-                        <a href="#contact" style="color: var(--text-light);">احجز مقعدك <i class="fas fa-arrow-left"></i></a>
-                    </div>
-                </div>
-            </div>
+      <a class="contact-card" href="#" target="_blank" rel="noopener" aria-label="محادثة واتساب">
+        <div class="icon"><i class="fa-brands fa-whatsapp"></i></div>
+        <div class="info">
+          <h3>واتساب</h3>
+          <p>رد سريع خلال ساعات العمل</p>
         </div>
-    </section>
+        <span class="cta">ابدأ المحادثة</span>
+      </a>
 
-    <section class="contact section-padding" id="contact" style="background-color: var(--bg-light);">
-        <div class="section-title">
-            <h2>تواصل معنا وسجل الآن</h2>
-            <p>هل لديك استفسار أو ترغب في الانضمام لأحد برامجنا؟ يسعدنا تواصلك.</p>
+      <a class="contact-card" href="mailto:info@ejabyoon.com" aria-label="إرسال بريد إلكتروني">
+        <div class="icon"><i class="fa-solid fa-envelope"></i></div>
+        <div class="info">
+          <h3>البريد الإلكتروني</h3>
+          <p>info@ejabyoon.com</p>
         </div>
+        <span class="cta">أرسل رسالة</span>
+      </a>
 
-        <div class="contact-container">
+      <a class="contact-card" href="#" target="_blank" rel="noopener" aria-label="الموقع على الخريطة">
+        <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
+        <div class="info">
+          <h3>مقرنا الرئيسي</h3>
+          <p>السودان - عطبرة</p>
+        </div>
+        <span class="cta">افتح الخريطة</span>
+      </a>
+    </div>
+
+    <div class="form-registration-wrapper">
+        <div class="contact-form-container">
             <form id="contactForm">
-                <div class="form-group">
-                    <label for="name">الاسم الرباعي</label>
-                    <input type="text" id="name" class="form-control" placeholder="أدخل اسمك الكامل" required>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-user" style="margin-left: 8px; color: var(--primary-light);"></i>الاسم الرباعي</label>
+                        <input type="text" id="name" class="form-control" placeholder="أدخل اسمك الكامل" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone"><i class="fas fa-mobile-alt" style="margin-left: 8px; color: var(--primary-light);"></i>رقم الهاتف / واتساب</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="أدخل رقم الهاتف" required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="phone">رقم الهاتف / واتساب</label>
-                    <input type="tel" id="phone" class="form-control" placeholder="أدخل رقم الهاتف" required>
-                </div>
-                <div class="form-group">
-                    <label for="course">الدورة المطلوبة</label>
-                    <select id="course" class="form-control" required>
-                        <option value="" disabled selected>اختر الدورة...</option>
-                        <option value="web">تطوير تطبيقات الويب والموبايل</option>
-                        <option value="spss">التحليل الإحصائي SPSS</option>
-                        <option value="nursing">أساسيات الرعاية والتمريض</option>
-                        <option value="other">استفسار عام</option>
+
+                <div class="form-group" style="margin-top: 10px;">
+                    <label for="course"><i class="fas fa-book-open" style="margin-left: 8px; color: var(--primary-light);"></i>الدورة المطلوبة</label>
+                    <select id="course" class="form-control" required style="cursor: pointer;">
+                        <option value="" disabled selected>اختر الدورة من القائمة...</option>
+                        <option value="web">التطوير الشامل لتطبيقات الويب والموبايل (HTML, CSS, JS, Flutter)</option>
+                        <option value="desktop">برمجة تطبيقات سطح المكتب وأنظمة نقاط البيع (VB.NET)</option>
+                        <option value="spss">التحليل الإحصائي المتقدم للبحوث (SPSS)</option>
+                        <option value="nursing">أساسيات الرعاية الصحية والتمريض السريري</option>
+                        <option value="graduation">إعداد وتصميم مشاريع التخرج الأكاديمية</option>
+                        <option value="other">استفسار عن خدمات برمجية وتقنية أخرى</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="message">رسالتك (اختياري)</label>
-                    <textarea id="message" class="form-control" placeholder="اكتب استفسارك هنا..."></textarea>
+                    <label for="message"><i class="fas fa-comment-dots" style="margin-left: 8px; color: var(--primary-light);"></i>رسالتك (اختياري)</label>
+                    <textarea id="message" class="form-control" placeholder="اكتب استفسارك أو أي ملاحظات إضافية هنا..."></textarea>
                 </div>
-                <button type="submit" class="btn-submit">إرسال طلب التسجيل</button>
+                <button type="submit" class="btn-submit-form" id="submitBtnForm">
+                    <span>إرسال طلب التسجيل للإدارة</span>
+                    <i class="fas fa-paper-plane" style="margin-right: 10px;"></i>
+                </button>
             </form>
         </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h3>إيجابيون للتدريب</h3>
-                <p>مركز متخصص في تقديم برامج تدريبية تواكب متطلبات العصر الحديث، نهدف لصناعة كفاءات قادرة على قيادة المستقبل المهني.</p>
+    <div class="rawnaq-footer-container">
+    <footer class="rawnaq-footer">
+        <div class="footer-content">
+            
+            <div class="footer-info-col">
+                <div class="footer-info-header">
+                        <div class="logo-container">
+                            <div class="logo-text">
+                            <h1 style="color: var(--white); font-size: 32px;">إيجابيون <span style="color: var(--secondary-color);">للتدريب</span></h1>
+                            </div>
+                        </div>
+                </div>
+
+                <div class="footer-info-text">
+                    <div class="footer-info-title">   <p class="tagline">نبني المستقبل بأسس راسخة</p> </div>
+                    <p>مركز متخصص في تقديم برامج تدريبية وتقنية تواكب متطلبات العصر الحديث، نهدف لصناعة كفاءات قادرة على قيادة المستقبل المهني في مجالات البرمجة والطب والإحصاء.</p>
+                </div>
             </div>
-            <div class="footer-col">
-                <h3>روابط سريعة</h3>
-                <ul style="line-height: 2;">
+            
+            <div class="footer-links-col">
+                <h3>روابط الموقع</h3>
+                <ul>
                     <li><a href="#home">الرئيسية</a></li>
-                    <li><a href="#about">من نحن</a></li>
-                    <li><a href="#courses">دوراتنا</a></li>
-                    <li><a href="#contact">سياسة الخصوصية</a></li>
+                    <li><a href="#about">لماذا إيجابيون؟</a></li>
+                    <li><a href="#fields"> مجالاتنا التدريبية</a></li>
+                    <li><a href="#featured"> الدورات المميزة</a></li>
+                    <li><a href="#services"> الخدمات التقنية </a></li>
+                    <li><a href="#contact">التسجيل والتواصل </a></li>
                 </ul>
             </div>
-            <div class="footer-col">
-                <h3>معلومات التواصل</h3>
-                <p><i class="fas fa-map-marker-alt" style="margin-left: 10px;"></i> السودان - عطبرة</p>
-                <p><i class="fas fa-envelope" style="margin-left: 10px;"></i> info@ejabyoon.com</p>
-                <p><i class="fas fa-phone" style="margin-left: 10px;"></i> +249 123 456 789</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          
+            <div class="footer-links-col">
+                <h3>تواصل معنا مباشرة </h3>
+                <div class="footer-contact-info">
+                    <span class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:+249123456789"> +249 123 456 789 </a>
+                    </span>
+                    <span class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:info@ejabyoon.com"> info@ejabyoon.com </a>
+                    </span>
+                    <span class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <a href="#">السودان - مدينة عطبرة </a>
+                    </span> 
                 </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>جميع الحقوق محفوظة &copy; 2026 مركز إيجابيون للتدريب | تم التصميم بواسطة إدارة التقنية</p>
+
+        <hr class="footer-divider">
+        
+        <div class="footer-copyright">
+            <p>
+                مركز إيجابيون للتدريب. جميع الحقوق محفوظة 2026 ©.
+            </p>
+            <p style="margin-top: 10px;"> 
+                تصميم وبرمجة حصرية بواسطة:
+                <a class="developed-by" href="#">الإدارة التقنية المركزية</a>
+            </p> 
         </div>
     </footer>
+    </div>
 
-    <script type="module">
-        // Import the functions you need from the SDKs you need
+
+  <script>
+
+   // قسم الهيدر (قائمة الموبايل وتأثير السكرول)
+  const menuToggle = document.getElementById("menu-toggle");
+  const mainNav = document.getElementById("main-nav");
+  const header = document.getElementById("mainHeader");
+
+  menuToggle.addEventListener("click", () => {
+    mainNav.classList.toggle("active");
+  });
+
+  window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+          header.classList.add('scrolled');
+      } else {
+          header.classList.remove('scrolled');
+      }
+  });
+
+// تفعيل روابط القائمة (Active Link)
+const navLinksItems = document.querySelectorAll('.main-nav a');
+navLinksItems.forEach(link => {
+    link.addEventListener('click', function() {
+        navLinksItems.forEach(item => item.classList.remove('selected'));
+        this.classList.add('selected');
+        if(window.innerWidth <= 768) {
+            mainNav.classList.remove("active"); // إغلاق القائمة في الجوال بعد النقر
+        }
+    });
+});
+
+// عداد الأرقام عند الظهور (Stats Animation)
+const counters = document.querySelectorAll(".counter");
+const speed = 200; 
+
+const observer = new IntersectionObserver((entries, obs) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const counter = entry.target;
+      const updateCount = () => {
+        const target = +counter.getAttribute("data-target");
+        const count = +counter.innerText;
+
+        const inc = Math.ceil(target / speed);
+
+        if (count < target) {
+          counter.innerText = count + inc;
+          setTimeout(updateCount, 20);
+        } else {
+          counter.innerText = target + (target === 100 ? "%" : "+");
+        }
+      };
+      updateCount();
+      obs.unobserve(counter);
+    }
+  });
+}, { threshold: 0.5 });
+
+counters.forEach(counter => {
+  observer.observe(counter);
+});
+
+// قسم الاعتمادات (Carousel Animation)
+const track = document.getElementById("carouselTrack");
+const wrapper = document.getElementById("carouselWrapper");
+const isRTL = document.documentElement.dir === "rtl";
+
+if(track) {
+    track.innerHTML += track.innerHTML; // استنساخ للـ Loop
+
+    let position = 0;
+    let spee = 0.8; 
+
+    function animateCarousel() {
+      position += spee;
+      if (position >= track.scrollWidth / 2) {
+        position = 0; 
+      }
+      track.style.transform = `translateX(${isRTL ? position : -position}px)`;
+      requestAnimationFrame(animateCarousel);
+    }
+
+    animateCarousel();
+
+    wrapper.addEventListener("mouseenter", () => spee = 0);
+    wrapper.addEventListener("mouseleave", () => spee = 0.8);
+}
+
+/* -----------------------------------------------------------
+   تأثير الكروت 3D باستخدام Vanilla JS
+   ----------------------------------------------------------- */
+const cards3D = document.querySelectorAll('.course-card, .service-card, .stat-card, .card, .contact-card');
+if (window.matchMedia("(pointer: fine)").matches) {
+    cards3D.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left; 
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = ((y - centerY) / centerY) * -10; 
+            const rotateY = ((x - centerX) / centerX) * 10;
+            
+            // إضافة Transform ديناميكي للكروت
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02) translateY(-5px)`;
+            card.style.transition = 'none'; // ليكون فورياً مع حركة الماوس
+        });
+
+        card.addEventListener('mouseleave', () => {
+            // مسح الستايل المضاف يدوياً ليعود للستايل الافتراضي في الـ CSS
+            card.style.transform = ``;
+            card.style.transition = `all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)`;
+        });
+        
+        card.addEventListener('mouseenter', () => {
+            card.style.transition = `all 0.1s ease`;
+        });
+    });
+}
+  </script>
+
+  <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-analytics.js";
         import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
 
-        // Your web app's Firebase configuration
+        // إعدادات Firebase الخاصة بمركز إيجابيون
         const firebaseConfig = {
             apiKey: "AIzaSyBOhmzUTvnzZuMR1-BrLGPvCFrbSm4IxdQ",
             authDomain: "egabyooncenter.firebaseapp.com",
@@ -672,88 +1785,77 @@
             measurementId: "G-ZS4X4E4Y14"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
         const database = getDatabase(app);
 
-        // ================= الأكواد السابقة الخاصة ببرمجة الواجهة =================
-
-        // تفعيل قائمة الهاتف المحمول
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navLinks = document.getElementById('nav-links');
-
-        mobileMenu.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // إضافة تأثير الظل لشريط التنقل عند النزول للأسفل
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
-                header.style.padding = '10px 5%';
-            } else {
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-                header.style.padding = '15px 5%';
-            }
-        });
-
-        // ================= إرسال النموذج إلى Firebase و Formspree =================
+        // إرسال النموذج المدمج
         const contactForm = document.getElementById('contactForm');
-        const submitBtn = document.querySelector('.btn-submit');
+        const submitBtnForm = document.getElementById('submitBtnForm');
 
-        contactForm.addEventListener('submit', async function(e) {
-            e.preventDefault(); // منع إعادة تحميل الصفحة
+        if(contactForm) {
+            contactForm.addEventListener('submit', async function(e) {
+                e.preventDefault(); 
 
-            // تغيير حالة الزر أثناء الإرسال
-            const originalBtnText = submitBtn.innerText;
-            submitBtn.innerText = 'جاري الإرسال...';
-            submitBtn.disabled = true;
+                const originalBtnHtml = submitBtnForm.innerHTML;
+                submitBtnForm.innerHTML = '<i class="fas fa-circle-notch fa-spin" style="margin-left: 10px;"></i> جاري تأمين وإرسال بياناتك...';
+                submitBtnForm.disabled = true;
+                submitBtnForm.style.opacity = '0.8';
 
-            // تجميع البيانات من الحقول
-            const formData = {
-                name: document.getElementById('name').value,
-                phone: document.getElementById('phone').value,
-                course: document.getElementById('course').value,
-                message: document.getElementById('message').value,
-                timestamp: new Date().toISOString()
-            };
+                const formData = {
+                    name: document.getElementById('name').value,
+                    phone: document.getElementById('phone').value,
+                    course: document.getElementById('course').value,
+                    message: document.getElementById('message').value,
+                    timestamp: new Date().toISOString()
+                };
 
-            try {
-                // 1. إرسال البيانات إلى Firebase Realtime Database
-                const registrationsRef = ref(database, 'registrations'); // اسم الجدول في القاعدة 'registrations'
-                const newRegistrationRef = push(registrationsRef);
-                await set(newRegistrationRef, formData);
+                try {
+                    // Firebase
+                    const registrationsRef = ref(database, 'registrations'); 
+                    const newRegistrationRef = push(registrationsRef);
+                    await set(newRegistrationRef, formData);
 
-                // 2. إرسال البيانات إلى Formspree (الإيميل)
-                await fetch("https://formspree.io/f/mbdpgvpn", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
-                    },
-                    body: JSON.stringify({
-                        "الاسم": formData.name,
-                        "رقم الهاتف": formData.phone,
-                        "الدورة": formData.course,
-                        "الرسالة": formData.message
-                    })
-                });
+                    // Formspree
+                    await fetch("https://formspree.io/f/mbdpgvpn", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "الاسم": formData.name,
+                            "رقم الهاتف": formData.phone,
+                            "الدورة": formData.course,
+                            "الرسالة": formData.message
+                        })
+                    });
 
-                // رسالة النجاح وتفريغ الحقول
-                alert('تم استلام طلبك بنجاح! سيتواصل معك فريق مركز إيجابيون قريباً.');
-                contactForm.reset();
+                    // تأثير بصري للنجاح
+                    submitBtnForm.innerHTML = '<i class="fas fa-check-circle" style="margin-left: 10px;"></i> تم الاستلام بنجاح';
+                    submitBtnForm.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    
+                    if(navigator.vibrate) navigator.vibrate([100, 50, 100]); // اهتزاز عند النجاح
+                    
+                    setTimeout(() => {
+                        alert('أهلاً بك في إيجابيون! تم استلام طلب تسجيلك بنجاح، سيتواصل معك فريقنا لتأكيد الحجز قريباً.');
+                        contactForm.reset();
+                        submitBtnForm.innerHTML = originalBtnHtml;
+                        submitBtnForm.disabled = false;
+                        submitBtnForm.style.background = '';
+                        submitBtnForm.style.opacity = '1';
+                    }, 1000);
 
-            } catch (error) {
-                console.error("Error submitting form: ", error);
-                alert('حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى لاحقاً.');
-            } finally {
-                // إعادة الزر لحالته الطبيعية
-                submitBtn.innerText = originalBtnText;
-                submitBtn.disabled = false;
-            }
-        });
+                } catch (error) {
+                    console.error("Error submitting form: ", error);
+                    alert('حدث خطأ تقني أثناء الإرسال. يرجى المحاولة مرة أخرى أو التواصل معنا عبر الواتساب مباشرة.');
+                    submitBtnForm.innerHTML = originalBtnHtml;
+                    submitBtnForm.disabled = false;
+                    submitBtnForm.style.opacity = '1';
+                } 
+            });
+        }
     </script>
+
 </body>
 </html>

@@ -3,236 +3,1137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مركز إيجابيون | اقترح دورة تدريبية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <title>مركز إيجابيون | اقترح دورة تدريبية (النسخة الماسية)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* ================= المتغيرات ================= */
+        /* ==========================================================================
+           1. نظام المتغيرات الشامل (Advanced CSS Variables)
+           ========================================================================== */
         :root {
+            /* الألوان الأساسية - هوية إيجابيون */
             --primary-color: #1e3a8a;
             --primary-light: #3b82f6;
+            --primary-dark: #0f172a;
+            --primary-glow: rgba(59, 130, 246, 0.6);
+            --primary-glass: rgba(30, 58, 138, 0.1);
+            
+            /* الألوان الثانوية - الذهبي */
             --secondary-color: #f59e0b;
-            --heart-color: #ef4444; /* لون قلب التصويت */
-            --text-dark: #1f2937;
-            --text-light: #6b7280;
+            --secondary-light: #fcd34d;
+            --secondary-dark: #b45309;
+            --secondary-glow: rgba(245, 158, 11, 0.6);
+            --secondary-glass: rgba(245, 158, 11, 0.1);
+            
+            /* لون التفاعل الأساسي (القلب والتصويت) */
+            --heart-color: #ef4444;
+            --heart-light: #f87171;
+            --heart-glow: rgba(239, 68, 68, 0.5);
+            
+            /* ألوان النصوص والخلفيات */
+            --text-dark: #0f172a;
+            --text-light: #64748b;
+            --text-muted: #94a3b8;
             --bg-light: #f8fafc;
+            --bg-dark: #020617;
             --white: #ffffff;
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* تأثيرات الزجاج (Glassmorphism Dynamics) */
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --glass-highlight: rgba(255, 255, 255, 0.9);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            
+            /* الظلال الفاخرة الموزعة (Layered Shadows) */
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 10px 25px -5px rgba(30, 58, 138, 0.1), 0 8px 10px -6px rgba(30, 58, 138, 0.1);
+            --shadow-lg: 0 25px 50px -12px rgba(30, 58, 138, 0.25);
+            --shadow-gold: 0 10px 30px -5px var(--secondary-glow);
+            --shadow-heart: 0 10px 25px -5px var(--heart-glow);
+            
+            /* التوقيتات والحركات (Timing Functions) */
+            --transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-fast: all 0.3s ease;
+            --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --transition-smooth: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ================= التنسيق العام ================= */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
+        /* ==========================================================================
+           2. إعادة الضبط والتنسيق العام (CSS Reset & Global)
+           ========================================================================== */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Cairo', sans-serif; 
+            cursor: none; /* تفعيل مؤشر الماوس المخصص */
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body { 
+            background-color: var(--bg-light); 
+            color: var(--text-dark); 
+            overflow-x: hidden; 
+            scroll-behavior: smooth;
+            /* خلفية هندسية دقيقة ناعمة */
+            background-image: 
+                linear-gradient(to right, rgba(30, 58, 138, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(30, 58, 138, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-attachment: fixed;
+            position: relative;
+        }
+
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
+        ::selection { background: var(--secondary-color); color: var(--white); }
 
-        /* ================= شريط التنقل ================= */
+        /* شريط التمرير الفاخر */
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: var(--bg-light); }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(to bottom, var(--primary-light), var(--primary-color)); 
+            border-radius: 10px; 
+            border: 3px solid var(--bg-light); 
+        }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, var(--secondary-light), var(--secondary-color)); }
+
+        /* ==========================================================================
+           3. مؤشر الماوس المخصص (Custom Cursor & Effects)
+           ========================================================================== */
+        .cursor-dot {
+            width: 8px; 
+            height: 8px; 
+            background-color: var(--secondary-color);
+            border-radius: 50%; 
+            position: fixed; 
+            top: 0; 
+            left: 0;
+            pointer-events: none; 
+            z-index: 9999; 
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 15px var(--secondary-glow); 
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        
+        .cursor-outline {
+            width: 40px; 
+            height: 40px; 
+            border: 2px solid var(--primary-light);
+            border-radius: 50%; 
+            position: fixed; 
+            top: 0; 
+            left: 0;
+            pointer-events: none; 
+            z-index: 9998; 
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
+            box-shadow: inset 0 0 10px rgba(59, 130, 246, 0.2);
+        }
+
+        /* ==========================================================================
+           4. مكتبة الحركات المتقدمة والتأثيرات البصرية (Mega Keyframes Library)
+           ========================================================================== */
+        @-webkit-keyframes floatY {
+            0%, 100% { -webkit-transform: translateY(0); transform: translateY(0); }
+            50% { -webkit-transform: translateY(-25px); transform: translateY(-25px); }
+        }
+        @keyframes floatY {
+            0%, 100% { -webkit-transform: translateY(0); transform: translateY(0); }
+            50% { -webkit-transform: translateY(-25px); transform: translateY(-25px); }
+        }
+
+        @-webkit-keyframes floatX {
+            0%, 100% { -webkit-transform: translateX(0); transform: translateX(0); }
+            50% { -webkit-transform: translateX(25px); transform: translateX(25px); }
+        }
+        @keyframes floatX {
+            0%, 100% { -webkit-transform: translateX(0); transform: translateX(0); }
+            50% { -webkit-transform: translateX(25px); transform: translateX(25px); }
+        }
+
+        @-webkit-keyframes pulseHeart {
+            0% { -webkit-box-shadow: 0 0 0 0 var(--heart-glow); box-shadow: 0 0 0 0 var(--heart-glow); }
+            70% { -webkit-box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
+            100% { -webkit-box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        @keyframes pulseHeart {
+            0% { -webkit-box-shadow: 0 0 0 0 var(--heart-glow); box-shadow: 0 0 0 0 var(--heart-glow); }
+            70% { -webkit-box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
+            100% { -webkit-box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        @-webkit-keyframes slideInUpBlur {
+            from { opacity: 0; -webkit-transform: translateY(60px); transform: translateY(60px); -webkit-filter: blur(10px); filter: blur(10px); }
+            to { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); -webkit-filter: blur(0); filter: blur(0); }
+        }
+        @keyframes slideInUpBlur {
+            from { opacity: 0; -webkit-transform: translateY(60px); transform: translateY(60px); -webkit-filter: blur(10px); filter: blur(10px); }
+            to { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); -webkit-filter: blur(0); filter: blur(0); }
+        }
+
+        @-webkit-keyframes borderMarch {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+        @keyframes borderMarch {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        @-webkit-keyframes shineSweep {
+            0% { left: -100%; opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { left: 200%; opacity: 0; }
+        }
+        @keyframes shineSweep {
+            0% { left: -100%; opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { left: 200%; opacity: 0; }
+        }
+
+        @-webkit-keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @-webkit-keyframes popBounce {
+            0% { -webkit-transform: scale(1); transform: scale(1); }
+            40% { -webkit-transform: scale(1.5) rotate(-10deg); transform: scale(1.5) rotate(-10deg); }
+            70% { -webkit-transform: scale(0.9) rotate(5deg); transform: scale(0.9) rotate(5deg); }
+            100% { -webkit-transform: scale(1) rotate(0); transform: scale(1) rotate(0); }
+        }
+        @keyframes popBounce {
+            0% { -webkit-transform: scale(1); transform: scale(1); }
+            40% { -webkit-transform: scale(1.5) rotate(-10deg); transform: scale(1.5) rotate(-10deg); }
+            70% { -webkit-transform: scale(0.9) rotate(5deg); transform: scale(0.9) rotate(5deg); }
+            100% { -webkit-transform: scale(1) rotate(0); transform: scale(1) rotate(0); }
+        }
+
+        /* كلاسات المراقبة للتمرير (Scroll Reveal) */
+        .reveal-up { 
+            opacity: 0; 
+            -webkit-transform: translateY(50px); 
+            transform: translateY(50px); 
+            -webkit-transition: var(--transition-smooth); 
+            transition: var(--transition-smooth); 
+        }
+        .reveal-up.active { 
+            opacity: 1; 
+            -webkit-transform: translateY(0); 
+            transform: translateY(0); 
+        }
+
+        /* ==========================================================================
+           5. شريط التنقل (Glassmorphism Navbar)
+           ========================================================================== */
         header {
-            background-color: var(--white); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            position: fixed; width: 100%; top: 0; z-index: 1000;
+            background-color: var(--glass-bg); 
+            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--glass-border);
+            -webkit-box-shadow: var(--glass-shadow);
+            box-shadow: var(--glass-shadow);
+            position: fixed; 
+            width: 100%; 
+            top: 0; 
+            z-index: 1000; 
+            -webkit-transition: padding 0.5s ease, background 0.5s ease, -webkit-box-shadow 0.5s ease; 
+            transition: padding 0.5s ease, background 0.5s ease, box-shadow 0.5s ease;
+            -webkit-animation: slideInUpBlur 1s ease-out;
+            animation: slideInUpBlur 1s ease-out;
         }
-        .nav-container {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 5%; max-width: 1400px; margin: 0 auto;
-        }
-        .logo { font-size: 28px; font-weight: 800; color: var(--primary-color); }
-        .logo span { color: var(--secondary-color); }
-        .nav-links { display: flex; gap: 20px; align-items: center;}
-        .nav-links a { font-weight: 600; transition: var(--transition); color: var(--text-dark); padding: 5px 10px; border-radius: 8px;}
-        .nav-links a:hover { color: var(--primary-color); background: rgba(30, 58, 138, 0.05); }
-        .nav-links a.active { color: var(--secondary-color); }
 
-        /* ================= الترويسة الفاخرة ================= */
+        header.scrolled {
+            padding: 5px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            -webkit-box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 15px 5%; 
+            max-width: 1500px; 
+            margin: 0 auto;
+        }
+
+        .logo { 
+            font-size: 32px; 
+            font-weight: 900; 
+            color: var(--primary-color); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            position: relative;
+        }
+        
+        .logo i { 
+            color: var(--secondary-color); 
+            -webkit-animation: floatY 4s ease-in-out infinite; 
+            animation: floatY 4s ease-in-out infinite; 
+        }
+        
+        .logo span { color: var(--secondary-color); }
+        
+        .logo::after {
+            content: ''; 
+            position: absolute; 
+            bottom: -5px; 
+            right: 0; 
+            width: 30%; 
+            height: 4px;
+            background: -webkit-gradient(linear, left top, right top, from(var(--secondary-color)), to(transparent));
+            background: linear-gradient(90deg, var(--secondary-color), transparent);
+            border-radius: 5px; 
+            -webkit-transition: var(--transition-bounce); 
+            transition: var(--transition-bounce);
+        }
+        
+        .logo:hover::after { 
+            width: 100%; 
+            background: -webkit-gradient(linear, left top, right top, from(var(--secondary-color)), to(var(--primary-color))); 
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+        }
+
+        .nav-links { 
+            display: flex; 
+            gap: 25px; 
+            align-items: center;
+        }
+        
+        .nav-links a { 
+            font-weight: 800; 
+            font-size: 1.1rem;
+            -webkit-transition: var(--transition); 
+            transition: var(--transition); 
+            color: var(--text-dark); 
+            padding: 10px 18px; 
+            border-radius: 12px;
+            position: relative; 
+            overflow: hidden; 
+            z-index: 1;
+        }
+
+        .nav-links a::before {
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            right: 0; 
+            width: 100%; 
+            height: 100%;
+            background: var(--primary-glass); 
+            border-radius: 12px;
+            -webkit-transform: scaleY(0); 
+            transform: scaleY(0); 
+            -webkit-transform-origin: bottom; 
+            transform-origin: bottom; 
+            -webkit-transition: var(--transition-bounce); 
+            transition: var(--transition-bounce); 
+            z-index: -1;
+        }
+        
+        .nav-links a:hover::before { 
+            -webkit-transform: scaleY(1); 
+            transform: scaleY(1); 
+        }
+        
+        .nav-links a:hover { 
+            color: var(--primary-color); 
+            -webkit-transform: translateY(-2px); 
+            transform: translateY(-2px); 
+        }
+        
+        .nav-links a.active { 
+            color: var(--secondary-color); 
+            background: transparent; 
+            padding-bottom: 5px;
+        }
+        
+        .nav-links a.active::after {
+            content: ''; 
+            position: absolute; 
+            bottom: 0; 
+            left: 15%; 
+            width: 70%; 
+            height: 4px;
+            background: var(--secondary-color); 
+            border-radius: 5px; 
+            -webkit-box-shadow: 0 -2px 10px var(--secondary-glow); 
+            box-shadow: 0 -2px 10px var(--secondary-glow);
+        }
+
+        /* ==========================================================================
+           6. الترويسة الأسطورية (Hero Section with Particles & Dynamics)
+           ========================================================================== */
         .suggest-hero {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #172554 100%);
-            color: var(--white); padding: 150px 5% 80px; text-align: center; position: relative;
+            background: linear-gradient(-45deg, var(--primary-dark), #0f2e2f, var(--primary-color), var(--primary-dark));
+            background-size: 400% 400%; 
+            -webkit-animation: gradientFlow 20s ease infinite; 
+            animation: gradientFlow 20s ease infinite;
+            color: var(--white); 
+            padding: 220px 5% 150px; 
+            text-align: center; 
+            position: relative;
+            overflow: hidden; 
+            z-index: 1;
+        }
+
+        #hero-canvas { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1; 
+            opacity: 0.8; 
+        }
+
+        /* الكرات المضيئة الهائمة في الخلفية (Orbs) */
+        .suggest-hero::before, .suggest-hero::after {
+            content: ''; 
+            position: absolute; 
+            border-radius: 50%; 
+            -webkit-filter: blur(80px); 
+            filter: blur(80px); 
+            z-index: -1;
+        }
+        .suggest-hero::before { 
+            width: 500px; 
+            height: 500px; 
+            background: var(--secondary-color); 
+            top: -100px; 
+            right: -100px; 
+            -webkit-animation: floatY 12s ease-in-out infinite; 
+            animation: floatY 12s ease-in-out infinite; 
+            opacity: 0.35; 
+        }
+        .suggest-hero::after { 
+            width: 600px; 
+            height: 600px; 
+            background: var(--primary-light); 
+            bottom: -150px; 
+            left: -200px; 
+            -webkit-animation: floatX 15s ease-in-out infinite reverse; 
+            animation: floatX 15s ease-in-out infinite reverse; 
+            opacity: 0.25; 
+        }
+
+        .hero-content { 
+            position: relative; 
+            z-index: 2; 
+        }
+        
+        .hero-content h1 { 
+            font-size: 4.5rem; 
+            margin-bottom: 25px; 
+            font-weight: 900; 
+            -webkit-animation: slideInUpBlur 1s ease-out; 
+            animation: slideInUpBlur 1s ease-out;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            letter-spacing: -1px;
+        }
+        
+        .hero-content p { 
+            font-size: 1.4rem; 
+            color: #e2e8f0; 
+            max-width: 850px; 
+            margin: 0 auto; 
+            line-height: 1.9; 
+            font-weight: 600;
+            -webkit-animation: slideInUpBlur 1.3s ease-out; 
+            animation: slideInUpBlur 1.3s ease-out;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        /* ==========================================================================
+           7. قسم التصويت (Trending Suggestions 3D Grid)
+           ========================================================================== */
+        .voting-section { 
+            padding: 100px 5%; 
+            max-width: 1500px; 
+            margin: 0 auto; 
+            position: relative; 
+            z-index: 5;
+        }
+        
+        .section-header { 
+            text-align: center; 
+            margin-bottom: 80px; 
+        }
+        
+        .section-header h2 { 
+            font-size: 3rem; 
+            color: var(--primary-dark); 
+            margin-bottom: 20px; 
+            font-weight: 900; 
+            position: relative; 
+            display: inline-block;
+            letter-spacing: -1px;
+        }
+        
+        .section-header h2::after {
+            content: ''; 
+            position: absolute; 
+            width: 80px; 
+            height: 6px;
+            background: -webkit-gradient(linear, left top, right top, from(var(--secondary-color)), to(var(--primary-color)));
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color)); 
+            bottom: -15px; 
+            left: 50%; 
+            -webkit-transform: translateX(-50%); 
+            transform: translateX(-50%); 
+            border-radius: 5px;
+            -webkit-box-shadow: 0 5px 15px var(--secondary-glow);
+            box-shadow: 0 5px 15px var(--secondary-glow);
+        }
+        
+        .section-header p { 
+            color: var(--text-light); 
+            font-size: 1.25rem; 
+            font-weight: 600; 
+        }
+
+        .voting-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 40px; 
+            -webkit-perspective: 2000px; 
+            perspective: 2000px; /* تفعيل البعد الثالث للأبناء */
+        }
+
+        /* كارت التصويت الفاخر (3D Tilt & Glass) */
+        .vote-card {
+            background: var(--glass-bg); 
+            -webkit-backdrop-filter: blur(10px); 
+            backdrop-filter: blur(10px); 
+            border-radius: 25px; 
+            padding: 40px 30px;
+            -webkit-box-shadow: var(--shadow-md); 
+            box-shadow: var(--shadow-md); 
+            border: 1px solid var(--glass-border);
+            -webkit-transition: var(--transition); 
+            transition: var(--transition); 
+            position: relative; 
+            -webkit-transform-style: preserve-3d; 
+            transform-style: preserve-3d;
             overflow: hidden;
         }
-        /* دوائر مضيئة في الخلفية */
-        .suggest-hero::before, .suggest-hero::after {
-            content: ''; position: absolute; border-radius: 50%;
-            background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, transparent 70%);
-        }
-        .suggest-hero::before { width: 400px; height: 400px; top: -100px; right: -100px; }
-        .suggest-hero::after { width: 300px; height: 300px; bottom: -50px; left: -50px; }
         
-        .hero-content { position: relative; z-index: 2; }
-        .hero-content h1 { font-size: 3.5rem; margin-bottom: 20px; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .hero-content p { font-size: 1.2rem; color: #e2e8f0; max-width: 700px; margin: 0 auto; line-height: 1.8; }
-
-        /* ================= قسم التصويت (Trending Suggestions) ================= */
-        .voting-section { padding: 80px 5%; max-width: 1400px; margin: 0 auto; }
-        .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h2 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; }
-        .section-header p { color: var(--text-light); font-size: 1.1rem; }
-
-        .voting-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-
-        /* كارت التصويت */
-        .vote-card {
-            background: var(--white); border-radius: 20px; padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f1f5f9;
-            transition: var(--transition); position: relative;
+        /* لمعة زجاجية تتحرك باستمرار على الكارت */
+        .vote-card::before {
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: -100%; 
+            width: 50%; 
+            height: 100%;
+            background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(rgba(255,255,255,0.8)), to(transparent));
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.8), transparent);
+            -webkit-transform: skewX(-25deg); 
+            transform: skewX(-25deg); 
+            z-index: 10; 
+            pointer-events: none; 
+            opacity: 0; 
+            -webkit-transition: opacity 0.3s; 
+            transition: opacity 0.3s;
         }
-        .vote-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: var(--primary-light); }
+
+        .vote-card:hover { 
+            -webkit-box-shadow: var(--shadow-lg), 0 25px 50px rgba(30, 58, 138, 0.15); 
+            box-shadow: var(--shadow-lg), 0 25px 50px rgba(30, 58, 138, 0.15); 
+            border-color: rgba(59, 130, 246, 0.4); 
+            z-index: 100;
+        }
         
+        .vote-card:hover::before { 
+            -webkit-animation: shineSweep 2.5s infinite; 
+            animation: shineSweep 2.5s infinite; 
+            opacity: 1; 
+        }
+
+        /* حاوية الأيقونة مع تأثير 3D */
         .card-icon {
-            width: 60px; height: 60px; background: rgba(59, 130, 246, 0.1); color: var(--primary-light);
-            border-radius: 15px; display: flex; align-items: center; justify-content: center;
-            font-size: 1.8rem; margin-bottom: 20px; transition: var(--transition);
+            width: 80px; 
+            height: 80px; 
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light)); 
+            color: var(--white);
+            border-radius: 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-size: 2.5rem; 
+            margin-bottom: 25px; 
+            -webkit-transition: var(--transition-bounce); 
+            transition: var(--transition-bounce);
+            -webkit-transform: translateZ(40px); 
+            transform: translateZ(40px); /* 3D Pop */
+            -webkit-box-shadow: var(--shadow-md); 
+            box-shadow: var(--shadow-md);
+            position: relative;
         }
-        .vote-card:hover .card-icon { background: var(--primary-light); color: var(--white); transform: rotate(10deg); }
+        
+        .card-icon::after {
+            content: ''; 
+            position: absolute; 
+            inset: -5px; 
+            border: 2px dashed var(--primary-light); 
+            border-radius: 25px;
+            -webkit-animation: rotateSlow 10s linear infinite; 
+            animation: rotateSlow 10s linear infinite; 
+            opacity: 0.5;
+        }
 
-        .vote-title { font-size: 1.4rem; color: var(--text-dark); margin-bottom: 10px; font-weight: 800; }
-        .vote-desc { color: var(--text-light); font-size: 0.95rem; margin-bottom: 25px; line-height: 1.6; }
+        .vote-card:hover .card-icon { 
+            -webkit-transform: translateZ(60px) rotate(15deg) scale(1.1); 
+            transform: translateZ(60px) rotate(15deg) scale(1.1); 
+            -webkit-box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4); 
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+        }
 
-        /* زر التصويت الفاخر */
+        .vote-title { 
+            font-size: 1.6rem; 
+            color: var(--primary-dark); 
+            margin-bottom: 15px; 
+            font-weight: 900; 
+            -webkit-transform: translateZ(30px); 
+            transform: translateZ(30px);
+            -webkit-transition: var(--transition);
+            transition: var(--transition);
+        }
+        .vote-card:hover .vote-title { color: var(--primary-color); }
+
+        .vote-desc { 
+            color: var(--text-light); 
+            font-size: 1.05rem; 
+            margin-bottom: 35px; 
+            line-height: 1.8; 
+            font-weight: 600;
+            -webkit-transform: translateZ(20px); 
+            transform: translateZ(20px);
+        }
+
+        /* قسم الإجراء (زر التصويت والعداد) */
         .vote-action {
-            display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px solid #f1f5f9; padding-top: 20px;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            border-top: 2px dashed #e2e8f0; 
+            padding-top: 25px;
+            -webkit-transform: translateZ(30px); 
+            transform: translateZ(30px);
         }
-        .vote-count { font-size: 1.2rem; font-weight: 800; color: var(--text-dark); display: flex; align-items: center; gap: 8px; }
-        .vote-count span { color: var(--text-light); font-size: 0.9rem; font-weight: 600; }
+        
+        .vote-count { 
+            font-size: 1.5rem; 
+            font-weight: 900; 
+            color: var(--primary-color); 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            background: var(--bg-light);
+            padding: 8px 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .vote-count span:last-child { 
+            color: var(--text-light); 
+            font-size: 0.95rem; 
+            font-weight: 700; 
+        }
 
+        /* زر التصويت الديناميكي */
         .btn-vote {
-            background: #fef2f2; color: var(--heart-color); border: 1px solid #fecaca;
-            padding: 10px 20px; border-radius: 50px; font-weight: 700; cursor: pointer;
-            transition: var(--transition); display: flex; align-items: center; gap: 8px; font-size: 1rem;
+            background: var(--white); 
+            color: var(--heart-color); 
+            border: 2px solid #fecaca;
+            padding: 12px 25px; 
+            border-radius: 50px; 
+            font-weight: 800; 
+            cursor: pointer;
+            -webkit-transition: var(--transition-bounce); 
+            transition: var(--transition-bounce); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            -webkit-box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-sm);
         }
-        .btn-vote i { transition: transform 0.3s ease; }
-        .btn-vote:hover { background: var(--heart-color); color: var(--white); border-color: var(--heart-color); }
-        .btn-vote:hover i { transform: scale(1.2); }
+        
+        .btn-vote::before {
+            content: ''; 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            width: 0; 
+            height: 0;
+            background: var(--heart-color); 
+            border-radius: 50%; 
+            -webkit-transform: translate(-50%, -50%); 
+            transform: translate(-50%, -50%);
+            -webkit-transition: width 0.4s ease, height 0.4s ease; 
+            transition: width 0.4s ease, height 0.4s ease; 
+            z-index: 0;
+        }
+
+        .btn-vote i, .btn-vote .btn-text { 
+            position: relative; 
+            z-index: 1; 
+            -webkit-transition: var(--transition-bounce); 
+            transition: var(--transition-bounce); 
+        }
+        
+        .btn-vote:hover { 
+            border-color: var(--heart-color); 
+            -webkit-transform: translateY(-3px) scale(1.05); 
+            transform: translateY(-3px) scale(1.05); 
+            -webkit-box-shadow: var(--shadow-heart); 
+            box-shadow: var(--shadow-heart); 
+        }
+        
+        .btn-vote:hover i { 
+            -webkit-transform: scale(1.3); 
+            transform: scale(1.3); 
+        }
         
         /* حالة تم التصويت */
-        .btn-vote.voted { background: var(--heart-color); color: var(--white); box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3); }
-        .btn-vote.voted i { animation: pop 0.4s ease forwards; }
-        @keyframes pop { 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
-
-        /* ================= قسم نموذج الاقتراح (Form) ================= */
-        .form-section { background: var(--white); padding: 80px 5%; border-top: 1px solid #e5e7eb; }
-        .form-container {
-            max-width: 900px; margin: 0 auto; background: var(--white);
-            border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.08); padding: 50px;
-            position: relative; overflow: hidden;
+        .btn-vote.voted::before { 
+            width: 300px; 
+            height: 300px; 
         }
         
-        /* شريط جانبي تجميلي للفورم */
-        .form-container::before {
-            content: ''; position: absolute; top: 0; right: 0; width: 8px; height: 100%;
-            background: linear-gradient(to bottom, var(--secondary-color), var(--primary-color));
+        .btn-vote.voted { 
+            color: var(--white); 
+            border-color: var(--heart-color); 
+            -webkit-box-shadow: var(--shadow-heart); 
+            box-shadow: var(--shadow-heart); 
+        }
+        
+        .btn-vote.voted i { 
+            -webkit-animation: popBounce 0.6s ease forwards; 
+            animation: popBounce 0.6s ease forwards; 
         }
 
-        .form-header { text-align: center; margin-bottom: 40px; }
-        .form-header i { font-size: 3rem; color: var(--secondary-color); margin-bottom: 15px; }
-        .form-header h3 { font-size: 2rem; color: var(--primary-color); }
+        /* ==========================================================================
+           8. قسم نموذج الاقتراح (Advanced Form Section)
+           ========================================================================== */
+        .form-section { 
+            background: -webkit-gradient(linear, left top, left bottom, from(var(--white)), to(var(--bg-light))); 
+            background: linear-gradient(to bottom, var(--white), var(--bg-light)); 
+            padding: 120px 5%; 
+            border-top: 1px solid #e5e7eb; 
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* أشكال عائمة خلف الفورم */
+        .form-shape-1 { 
+            position: absolute; 
+            top: 10%; 
+            right: 5%; 
+            width: 200px; 
+            height: 200px; 
+            border: 30px solid rgba(245, 158, 11, 0.05); 
+            border-radius: 30%; 
+            -webkit-animation: rotateSlow 25s linear infinite; 
+            animation: rotateSlow 25s linear infinite; 
+        }
+        .form-shape-2 { 
+            position: absolute; 
+            bottom: 10%; 
+            left: 5%; 
+            width: 250px; 
+            height: 250px; 
+            border: 30px solid rgba(59, 130, 246, 0.05); 
+            border-radius: 50%; 
+            -webkit-animation: floatY 10s ease-in-out infinite; 
+            animation: floatY 10s ease-in-out infinite; 
+        }
 
-        .input-group { margin-bottom: 25px; position: relative; }
-        .input-label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-dark); }
+        .form-container {
+            max-width: 1000px; 
+            margin: 0 auto; 
+            background: var(--glass-bg); 
+            -webkit-backdrop-filter: blur(20px); 
+            backdrop-filter: blur(20px);
+            border-radius: 30px; 
+            -webkit-box-shadow: var(--shadow-lg); 
+            box-shadow: var(--shadow-lg); 
+            padding: 60px;
+            position: relative; 
+            border: 1px solid var(--glass-border);
+            z-index: 2;
+        }
+        
+        /* شريط جانبي مضيء تجميلي للفورم */
+        .form-container::before {
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            right: 0; 
+            width: 10px; 
+            height: 100%;
+            background: -webkit-gradient(linear, left top, left bottom, from(var(--secondary-color)), color-stop(var(--primary-color)), to(var(--secondary-color)));
+            background: linear-gradient(to bottom, var(--secondary-color), var(--primary-color), var(--secondary-color));
+            background-size: 100% 200%;
+            -webkit-animation: borderMarch 3s linear infinite;
+            animation: borderMarch 3s linear infinite;
+        }
+
+        .form-header { 
+            text-align: center; 
+            margin-bottom: 50px; 
+        }
+        
+        .form-header i { 
+            font-size: 4rem; 
+            color: var(--secondary-color); 
+            margin-bottom: 20px; 
+            -webkit-filter: drop-shadow(0 10px 15px rgba(245, 158, 11, 0.3)); 
+            filter: drop-shadow(0 10px 15px rgba(245, 158, 11, 0.3));
+            -webkit-animation: floatY 3s infinite;
+            animation: floatY 3s infinite;
+        }
+        
+        .form-header h3 { 
+            font-size: 2.8rem; 
+            color: var(--primary-dark); 
+            font-weight: 900; 
+            letter-spacing: -1px;
+        }
+
+        .input-group { 
+            margin-bottom: 35px; 
+            position: relative; 
+        }
+        
+        .input-label { 
+            display: block; 
+            margin-bottom: 10px; 
+            font-weight: 800; 
+            color: var(--primary-color); 
+            font-size: 1.1rem;
+        }
         
         .input-field {
-            width: 100%; padding: 15px 20px; background: #f8fafc; border: 2px solid transparent;
-            border-radius: 10px; font-size: 1rem; color: var(--text-dark); transition: var(--transition); outline: none;
+            width: 100%; 
+            padding: 18px 25px; 
+            background: var(--bg-light); 
+            border: 2px solid #cbd5e1;
+            border-radius: 15px; 
+            font-size: 1.1rem; 
+            color: var(--text-dark); 
+            -webkit-transition: var(--transition); 
+            transition: var(--transition); 
+            outline: none;
+            font-weight: 600;
         }
-        .input-field:focus { background: var(--white); border-color: var(--primary-light); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.1); }
-        textarea.input-field { height: 120px; resize: none; }
+        
+        .input-field::-webkit-input-placeholder { color: #94a3b8; }
+        .input-field::-moz-placeholder { color: #94a3b8; }
+        .input-field:-ms-input-placeholder { color: #94a3b8; }
+        .input-field::-ms-input-placeholder { color: #94a3b8; }
+        .input-field::placeholder { color: #94a3b8; }
+        
+        .input-field:focus { 
+            background: var(--white); 
+            border-color: var(--primary-light); 
+            -webkit-box-shadow: 0 0 0 5px rgba(59, 130, 246, 0.15); 
+            box-shadow: 0 0 0 5px rgba(59, 130, 246, 0.15); 
+            -webkit-transform: translateY(-2px); 
+            transform: translateY(-2px);
+        }
+        
+        textarea.input-field { 
+            height: 150px; 
+            resize: none; 
+        }
 
-        /* زر الإرسال المتوهج */
+        /* زر الإرسال المتوهج (Ultimate Call To Action) */
         .btn-submit {
-            width: 100%; padding: 18px; border: none; border-radius: 10px;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            color: var(--white); font-size: 1.2rem; font-weight: 800; cursor: pointer;
-            transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 10px;
-            position: relative; overflow: hidden; box-shadow: 0 10px 20px rgba(30, 58, 138, 0.2);
+            width: 100%; 
+            padding: 22px; 
+            border: none; 
+            border-radius: 15px;
+            background: -webkit-gradient(linear, left top, right top, from(var(--primary-color)), color-stop(var(--primary-light)), to(var(--primary-color)));
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light), var(--primary-color));
+            background-size: 200% auto;
+            -webkit-animation: borderMarch 4s linear infinite;
+            animation: borderMarch 4s linear infinite;
+            color: var(--white); 
+            font-size: 1.4rem; 
+            font-weight: 900; 
+            cursor: pointer;
+            -webkit-transition: var(--transition-bounce);
+            transition: var(--transition-bounce); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 15px;
+            position: relative; 
+            overflow: hidden; 
+            -webkit-box-shadow: var(--shadow-lg); 
+            box-shadow: var(--shadow-lg);
+            z-index: 1;
         }
+        
         .btn-submit::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: rgba(255,255,255,0.2); transform: rotate(45deg); opacity: 0; transition: var(--transition);
+            content: ''; 
+            position: absolute; 
+            top: -50%; 
+            left: -50%; 
+            width: 200%; 
+            height: 200%;
+            background: rgba(255,255,255,0.2); 
+            -webkit-transform: rotate(45deg); 
+            transform: rotate(45deg); 
+            opacity: 0; 
+            -webkit-transition: var(--transition); 
+            transition: var(--transition); 
+            z-index: -1;
         }
-        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(30, 58, 138, 0.3); }
-        .btn-submit:hover::after { left: 100%; opacity: 1; transition: left 0.7s ease; }
+        
+        .btn-submit:hover { 
+            -webkit-transform: translateY(-5px) scale(1.02); 
+            transform: translateY(-5px) scale(1.02); 
+            -webkit-box-shadow: 0 20px 40px rgba(30, 58, 138, 0.4); 
+            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.4); 
+            background-position: right center;
+        }
+        
+        .btn-submit:hover::after { 
+            left: 100%; 
+            opacity: 1; 
+            -webkit-transition: left 0.7s ease; 
+            transition: left 0.7s ease; 
+        }
+        
+        .btn-submit i { 
+            -webkit-transition: -webkit-transform 0.3s ease; 
+            transition: -webkit-transform 0.3s ease; 
+            transition: transform 0.3s ease; 
+            transition: transform 0.3s ease, -webkit-transform 0.3s ease; 
+        }
+        .btn-submit:hover i { 
+            -webkit-transform: translateX(-10px) translateY(-5px); 
+            transform: translateX(-10px) translateY(-5px); 
+        }
 
-        /* رسالة النجاح المنبثقة (Toast) */
+        /* رسالة النجاح المنبثقة (Toast Notification) */
         .toast {
-            position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
-            background: #10b981; color: var(--white); padding: 15px 30px; border-radius: 50px;
-            font-weight: 700; display: flex; align-items: center; gap: 10px;
-            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3); transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: fixed; 
+            bottom: -120px; 
+            left: 50%; 
+            -webkit-transform: translateX(-50%); 
+            transform: translateX(-50%);
+            background: -webkit-gradient(linear, left top, right bottom, from(#10b981), to(#047857));
+            background: linear-gradient(135deg, #10b981, #047857); 
+            color: var(--white); 
+            padding: 20px 40px; 
+            border-radius: 50px;
+            font-weight: 800; 
+            font-size: 1.2rem;
+            display: flex; 
+            align-items: center; 
+            gap: 15px;
+            -webkit-box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4); 
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4); 
+            -webkit-transition: bottom 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+            transition: bottom 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             z-index: 2000;
+            border: 2px solid rgba(255,255,255,0.2);
         }
-        .toast.show { bottom: 40px; }
+        .toast.show { bottom: 50px; }
+        .toast i { font-size: 1.6rem; -webkit-animation: rotateSlow 4s linear infinite; animation: rotateSlow 4s linear infinite;}
 
-        /* ================= التذييل ================= */
-        footer { background-color: #111827; color: #9ca3af; text-align: center; padding: 25px; font-size: 0.9rem; }
+        /* ==========================================================================
+           9. التذييل (Footer with Animated Wave)
+           ========================================================================== */
+        footer { 
+            background: -webkit-gradient(linear, left bottom, left top, from(var(--primary-dark)), to(#172554)); 
+            background: linear-gradient(to top, var(--primary-dark), #172554); 
+            color: #94a3b8; 
+            text-align: center; 
+            padding: 70px 20px 40px; 
+            font-size: 1.1rem; 
+            position: relative;
+            border-top: 5px solid var(--secondary-color);
+            overflow: hidden;
+            font-weight: 600;
+        }
+        
+        footer::before {
+            content: ''; 
+            position: absolute; 
+            top: -50px; 
+            left: 0; 
+            width: 100%; 
+            height: 100px;
+            background: radial-gradient(ellipse at center, rgba(30, 58, 138, 0.5) 0%, transparent 70%);
+            z-index: 0;
+        }
+        
+        footer p { position: relative; z-index: 2; margin-bottom: 10px;}
+        footer p span { color: var(--secondary-color); font-weight: 800;}
+        
+        .social-footer {
+            display: flex; justify-content: center; gap: 20px; margin-top: 25px; position: relative; z-index: 2;
+        }
+        .social-footer a {
+            width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.05);
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--white);
+            -webkit-transition: var(--transition-bounce); transition: var(--transition-bounce); border: 1px solid rgba(255,255,255,0.1);
+        }
+        .social-footer a:hover {
+            background: var(--secondary-color); border-color: var(--secondary-color);
+            -webkit-transform: translateY(-5px) scale(1.1); transform: translateY(-5px) scale(1.1);
+            -webkit-box-shadow: var(--shadow-gold); box-shadow: var(--shadow-gold); color: var(--primary-dark);
+        }
 
-        /* Responsive */
+        /* ==========================================================================
+           10. استجابة الشاشات (Responsive Design)
+           ========================================================================== */
+        @media (max-width: 1200px) {
+            .hero-content h1 { font-size: 3.8rem; }
+            .voting-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        }
+
+        @media (max-width: 992px) {
+            .form-container { padding: 40px; }
+            .form-header h3 { font-size: 2.4rem; }
+            .section-header h2 { font-size: 2.5rem; }
+        }
+
         @media (max-width: 768px) {
-            .form-container { padding: 30px 20px; }
             .nav-links { display: none; }
-            .hero-content h1 { font-size: 2.5rem; }
+            .page-header { padding: 150px 5% 80px; }
+            .hero-content h1 { font-size: 2.8rem; }
+            .hero-content p { font-size: 1.1rem; }
+            .voting-grid { grid-template-columns: 1fr; }
+            .form-container { padding: 30px 20px; }
+            .input-group { margin-bottom: 25px; }
+            .btn-submit { font-size: 1.2rem; padding: 15px; }
+            
+            /* تعطيل تأثيرات الماوس والـ 3D على الجوال لتحسين الأداء */
+            .cursor-dot, .cursor-outline { display: none !important; }
+            * { cursor: auto !important; }
+            .vote-card { -webkit-transform: none !important; transform: none !important; }
         }
     </style>
 </head>
 <body>
 
-    <header>
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-outline" id="cursorOutline"></div>
+
+    <header id="mainHeader">
         <div class="nav-container">
-            <a href="index.html" class="logo">إيجابيون <span>للتدريب</span></a>
+            <a href="index.html" class="logo"><i class="fas fa-graduation-cap"></i> إيجابيون <span>للتدريب</span></a>
             <ul class="nav-links">
-                <li><a href="index.html">الرئيسية</a></li>
-                <li><a href="courses.html">الدورات</a></li>
-                <li><a href="instructors.html">المدربين</a></li>
-                <li><a href="suggest.html" class="active">ترشيح دورة</a></li>
+                <li><a href="index.html"><i class="fas fa-home" style="margin-left: 8px;"></i>الرئيسية</a></li>
+                <li><a href="courses.html"><i class="fas fa-book-open" style="margin-left: 8px;"></i>الدورات</a></li>
+                <li><a href="instructors.html"><i class="fas fa-chalkboard-teacher" style="margin-left: 8px;"></i>المدربين</a></li>
+                <li><a href="suggest.html" class="active"><i class="fas fa-lightbulb" style="margin-left: 8px;"></i>ترشيح دورة</a></li>
             </ul>
         </div>
     </header>
 
     <section class="suggest-hero">
+        <canvas id="hero-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.6;"></canvas>
         <div class="hero-content">
             <h1>شاركنا أفكارك، لنصنع مستقبلك</h1>
-            <p>في مركز إيجابيون للتدريب، نحن نصمم دوراتنا بناءً على احتياجاتك الفعلية. صوّت للدورات المفضلة لديك، أو اقترح دورة جديدة تود دراستها معنا في عطبرة.</p>
+            <p>في مركز إيجابيون للتدريب بعطبرة، نحن نصمم برامجنا الأكاديمية والمهنية بناءً على احتياجاتك الفعلية وحاجة سوق العمل المتجددة. صوّت للدورات المفضلة لديك أدناه، أو كن سبّاقاً واقترح دورة جديدة تماماً تود دراستها معنا.</p>
         </div>
     </section>
 
     <section class="voting-section">
-        <div class="section-header">
-            <h2>دورات ينتظرها المتدربون</h2>
-            <p>اضغط على زر التصويت لتسريع إطلاق هذه الدورات ضمن خطتنا القادمة.</p>
+        <div class="section-header reveal-up">
+            <h2>دورات قوية ينتظرها المتدربون</h2>
+            <p>اضغط على زر التصويت لتسريع إطلاق هذه الدورات المميزة ضمن خطتنا الأكاديمية القادمة.</p>
         </div>
 
         <div class="voting-grid">
             
-            <div class="vote-card">
+            <div class="vote-card reveal-up">
                 <div class="card-icon"><i class="fas fa-robot"></i></div>
-                <h3 class="vote-title">أساسيات الذكاء الاصطناعي (AI)</h3>
-                <p class="vote-desc">دورة للتعرف على أدوات الذكاء الاصطناعي مثل ChatGPT وكيفية استخدامها لزيادة الإنتاجية في العمل والبحث العلمي.</p>
+                <h3 class="vote-title">هندسة أوامر الذكاء الاصطناعي (Prompt Engineering)</h3>
+                <p class="vote-desc">دورة متقدمة للتعرف على أدوات الذكاء الاصطناعي مثل ChatGPT و Midjourney وكيفية صياغة الأوامر الدقيقة لزيادة الإنتاجية في العمل، البرمجة، والبحث العلمي.</p>
                 <div class="vote-action">
-                    <div class="vote-count"><span id="count1">145</span> <span>صوت</span></div>
-                    <button class="btn-vote" onclick="toggleVote(this, 'count1')">
+                    <div class="vote-count"><span id="count1">284</span> <span>صوت</span></div>
+                    <button class="btn-vote" onclick="toggleVote(this, 'count1', event)">
                         <i class="far fa-heart"></i> <span class="btn-text">صوّت الآن</span>
                     </button>
                 </div>
             </div>
 
-            <div class="vote-card">
-                <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-                <h3 class="vote-title">التسويق الرقمي الاحترافي</h3>
-                <p class="vote-desc">إدارة الحملات الإعلانية على السوشيال ميديا، تحليل البيانات، وكيفية بناء علامة تجارية قوية للمشاريع الصغيرة.</p>
+            <div class="vote-card reveal-up" style="transition-delay: 0.1s;">
+                <div class="card-icon" style="color: #f59e0b; background: rgba(245, 158, 11, 0.1);"><i class="fas fa-chart-line"></i></div>
+                <h3 class="vote-title">التسويق الرقمي وإطلاق الحملات (Digital Marketing)</h3>
+                <p class="vote-desc">تعلم كيفية إدارة الحملات الإعلانية الممولة على السوشيال ميديا (Meta, Google, TikTok)، تحليل البيانات، وكيفية بناء علامة تجارية قوية للمشاريع والشركات.</p>
                 <div class="vote-action">
-                    <div class="vote-count"><span id="count2">89</span> <span>صوت</span></div>
-                    <button class="btn-vote" onclick="toggleVote(this, 'count2')">
+                    <div class="vote-count"><span id="count2">156</span> <span>صوت</span></div>
+                    <button class="btn-vote" onclick="toggleVote(this, 'count2', event)">
                         <i class="far fa-heart"></i> <span class="btn-text">صوّت الآن</span>
                     </button>
                 </div>
             </div>
 
-            <div class="vote-card">
-                <div class="card-icon"><i class="fas fa-project-diagram"></i></div>
-                <h3 class="vote-title">إدارة المشاريع (PMP)</h3>
-                <p class="vote-desc">تأهيل المتدربين لاجتياز امتحان شهادة إدارة المشاريع الاحترافية، وتطبيق منهجيات الإدارة الحديثة (Agile).</p>
+            <div class="vote-card reveal-up" style="transition-delay: 0.2s;">
+                <div class="card-icon" style="color: #10b981; background: rgba(16, 185, 129, 0.1);"><i class="fas fa-project-diagram"></i></div>
+                <h3 class="vote-title">إدارة المشاريع الاحترافية وتطبيقات (Agile & PMP)</h3>
+                <p class="vote-desc">تأهيل شامل للمتدربين لاجتياز امتحان شهادة إدارة المشاريع العالمية، وتطبيق منهجيات الإدارة الرشيقة الحديثة لضمان نجاح المشاريع التقنية والهندسية.</p>
                 <div class="vote-action">
-                    <div class="vote-count"><span id="count3">56</span> <span>صوت</span></div>
-                    <button class="btn-vote" onclick="toggleVote(this, 'count3')">
+                    <div class="vote-count"><span id="count3">112</span> <span>صوت</span></div>
+                    <button class="btn-vote" onclick="toggleVote(this, 'count3', event)">
+                        <i class="far fa-heart"></i> <span class="btn-text">صوّت الآن</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="vote-card reveal-up">
+                <div class="card-icon" style="color: #8b5cf6; background: rgba(139, 92, 246, 0.1);"><i class="fas fa-shield-alt"></i></div>
+                <h3 class="vote-title">الأمن السيبراني والاختراق الأخلاقي (Cyber Security)</h3>
+                <p class="vote-desc">دورة عملية للتعرف على أساليب الهجمات الإلكترونية، كيفية حماية الشبكات والأنظمة، واختبار اختراق تطبيقات الويب لتأمين بيانات الشركات.</p>
+                <div class="vote-action">
+                    <div class="vote-count"><span id="count4">340</span> <span>صوت</span></div>
+                    <button class="btn-vote" onclick="toggleVote(this, 'count4', event)">
+                        <i class="far fa-heart"></i> <span class="btn-text">صوّت الآن</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="vote-card reveal-up" style="transition-delay: 0.1s;">
+                <div class="card-icon" style="color: #ec4899; background: rgba(236, 72, 153, 0.1);"><i class="fas fa-heartbeat"></i></div>
+                <h3 class="vote-title">العناية المركزة والطوارئ المتقدمة (ICU & ER)</h3>
+                <p class="vote-desc">برنامج متخصص ومتقدم للكوادر الطبية والتمريض للتعامل السريع والدقيق مع الحالات الحرجة، أجهزة التنفس الصناعي، وقراءة العلامات الحيوية المعقدة.</p>
+                <div class="vote-action">
+                    <div class="vote-count"><span id="count5">205</span> <span>صوت</span></div>
+                    <button class="btn-vote" onclick="toggleVote(this, 'count5', event)">
+                        <i class="far fa-heart"></i> <span class="btn-text">صوّت الآن</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="vote-card reveal-up" style="transition-delay: 0.2s;">
+                <div class="card-icon" style="color: #06b6d4; background: rgba(6, 182, 212, 0.1);"><i class="fas fa-photo-video"></i></div>
+                <h3 class="vote-title">الإنتاج المرئي والموشن جرافيك (Premiere & After Effects)</h3>
+                <p class="vote-desc">تعلم فنون المونتاج السينمائي، تصحيح الألوان، وتحريك العناصر لإنتاج فيديوهات إعلانية مبهرة وموشن جرافيك احترافي لسوق العمل الحر.</p>
+                <div class="vote-action">
+                    <div class="vote-count"><span id="count6">178</span> <span>صوت</span></div>
+                    <button class="btn-vote" onclick="toggleVote(this, 'count6', event)">
                         <i class="far fa-heart"></i> <span class="btn-text">صوّت الآن</span>
                     </button>
                 </div>
@@ -242,44 +1143,49 @@
     </section>
 
     <section class="form-section">
-        <div class="form-container">
+        <div class="form-shape-1"></div>
+        <div class="form-shape-2"></div>
+
+        <div class="form-container reveal-up">
             <div class="form-header">
                 <i class="far fa-lightbulb"></i>
-                <h3>لديك فكرة لدورة جديدة؟</h3>
-                <p style="color: var(--text-light); margin-top: 10px;">اكتب لنا تفاصيل الدورة التي تحتاجها وسنقوم بتوفير أفضل المدربين لها.</p>
+                <h3>لديك فكرة استثنائية لدورة جديدة؟</h3>
+                <p style="color: var(--text-light); margin-top: 15px; font-size: 1.15rem; font-weight: 600;">اكتب لنا تفاصيل الدورة التي تحلم بدراستها، وسنقوم في إيجابيون بتوفير أفضل المناهج والمدربين المعتمدين لتحقيقها.</p>
             </div>
 
             <form id="suggestionForm">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
                     <div class="input-group">
-                        <label class="input-label">اسمك (اختياري)</label>
-                        <input type="text" class="input-field" placeholder="أدخل اسمك">
+                        <label class="input-label"><i class="fas fa-user" style="margin-left: 8px;"></i>الاسم الرباعي (اختياري)</label>
+                        <input type="text" class="input-field" placeholder="أدخل اسمك الكريم">
                     </div>
                     <div class="input-group">
-                        <label class="input-label">مجال الدورة المقترحة <span style="color: red;">*</span></label>
-                        <select class="input-field" required>
-                            <option value="" disabled selected>اختر المجال...</option>
-                            <option value="tech">برمجة وتقنية معلومات</option>
-                            <option value="health">طب ورعاية صحية</option>
-                            <option value="business">إدارة وتسويق</option>
-                            <option value="design">تصميم ومونتاج</option>
-                            <option value="other">مجال آخر</option>
+                        <label class="input-label"><i class="fas fa-layer-group" style="margin-left: 8px;"></i>مجال الدورة المقترحة <span style="color: red;">*</span></label>
+                        <select class="input-field" required style="cursor: pointer;">
+                            <option value="" disabled selected>يرجى اختيار المجال الدقيق...</option>
+                            <option value="tech">برمجة، ذكاء اصطناعي، وتقنية معلومات</option>
+                            <option value="health">طب، تمريض، ورعاية صحية</option>
+                            <option value="data">تحليل إحصائي وعلوم بيانات</option>
+                            <option value="business">إدارة، تسويق، وموارد بشرية</option>
+                            <option value="design">تصميم جرافيك، مونتاج، وهندسة صوتية</option>
+                            <option value="languages">لغات وتطوير ذات</option>
+                            <option value="other">مجال آخر مختلف</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="input-group">
-                    <label class="input-label">اسم الدورة المقترحة <span style="color: red;">*</span></label>
-                    <input type="text" class="input-field" placeholder="مثال: دورة متقدمة في لغة Python" required>
+                    <label class="input-label"><i class="fas fa-tag" style="margin-left: 8px;"></i>عنوان الدورة المقترحة <span style="color: red;">*</span></label>
+                    <input type="text" class="input-field" placeholder="مثال: دورة احترافية ومتقدمة في لغة Python و Django" required>
                 </div>
 
                 <div class="input-group">
-                    <label class="input-label">لماذا تقترح هذه الدورة؟ وماذا تتوقع أن تتعلم فيها؟ <span style="color: red;">*</span></label>
-                    <textarea class="input-field" placeholder="اشرح لنا أهمية هذه الدورة وكيف ستفيد المتدربين وسوق العمل..." required></textarea>
+                    <label class="input-label"><i class="fas fa-comment-dots" style="margin-left: 8px;"></i>لماذا تقترح هذه الدورة؟ وما المهارات التي تتوقع اكتسابها؟ <span style="color: red;">*</span></label>
+                    <textarea class="input-field" placeholder="اشرح لنا بالتفصيل أهمية هذه الدورة، الفجوة التي تغطيها في سوق العمل، وكيف ستفيد المتدربين لتطوير مسارهم المهني..." required></textarea>
                 </div>
 
                 <button type="submit" class="btn-submit" id="submitBtn">
-                    <span class="btn-text">إرسال الاقتراح للإدارة</span>
+                    <span class="btn-text">إرسال الاقتراح للإدارة الأكاديمية</span>
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </form>
@@ -287,19 +1193,135 @@
     </section>
 
     <div class="toast" id="toastMsg">
-        <i class="fas fa-check-circle"></i> تم تسجيل <span id="toastAction"></span> بنجاح! شكراً لمشاركتك.
+        <i class="fas fa-check-circle"></i> 
+        <div>
+            <span style="display:block; font-size:1rem; opacity:0.9;">شكراً لمساهمتك</span>
+            تم تسجيل <strong id="toastAction" style="color:var(--secondary-color);"></strong> بنجاح! سيتم مراجعته وإضافته ضمن خططنا قريباً.
+        </div>
     </div>
 
     <footer>
-        <p>جميع الحقوق محفوظة &copy; 2026 مركز إيجابيون للتدريب | قسم التطوير والجودة</p>
+        <p>مركز إيجابيون للتدريب وتطوير الكوادر <span>&copy; 2026</span></p>
+        <p style="font-size: 0.95rem; font-weight: 400; margin-top: 10px; color: var(--text-light);">تصميم وبرمجة حصرية بواسطة الإدارة التقنية المركزية - جميع الحقوق محفوظة.</p>
+        
+        <div class="social-footer">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
     </footer>
 
     <script>
+        /* -----------------------------------------------------------
+           1. نظام الماوس المخصص (Custom Cursor Engine)
+           ----------------------------------------------------------- */
+        const cursorDot = document.getElementById('cursorDot');
+        const cursorOutline = document.getElementById('cursorOutline');
+        
+        if (window.matchMedia("(pointer: fine)").matches) {
+            window.addEventListener('mousemove', function(e) {
+                const posX = e.clientX;
+                const posY = e.clientY;
+                
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+                
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 400, fill: "forwards" });
+            });
+
+            // تفاعل الماوس مع العناصر
+            const interactives = document.querySelectorAll('a, button, select, input, textarea, .vote-card');
+            interactives.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorOutline.style.width = '60px';
+                    cursorOutline.style.height = '60px';
+                    cursorOutline.style.backgroundColor = 'rgba(245, 158, 11, 0.1)';
+                    cursorOutline.style.borderColor = 'var(--secondary-color)';
+                    cursorDot.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorOutline.style.width = '40px';
+                    cursorOutline.style.height = '40px';
+                    cursorOutline.style.backgroundColor = 'transparent';
+                    cursorOutline.style.borderColor = 'var(--primary-light)';
+                    cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+                });
+            });
+        }
+
+        /* -----------------------------------------------------------
+           2. تأثير السكرول (Scroll Reveal & Header Shrink)
+           ----------------------------------------------------------- */
+        const header = document.getElementById('mainHeader');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer لظهور العناصر بسلاسة
+        const revealElements = document.querySelectorAll('.reveal-up');
+        const revealOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach((entry, index) => {
+                if (!entry.isIntersecting) return;
+                setTimeout(() => {
+                    entry.target.classList.add('active');
+                }, index * 100); // Stagger effect
+                observer.unobserve(entry.target);
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => { revealOnScroll.observe(el); });
+
+        /* -----------------------------------------------------------
+           3. نظام التصويت التفاعلي المتقدم (Voting & Confetti Engine)
+           ----------------------------------------------------------- */
         const toast = document.getElementById('toastMsg');
         const toastAction = document.getElementById('toastAction');
 
-        // 1. نظام التصويت التفاعلي (Like Button Logic)
-        function toggleVote(btn, counterId) {
+        // محرك الاحتفال الجزيئي (Confetti Burst) عند التصويت
+        function createConfetti(x, y) {
+            const colors = ['#f59e0b', '#1e3a8a', '#ef4444', '#10b981', '#3b82f6'];
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = Math.random() * 8 + 4 + 'px';
+                confetti.style.height = Math.random() * 8 + 4 + 'px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = x + 'px';
+                confetti.style.top = y + 'px';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                confetti.style.pointerEvents = 'none';
+                confetti.style.zIndex = '9999';
+                document.body.appendChild(confetti);
+
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 50 + Math.random() * 50;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity - 50; // الاتجاه للأعلى قليلاً
+
+                confetti.animate([
+                    { transform: `translate(0,0) rotate(0deg)`, opacity: 1 },
+                    { transform: `translate(${tx}px, ${ty}px) rotate(${Math.random()*360}deg)`, opacity: 0 }
+                ], {
+                    duration: 800 + Math.random() * 500,
+                    easing: 'cubic-bezier(0.25, 0.8, 0.25, 1)',
+                    fill: 'forwards'
+                });
+
+                setTimeout(() => confetti.remove(), 1500);
+            }
+        }
+
+        window.toggleVote = function(btn, counterId, event) {
             const counterElement = document.getElementById(counterId);
             let currentCount = parseInt(counterElement.innerText);
             const icon = btn.querySelector('i');
@@ -313,49 +1335,180 @@
                 btnText.innerText = "صوّت الآن";
                 counterElement.innerText = currentCount - 1;
             } else {
-                // تأكيد التصويت
+                // تأكيد التصويت مع التأثيرات
                 btn.classList.add('voted');
                 icon.classList.remove('far');
                 icon.classList.add('fas');
                 btnText.innerText = "تم التصويت";
                 counterElement.innerText = currentCount + 1;
                 
-                // إظهار رسالة شكر سريعة
-                showToast("تصويتك");
+                // إطلاق الجسيمات من موقع الماوس
+                createConfetti(event.clientX, event.clientY);
+                
+                // إظهار التوست
+                showToast("تصويتك الداعم");
             }
         }
 
-        // 2. تفاعل نموذج الاقتراح
+        /* -----------------------------------------------------------
+           4. تفاعل نموذج الاقتراح (Form Simulation)
+           ----------------------------------------------------------- */
         const form = document.getElementById('suggestionForm');
         const submitBtn = document.getElementById('submitBtn');
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // تغيير الزر لحالة التحميل
+            // تغيير الزر لحالة التحميل الديناميكية
             const originalHtml = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري إرسال الاقتراح...';
-            submitBtn.style.opacity = '0.8';
+            submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> جاري تشفير وإرسال الاقتراح...';
+            submitBtn.style.background = 'var(--text-light)';
+            submitBtn.style.boxShadow = 'none';
+            submitBtn.style.pointerEvents = 'none';
             
+            // محاكاة الإرسال
             setTimeout(() => {
-                // إرجاع الزر وتفريغ الفورم
                 submitBtn.innerHTML = originalHtml;
-                submitBtn.style.opacity = '1';
+                submitBtn.style.background = '';
+                submitBtn.style.pointerEvents = 'auto';
                 form.reset();
                 
-                // إظهار رسالة النجاح
-                showToast("اقتراحك");
-            }, 1500);
+                showToast("اقتراحك المتميز");
+                if(navigator.vibrate) navigator.vibrate([100, 50, 100]); // اهتزاز لتعزيز التفاعل
+            }, 2000);
         });
 
-        // دالة عرض إشعار النجاح
         function showToast(actionWord) {
             toastAction.innerText = actionWord;
             toast.classList.add('show');
             setTimeout(() => {
                 toast.classList.remove('show');
-            }, 3000);
+            }, 4000);
         }
+
+        /* -----------------------------------------------------------
+           5. محرك الأبعاد الثلاثية للكروت (3D Tilt Engine)
+           ----------------------------------------------------------- */
+        const cards = document.querySelectorAll('.vote-card');
+        if (window.matchMedia("(pointer: fine)").matches) {
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left; 
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = ((y - centerY) / centerY) * -12; 
+                    const rotateY = ((x - centerX) / centerX) * 12;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02) translateY(-10px)`;
+                    card.style.transition = 'none'; 
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1) translateY(0)`;
+                    card.style.transition = `all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)`;
+                });
+                
+                card.addEventListener('mouseenter', () => {
+                    card.style.transition = `all 0.1s ease`;
+                });
+            });
+        }
+
+        /* -----------------------------------------------------------
+           6. محرك الجسيمات التفاعلية لخلفية الهيرو (Canvas Particle Network)
+           ----------------------------------------------------------- */
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+
+        function setCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = document.querySelector('.suggest-hero').offsetHeight;
+        }
+        setCanvasSize();
+        window.addEventListener('resize', () => { setCanvasSize(); initParticles(); });
+
+        let mouse = { x: null, y: null, radius: 100 }
+        
+        document.querySelector('.suggest-hero').addEventListener('mousemove', function(event) {
+            mouse.x = event.x; mouse.y = event.y;
+        });
+        document.querySelector('.suggest-hero').addEventListener('mouseleave', function() {
+            mouse.x = undefined; mouse.y = undefined;
+        });
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x; this.y = y; this.directionX = directionX;
+                this.directionY = directionY; this.size = size; this.color = color;
+            }
+            draw() {
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color; ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) { this.directionX = -this.directionX; }
+                if (this.y > canvas.height || this.y < 0) { this.directionY = -this.directionY; }
+
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx*dx + dy*dy);
+                if (distance < mouse.radius + this.size){
+                    if (mouse.x < this.x && this.x < canvas.width - this.size * 10) { this.x += 3; }
+                    if (mouse.x > this.x && this.x > this.size * 10) { this.x -= 3; }
+                    if (mouse.y < this.y && this.y < canvas.height - this.size * 10) { this.y += 3; }
+                    if (mouse.y > this.y && this.y > this.size * 10) { this.y -= 3; }
+                }
+                this.x += this.directionX; this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 9000; 
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 1) - 0.5;
+                let directionY = (Math.random() * 1) - 0.5;
+                let color = 'rgba(255, 255, 255, 0.4)';
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        function connectParticles() {
+            let opacityValue = 1;
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+                        opacityValue = 1 - (distance / 20000);
+                        ctx.strokeStyle = 'rgba(245, 158, 11,' + opacityValue + ')'; 
+                        ctx.lineWidth = 0.5; ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            requestAnimationFrame(animateParticles);
+            ctx.clearRect(0, 0, innerWidth, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); }
+            connectParticles();
+        }
+        
+        initParticles();
+        animateParticles();
     </script>
 </body>
 </html>

@@ -3,411 +3,2178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مركز إيجابيون | عن المركز</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <style>
-        /* ================= المتغيرات الأساسية (نفس هوية المركز) ================= */
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+ 
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />    
+   
+
+
+  <title> من نحن - مركز إيجابيون للتدريب | دورات تدريبية في مختلف المجالات المهنية والطبية </title>
+
+  <meta name="description" content="مركز إيجابيون للتدريب هو مؤسسة تدريبية متخصصة تهدف إلى تقديم أفضل البرامج التدريبية في مختلف المجالات المهنية والطبية. نحن نؤمن بأهمية التطوير المستمر للمهارات.">
+
+  <meta name="keywords" content="مركز تدريب, الدورات التدريبية, دورات معتمدة, إيجابيون, التدريب الصحي, السلامة المهنية, السودان, عطبرة, تدريب الكوادر">
+
+  <meta name="author" content="مركز إيجابيون للتدريب">
+
+
+  <link rel="icon" type="image/png" sizes="180x180" href="images/favicon-logo-rawnaq-bar-180.png">
+
+
+  <meta property="og:title" content="مركز إيجابيون للتدريب | برامج ودورات تطويرية معتمدة">
+  <meta property="og:description" content="دورات معتمدة في المجال الصحي والسلامة والمجالات التقنية والمهنية.">
+  <meta property="og:image" content="https://ejabyoon.com/images/og-images-socail-media-1200w.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ejabyoon.com/">
+
+  <meta name="robots" content="index, follow">
+
+
+
+
+
+
+</head>
+
+
+  <style>
+
+     body {
+      margin: 0;
+       font-family: Cairo, sans-serif;
+      background-color: #fff;
+      color: #1e3a8a;
+    }
+
+
+
+/* الهيدر */
+header {
+  background-color: #1e3a8a;
+  padding: 0 30px;
+  padding-right: 100px;
+  padding-left: 105px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 1000;  /* يخلي الهيدر فوق باقي العناصر */
+}
+
+/* للجوال */
+@media (max-width: 768px) {
+  header {
+    position: fixed;   /* يثبت الهيدر في الأعلى */
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 70px;
+    padding: 10px 20px;
+  }
+
+  body {
+    padding-top: 80px; /* عشان ما يختفي المحتوى تحت الهيدر */
+  }
+}
+
+
+
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 75px;
+}
+
+
+
+/* الشعار */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-container img {
+  height: 65px;
+  width: 150px;
+  border-radius: 10px;
+}
+
+.logo-text h1 {
+  margin: 0;
+  font-size: 18px;
+  color: #fcd34d;
+}
+
+.logo-text p {
+  margin: 0;
+  font-size: 16px;
+  color: #fcd34d;
+}
+
+/* القوائم */
+.main-nav {
+  display: flex;
+  gap: 15px;
+}
+
+.main-nav a {
+  text-decoration: none;
+  font-size: 16px;
+  position: relative;
+  padding: 10px 20px;
+  border-radius: 20px;
+  transition: background-color 0.3s, color 0.3s;
+  color: white;
+}
+
+.main-nav a:hover {
+  background-color: #f0f0f0;
+  color: #f59e0b;
+}
+
+.main-nav a.selected {
+  color: #f59e0b;
+   background-color: #fef3c7;
+}
+
+/* اللغات  E8F5F5*/
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lang-switch a {
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.lang-switch a:hover {
+  color: #f59e0b;
+}
+
+.divider {
+  color: #f59e0b;
+}
+
+/* أيقونة منيو */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+}
+
+
+/* استجابة للجوال */
+@media (max-width: 768px) {
+  header {
+    padding: 10px 20px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .main-nav {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #1e3a8a;
+    margin-top: 10px;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    padding: 20px 0;
+
+    margin-top: 20px;
+    text-align: right;
+      gap: 8px;
+  }
+  
+  
+
+.main-nav a {
+  text-decoration: none;
+  font-size: 16px;
+  position: relative;
+  padding: 10px 20px;
+  border-radius: 15px;
+  transition: background-color 0.3s, color 0.3s;
+  color: #fff;
+}
+
+.main-nav a:hover {
+  background-color: #f0f0f0;
+  color: #f59e0b;
+}
+
+.main-nav a.selected {
+  color: #f59e0b;
+  background-color: #fef3c7;
+
+} 
+  
+    
+  
+  .main-nav.active {
+    display: flex;
+    }
+
+  .main-nav a {
+    padding: 12px;
+  }
+
+
+
+  .lang-switch {
+    margin-top: 5px;
+  }
+    
+  .logo-text{
+    display: none;
+    }
+  .lang-switch2{
+    display: none;
+    }
+        
+}
+
+/* خط رونق  */
+    @font-face {
+        font-family: 'SFPROARDISPLAY';
+        src: url('rawnaq-fonts/alfont_com_SFProAR_semibold.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+/*
+   body {
+        font-family: 'SFPROARDISPLAY', sans-serif;
+        text-align: right;
+        font-size: 18px;
+    }
+
+*/
+
+/* ============================= */
+/* القواعد العامة – الديسكتوب الكبير */
+/* ============================= */
+header {
+  background-color: #1e3a8a;
+  padding: 0 60px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 75px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.logo-container img {
+  max-width: 180px;
+  height: auto;
+}
+
+/* ============================= */
+/* أجهزة اللابتوب (من 1200px ↓) */
+/* ============================= */
+@media (max-width: 1200px) {
+  header {
+    padding: 0 40px;
+  }
+  .main-nav {
+    gap: 12px;
+  }
+  .main-nav a {
+    font-size: 15px;
+    padding: 8px 16px;
+  }
+  .logo-container img {
+    max-width: 150px;
+  }
+}
+
+/* ============================= */
+/* أجهزة التابلت الكبيرة مثل iPad Pro (من 992px ↓) */
+/* ============================= */
+@media (max-width: 992px) {
+  header {
+    padding: 0 30px;
+  }
+  .main-nav {
+    gap: 10px;
+  }
+  .main-nav a {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+  .logo-container img {
+    max-width: 130px;
+  }
+}
+
+/* ============================= */
+/* أجهزة التابلت مثل iPad Air (من 820px ↓) */
+/* ============================= */
+@media (max-width: 820px) {
+  .logo-text {
+    display: none; /* نخفي النص بجانب الشعار لتوفير مساحة */
+  }
+  .main-nav {
+    gap: 8px;
+  }
+  .main-nav a {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}
+
+/* ============================= */
+/* الجوال (من 768px ↓) – عندك الكود الأساسي */
+/* ============================= */
+@media (max-width: 768px) {
+  header {
+    padding: 10px 20px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .main-nav {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #1e3a8a;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    padding: 20px 0;
+    text-align: right;
+    gap: 8px;
+  }
+
+  .main-nav a {
+    padding: 12px 20px;
+    border-radius: 0;
+  }
+
+  .main-nav.active {
+    display: flex;
+  }
+
+  .logo-container img {
+    max-width: 120px;
+  }
+
+  .lang-switch {
+    margin-top: 10px;
+  }
+}
+
+
+
+
+/* القسم الاول في الهيدر في بيانات السوشل ميديا و الاتصال  */
+    .contact-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 40px;
+      background-color: #f59e0b;
+      color: white;
+    }
+
+    .social-icons a {
+      margin-left: 15px;
+      font-size: 20px;
+      text-decoration: none;
+      color: white;
+      transition: color 0.3s;
+    }
+
+    /* Hover colors */
+    .social-icons a.facebook:hover { color: #1877f2; }
+    .social-icons a.instagram:hover { color: #e1306c; }
+    .social-icons a.linkedin:hover  { color: #0a66c2; }
+    .social-icons a.tiktok:hover    { color: black; }
+    .social-icons a.x:hover svg {fill: #000000;}
+
+    .contact-info {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .contact-info a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.3s;
+    }
+
+    .contact-info a:hover {
+      
+      font-weight: 700;
+    }
+
+    /* Responsive: Hide on mobile */
+    @media (max-width: 768px) {
+      .contact-bar {
+        display: none;
+      }
+    }
+    
+
+
+
+
+ 
+    
+
+
+
+ 
+
+        /* تحديد الخلفية والطبقة الشفافة (Hero Section) */
+        .hero-background {
+            background-image: url('https://i.postimg.cc/FKtKVywJ/about-team-Bm-PGx-DQ0.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            height: 75vh;
+            display: flex; /* flex */
+            align-items: center; /* items-center */
+            justify-content: center; /* justify-center */
+            padding: 24px; /* p-6 */
+        }
+
+        /* إنشاء الطبقة الشفافة باللون الأزرق الداكن لإيجابيون */
+        .hero-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(30, 58, 138, 0.8); /* Dark Blue with opacity */
+            z-index: 1;
+        }
+
+        /* لجعل المحتوى فوق الطبقة الشفافة */
+        .hero-content {
+            z-index: 2;
+            color: #fff; /* text-white */
+            text-align: center; /* text-center */
+            padding: 48px; /* md:p-12 */
+            max-width: 900px; /* max-w-4xl */
+            width: 100%; /* w-full */
+        }
+
+        /* تنسيقات العناوين والنصوص */
+        .main-title {
+            font-size: 60px; /* text-6xl */
+            font-weight: 700; /* font-bold */
+            margin-bottom: 24px; /* mb-6 */
+            letter-spacing: 0.025em; /* tracking-wide */
+        }
+
+        .main-description {
+            font-size: 20px; /* text-xl */
+            font-weight: 300; /* font-light */
+             /* mb-12 */
+            opacity: 0.9; /* opacity-90 */
+            line-height: 1.625; /* leading-relaxed */
+        }
+
+        /* تنسيقات البطاقات الإحصائية */
+        .stats-container {
+            display: flex; /* flex */
+            flex-direction: column; /* flex-col */
+            justify-content: center; /* justify-center */
+            gap: 24px; /* space-y-4 + md:space-x-6 (تم دمجها في gap) */
+        }
+
+        .stat-card {
+            display: flex; /* flex */
+            align-items: center; /* items-center */
+            justify-content: center; /* justify-center */
+            padding: 16px; /* p-4 */
+            border-radius: 12px; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* shadow-lg */
+            background: rgba(255, 255, 255, 0.1); /* خلفية شفافة */
+            backdrop-filter: blur(5px); /* تأثير ضبابي خفيف */
+            transition: transform 0.3s ease; /* transition duration-300 */
+        }
+
+        .stat-card:hover {
+            transform: scale(1.03); /* hover:scale-[1.03] */
+        }
+
+        .stat-icon {
+            width: 24px; /* w-6 */
+            height: 24px; /* h-6 */
+            margin-left: 8px; /* space-x-2 reverse */
+            flex-shrink: 0;
+            color: #f59e0b; /* تحويل الأيقونات للذهبي */
+        }
+
+        .stat-text {
+            font-size: 18px; /* text-lg */
+            font-weight: 500; /* font-medium */
+            white-space: nowrap; /* whitespace-nowrap */
+        }
+
+
+        /* التجاوبية (Media Queries) - للشاشات الأكبر من 768 بكسل (md:) */
+        @media (min-width: 768px) {
+            .main-title {
+                font-size: 96px; /* md:text-8xl */
+            }
+
+            .main-description {
+                font-size: 24px; /* md:text-2xl */
+            }
+            
+            .stats-container {
+                flex-direction: row; /* md:flex-row */
+                gap: 24px; /* md:space-x-6 */
+            }
+        }
+
+
+
+
+
+
+        
+
+/* القسم الثالث من نحن */
+.about-section-two {
+  padding: 80px 5px;
+  background: #fff;
+  direction: rtl; /* يدعم العربية */
+  
+}
+
+.about-container-two {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  max-width: 1300px;
+  margin: auto;
+  height: 100%;
+}
+
+/* الصورة */
+.about-image {
+  position: relative;
+  flex: 1;
+}
+
+.about-image img {
+  width: 100%;
+    height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+/* صندوق الخبرة */
+.experience-box {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 20px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+.experience-box h3 {
+  color: #1e3a8a;
+  font-size: 28px;
+  margin: 0;
+}
+
+.experience-box p {
+  margin: 0;
+  font-size: 15px;
+  color: #555;
+}
+
+/* النص */
+.about-content {
+  flex: 1;
+}
+
+.about-content h2 {
+  font-size: 32px;
+  color: #1e3a8a;
+  margin-bottom: 20px;
+   text-align: right;
+}
+
+.about-content p {
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+/* المميزات */
+.about-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.feature i {
+  font-size: 28px;
+  color: #1e3a8a;
+}
+
+.feature h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #1e3a8a;
+}
+
+.feature p {
+  margin: 3px 0 0;
+  font-size: 14px;
+  color: #666;
+}
+
+/* للموبايل */
+@media (max-width: 900px) {
+  .about-container-two {
+    flex-direction: column;
+    text-align: right;
+  }
+  .about-features {
+    grid-template-columns: 1fr;
+  }
+  .feature {
+    justify-content: right;
+  }
+  
+  .experience-box {
+    display:none;
+}  
+  
+}
+
+  
+
+
+
+         /* -القسم  الثالث رسالتنا و رؤيتنا-   */
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+        
         :root {
             --primary-color: #1e3a8a; /* أزرق داكن */
-            --secondary-color: #f59e0b; /* أصفر/ذهبي */
-            --text-dark: #1f2937;
-            --text-light: #6b7280;
-            --bg-light: #f3f4f6;
-            --white: #ffffff;
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* حركة أنعم وأفخم */
+            --primary-hover: #1e40af; 
+            --bg-color: #f7f7f7;      /* خلفية الصفحة الفاتحة */
+            --card-bg: #ffffff;       /* خلفية البطاقة */
+            --text-dark: #333333;
+            --text-light: #666666;
         }
 
-        /* ================= إعادة ضبط وتنسيق عام ================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* التنسيقات العامة للصفحة */
+        .cards-container-three {
             font-family: 'Cairo', sans-serif;
-        }
-
-        body {
-            background-color: var(--white);
-            color: var(--text-dark);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
-
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
-
-        /* ================= شريط التنقل (مبسط للصفحة الفرعية) ================= */
-        header {
-            background-color: var(--white);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
+            background-color: #ffffff;  
+            margin: 0;
+            padding: 30px 20px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 15px 5%;
-            max-width: 1400px;
-            margin: 0 auto;
+           
         }
 
-        .logo { font-size: 28px; font-weight: 800; color: var(--primary-color); }
-        .logo span { color: var(--secondary-color); }
-
-        .nav-links { display: flex; gap: 25px; align-items: center;}
-        .nav-links a { font-weight: 600; transition: var(--transition); color: var(--text-dark); }
-        .nav-links a:hover { color: var(--secondary-color); }
-        
-        .nav-links a.active { color: var(--secondary-color); border-bottom: 2px solid var(--secondary-color); padding-bottom: 5px;}
-
-        .btn-back {
-            background-color: var(--bg-light);
-            color: var(--primary-color);
-            padding: 8px 20px;
-            border-radius: 5px;
-            font-weight: 700;
-            border: 1px solid #e5e7eb;
-            transition: var(--transition);
-        }
-        .btn-back:hover { background-color: var(--primary-color); color: var(--white); }
-
-        /* ================= ترويسة الصفحة (Page Header) ================= */
-        .page-header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #1e40af 100%);
-            color: var(--white);
-            padding: 150px 5% 80px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* تأثير زخرفي في الخلفية */
-        .page-header::before {
-            content: '';
-            position: absolute;
-            top: -50px; left: -50px;
-            width: 200px; height: 200px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.05);
-        }
-
-        .page-header h1 {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .breadcrumb {
-            color: rgba(255,255,255,0.8);
-            font-size: 1.1rem;
-            position: relative;
-            z-index: 2;
-        }
-        .breadcrumb a { color: var(--secondary-color); font-weight: bold;}
-
-        /* ================= العناوين العامة ================= */
-        .section-padding { padding: 90px 5%; }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            position: relative;
-            display: inline-block;
-        }
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            width: 40px; height: 4px;
-            background-color: var(--secondary-color);
-            bottom: -10px; left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
-        /* ================= قسم قصتنا (Story Section) ================= */
-        .story-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
+        /* حاوية البطاقات */
+        .cards-container {
+            display: flex;
+            gap: 40px; /* المسافة بين البطاقات */
             max-width: 1200px;
-            margin: 0 auto;
-            align-items: center;
-        }
-
-        .story-text h3 {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-        
-        .story-text p {
-            color: var(--text-light);
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            text-align: justify;
-        }
-
-        .story-image {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        
-        .story-image img {
             width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-        
-        .story-image:hover img { transform: scale(1.05); }
-
-        /* ================= الرؤية والرسالة والأهداف (Cards) ================= */
-        .vmg-section { background-color: var(--bg-light); }
-        
-        .vmg-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
-        .vmg-card {
-            background: var(--white);
-            padding: 40px 30px;
-            border-radius: 15px;
+        /* تنسيق البطاقة الفردية */
+        .card {
+            flex: 1;
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: var(--transition);
-            border-bottom: 4px solid transparent;
-            /* للتحريك عند النزول */
-            opacity: 0;
-            transform: translateY(30px); 
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* للـ Hover */
+            border: 1px solid #eee;
         }
 
-        .vmg-card.show {
-            opacity: 1;
-            transform: translateY(0);
+        /* تأثير التحويم (Hover) على البطاقة */
+        .card:hover {
+            transform: translateY(-8px); /* رفع البطاقة قليلاً */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); /* ظل أقوى */
         }
 
-        .vmg-card:hover {
-            transform: translateY(-10px);
-            border-bottom-color: var(--secondary-color);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-        }
-
-        .vmg-icon {
-            width: 80px; height: 80px;
-            background: rgba(30, 58, 138, 0.05);
-            color: var(--primary-color);
+        /* حاوية الأيقونة */
+        .icon-container {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2.5rem;
-            margin: 0 auto 25px;
-            transition: var(--transition);
+            background-color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 25px auto;
+            transition: background-color 0.3s ease; /* للـ Hover */
         }
         
-        .vmg-card:hover .vmg-icon {
-            background: var(--primary-color);
-            color: var(--white);
+        /* تأثير التحويم (Hover) على الأيقونة داخل البطاقة */
+        .card:hover .icon-container {
+            background-color: #f59e0b; /* ذهبي إيجابيون */
         }
 
-        .vmg-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--text-dark); }
-        .vmg-card p { color: var(--text-light); }
-
-        /* ================= إحصائيات متحركة (Counter Section) ================= */
-        .stats-section {
-            background: var(--primary-color);
-            color: var(--white);
-            padding: 60px 5%;
+        /* الأيقونة (رمز العين أو التركيز - SVG) */
+        .icon-svg {
+            width: 38px;
+            height: 38px;
+            stroke: var(--card-bg); /* لون الأيقونة الأبيض */
+            transition: transform 0.3s ease; /* للـ Hover */
         }
         
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
+        /* تأثير التحويم (Hover) على الأيقونة نفسها */
+        .card:hover .icon-svg {
+            transform: scale(1.1); /* تكبير الأيقونة قليلاً */
+        }
+
+        /* عنوان البطاقة (رؤيتنا/رسالتنا) */
+        .card-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        /* نص البطاقة (الوصف) */
+        .card-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-light);
+            font-weight: 400;
+            text-align: justify;
+            text-align-last: center; /* لتحسين شكل النص في الوسط */
+        }
+
+        /* التجاوبية - يقلب التصميم لعمود واحد على الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .cards-container {
+                flex-direction: column;
+                gap: 20px;
+                width: 95%;
+            }
+
+            .card {
+                padding: 30px;
+            }
+        }
+
+
+
+
+
+          /*القسم  الرابع قيمنا */
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+        
+        :root {
+            --primary-color: #1e3a8a; /* أزرق إيجابيون */
+            --primary-hover: #f59e0b; /* ذهبي إيجابيون */
+            --bg-color: #f7f7f7;      
+            --card-bg: #ffffff;       
+            --text-dark: #333333;
+            --text-light: #666666;
+        }
+
+        /* التنسيقات العامة للصفحة */
+        .values-section-four{
+           font-family: 'Cairo', sans-serif;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+        }
+
+        /* حاوية القسم بالكامل */
+        .values-section {
+            max-width: 1300px;
+            width: 100%;
             text-align: center;
         }
-        
-        .stat-item h4 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: var(--secondary-color);
+
+        /* عنوان القسم */
+        .section-header {
+            margin-bottom: 50px;
+
+        }
+
+        .values-title{
+            font-size: 45px;
+            font-weight: 900;
+            color: var(--primary-color);
             margin-bottom: 10px;
         }
-        
-        .stat-item p { font-size: 1.2rem; font-weight: 600; }
 
-        /* ================= التذييل (مختصر) ================= */
-        footer {
-            background-color: #111827;
-            color: #9ca3af;
+        .subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        /* حاوية البطاقات (Grid Layout) */
+        .cards-container-values {
+            display: grid;
+            /* 4 أعمدة متساوية على الشاشات الكبيرة */
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 25px; /* المسافة بين البطاقات */
+        }
+
+        /* تنسيق البطاقة الفردية */
+        .card {
+            background-color: var(--card-bg);
+            padding: 30px 20px;
+            border-radius: 16px;
             text-align: center;
-            padding: 25px;
-            font-size: 0.9rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* للـ Hover */
+            border: 1px solid #eee;
         }
 
-        /* ================= استجابة الشاشات (Mobile) ================= */
-        @media (max-width: 768px) {
-            .story-container { grid-template-columns: 1fr; }
-            .story-text { order: 2; text-align: center; }
-            .story-image { order: 1; }
-            .page-header h1 { font-size: 2.2rem; }
-            .nav-links { display: none; } /* يمكن إضافة قائمة همبرغر هنا لاحقاً */
+        /* تأثير التحويم (Hover) على البطاقة */
+        .card:hover {
+            transform: translateY(-8px); /* رفع البطاقة قليلاً */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); /* ظل أقوى */
         }
-    </style>
-</head>
+        
+        /*
+        * تم إزالة التنسيقات الخاصة بـ .card.is-featured هنا لتوحيد تصميم بطاقة الشراكة
+        */
+
+        /* حاوية الأيقونة */
+        .icon-container {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: #f3f4f6; /* خلفية فاتحة للأيقونة */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px auto;
+            transition: background-color 0.3s ease, border-color 0.3s ease; /* للـ Hover */
+            /* لون الأزرق الداكن للحدود الدائرية الخارجية */
+            border: 1px solid var(--primary-color); 
+        }
+
+        /*
+        * تم إزالة التنسيقات الخاصة بـ .card.is-featured .icon-container هنا
+        */
+
+        /* تأثير التحويم (Hover) على الأيقونة داخل البطاقة */
+        .card:hover .icon-container {
+            background-color: var(--primary-hover); /* تغيير لون الخلفية للأيقونة */
+            border-color: var(--primary-hover);
+        }
+        
+        /* الأيقونة (SVG) */
+        .icon-svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--primary-color); /* لون الأيقونة */
+            transition: stroke 0.3s ease, transform 0.3s ease; /* للـ Hover */
+        }
+
+        /*
+        * تم إزالة التنسيقات الخاصة بـ .card.is-featured .icon-svg هنا
+        */
+        
+        /* تأثير التحويم (Hover) على الأيقونة نفسها */
+        .card:hover .icon-svg {
+            transform: scale(1.1); /* تكبير الأيقونة قليلاً */
+            /* عند التحويم، اجعل لون الأيقونة أبيض */
+            stroke: var(--card-bg); 
+        }
+
+        /* عنوان البطاقة (القيمة) */
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        /* نص البطاقة (الوصف) */
+        .card-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        /* التجاوبية (Media Queries) */
+        
+        /* شاشات متوسطة (Tablet) - عمودين */
+        @media (max-width: 1024px) {
+            .cards-container-values {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* شاشات صغيرة (Mobile) - عمود واحد */
+        @media (max-width: 640px) {
+            .cards-container-values {
+                grid-template-columns: 1fr;
+            }
+            .values-title{
+                font-size: 36px;
+            }
+        }
+
+
+
+
+
+       /* القسم الخامس لماذا تختارنا  */
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+        
+        :root {
+            --primary-color: #1e3a8a; /* أزرق إيجابيون */
+            --primary-hover: #f59e0b; /* ذهبي إيجابيون (لخلفية الأيقونة) */
+            --bg-section: #f3f4f6;    /* خلفية القسم الفاتحة جداً */
+            --card-bg: #ffffff;       /* خلفية البطاقة */
+            --text-dark: #333333;
+            --text-light: #666666;
+            --icon-fill-color: #1e3a8a; /* اللون الافتراضي للأيقونة */
+        }
+
+        /* التنسيقات العامة للصفحة */
+        .choose-us-section-five {
+            font-family: 'Cairo', sans-serif;
+            margin: 30px 0px;
+            padding: 5px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+        /* حاوية القسم بالكامل */
+        .choose-us-section {
+            max-width: 1300px;
+            width: 90%;
+            text-align: center;
+            padding: 15px 0;
+            background-color: var(--bg-section);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        /* عنوان القسم */
+        .section-header-five {
+            margin-bottom: 40px;
+        }
+
+        .main-title-five {
+            font-size: 45px;
+            font-weight: 900;
+            color: #1e3a8a; /* اللون الداكن الافتراضي للعنوان */
+            margin-bottom: 10px;
+        }
+
+        .subtitle-five {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        /* حاوية البطاقات (Grid Layout) */
+        .cards-container-choose-us {
+            display: grid;
+            /* 3 أعمدة متساوية على الشاشات الكبيرة */
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 30px; 
+            padding: 0 30px;
+        }
+
+        /* تنسيق البطاقة الفردية - لا يوجد خلفية منفصلة هنا، المحتوى يتمركز */
+        .card {
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        /* حاوية الأيقونة (الدائرة) */
+        .icon-container {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px auto;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 15px rgba(30, 58, 138, 0.4);
+        }
+
+        /* الأيقونة (SVG) */
+        .icon-svg {
+            width: 45px;
+            height: 45px;
+            stroke: var(--card-bg); /* الأيقونة الداخلية دائماً بيضاء */
+            fill: none;
+            stroke-width: 2; /* تم زيادته ليتناسب مع تصميم الأيقونة الجديدة */
+            transition: transform 0.3s ease;
+        }
+
+        /* ملاحظة: الأيقونة الجديدة تستخدم fill=none بشكل افتراضي، لذا نعتمد على Stroke */
+        .card:hover .icon-svg {
+            transform: scale(1.05) rotate(5deg); /* تحريك خفيف للأيقونة */
+        }
+        
+        /* عنوان البطاقة (الميزة) */
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            transition: color 0.3s ease; /* للتحويم على النص */
+        }
+
+        /* نص البطاقة (الوصف) */
+        .card-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        /* ==================================== */
+        /* تأثير التحويم (Hover Effects) */
+        /* ==================================== */
+
+        /* عند التحويم على البطاقة بالكامل */
+        .card:hover .icon-container {
+            background-color: var(--primary-hover); /* تغيير لون خلفية الأيقونة */
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.6);
+        }
+
+        /* تغيير لون النص (العنوان) عند التحويم على البطاقة */
+        .card:hover .card-title {
+            color: var(--primary-color); /* تغيير لون النص */
+        }
+
+        /* التجاوبية (Media Queries) */
+        
+        /* شاشات متوسطة (Tablet) - عمودين */
+        @media (max-width: 900px) {
+            .cards-container-choose-us {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 0 20px;
+            }
+        }
+
+        /* شاشات صغيرة (Mobile) - عمود واحد */
+        @media (max-width: 600px) {
+            .cards-container-choose-us {
+                grid-template-columns: 1fr;
+                padding: 0 10px;
+            }
+            .main-title-five {
+                font-size: 32px;
+            }
+        }
+
+
+
+
+
+  
+/* قسم التواصل */
+/* ===== Contact Pro Section ===== */
+
+
+    /* الخط والألوان الأساسية الموحدة */
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+        
+        :root {
+            /* الألوان الأساسية لهوية "إيجابيون" */
+            --primary-color: #1e3a8a;  /* لون أزرق إيجابيون الأساسي */
+            --primary-hover: #1e40af; /* لون أغمق للـ Hover */
+            --ink: #1f2937; /* لون النصوص الداكن (ثانوي) */
+            --bg-contact: #f3f4f6; /* خلفية القسم الفاتحة */
+            --soft-border: #e5e7eb;
+            --text-dim: #4b5563;
+        }
+
+        /* ==================================== */
+        /* التنسيقات العامة للصفحة */
+        /* ==================================== */
+
+    
+
+        /* ==================================== */
+        /* قسم التواصل - Contact Pro Section */
+        /* ==================================== */
+
+        .contact-pro{
+            font-family: 'Cairo', sans-serif;
+            background:
+                /* تدرج خلفي خفيف */
+                radial-gradient(1200px 600px at 100% -10%, rgba(30, 58, 138,.05), transparent 60%), 
+                radial-gradient(800px 500px at -10% 110%, rgba(245, 158, 11,.05), transparent 55%),
+                var(--bg-contact);
+            padding: clamp(40px, 6vw, 80px) 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .contact-wrap{
+            max-width: 1100px;
+            margin-inline: auto;
+        }
+
+        .contact-head{
+            text-align: center;
+            margin-bottom: clamp(24px, 4vw, 40px);
+        }
+
+        .contact-head h2{
+            font-size: 40px;
+            color: var(--primary-color); /* العنوان باللون الأزرق */
+            margin: 0 0 8px;
+            letter-spacing: .3px;
+            font-weight: 800;
+        }
+
+        .contact-head p{
+            color: var(--text-dim);
+            font-size: clamp(14px, 2.2vw, 18px);
+            margin: 0;
+        }
+
+        /* Grid - ترتيب البطاقات */
+        .contact-grid{
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: clamp(14px, 2vw, 20px);
+        }
+
+        /* Cards - تنسيق البطاقة الفردية */
+        .contact-card{
+            grid-column: span 6; /* 2 كرت في الصف على التابلت */
+            display: grid;
+            grid-template-columns: 56px 1fr auto; 
+            align-items: center;
+            gap: 16px;
+            padding: clamp(14px, 2.2vw, 18px);
+            border-radius: 16px;
+            background: linear-gradient(180deg, #fff, #fbfbfb);
+            border: 1px solid var(--soft-border);
+            box-shadow: 0 6px 18px rgba(0,0,0,.06);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+            color: var(--ink);
+        }
+
+        /* تأثير التظليل الداخلي الخفيف في الزاوية */
+        .contact-card::after{
+            content:"";
+            position:absolute;
+            inset: -30% -10% auto auto;
+            width: 220px; height: 220px;
+            background: radial-gradient(closest-side, rgba(30, 58, 138,.05), transparent 60%); 
+            transform: rotate(12deg);
+            pointer-events:none;
+            z-index:-1;
+        }
+
+        /* تأثير التحويم على البطاقة */
+        .contact-card:hover{
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(30, 58, 138,.1); 
+            border-color: rgba(245, 158, 11,.3); /* إطار ذهبي عند التحويم */
+        }
+
+        .contact-card .icon{
+            width: 56px; height: 56px;
+            display:grid; place-items:center;
+            border-radius: 14px;
+            background: linear-gradient(180deg, #f4f7f7, #eef3f3);
+            border: 1px solid #e5e9ea;
+            flex-shrink: 0;
+        }
+
+        .contact-card .icon i{
+            font-size: 22px;
+            color: var(--primary-color); /* الأيقونات */
+        }
+
+        .contact-card .info h3{
+            margin: 0 0 4px;
+            font-size: clamp(16px, 2.4vw, 18px);
+            color: var(--primary-color); 
+            font-weight: 700;
+        }
+
+        .contact-card .info p{
+            margin: 0;
+            color: #374151;
+            font-size: 13px;
+        }
+
+        .contact-card .cta{
+            font-size: 13px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(30, 58, 138,.35);
+            color: var(--primary-color);
+            background: #fff;
+            white-space: nowrap;
+            transition: background .2s ease, color .2s ease, border-color .2s ease;
+        }
+
+        /* تأثير زر الإجراء عند التحويم */
+        .contact-card:hover .cta{
+            background: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+        }
+
+        /* ألوان أيقونات العلامات التجارية الخاصة (Whatsapp, Mail) */
+        .contact-card[href^="https://wa.me"] .icon i{ color:#1fae37; }
+        .contact-card[href^="mailto:"] .icon i{ color:#c43b2b; }
+
+    
+
+        /* ===== التجاوبية (Media Queries) ===== */
+
+        /* Desktop ≥1024px: 4 بطاقات في الصف */
+        @media (min-width: 1024px){
+            .contact-card{ grid-column: span 3; } 
+        }
+
+        /* Tablets 640–1023px: 2 بطاقات بالصف */
+        @media (max-width: 1023.98px){
+            .contact-card{ grid-column: span 6; }
+        }
+
+        /* Mobile ≤639px: بطاقة كاملة العرض */
+        @media (max-width: 639.98px){
+            .contact-grid{ grid-template-columns: 1fr; }
+            .contact-card{
+                grid-template-columns: 48px 1fr; 
+                grid-auto-rows: auto;
+                padding: 14px;
+                text-align: right; 
+            }
+            .contact-card .cta{
+                grid-column: 1 / -1; 
+                justify-self: start; 
+                margin-top: 8px;
+            }
+            .contact-card .icon{ width: 48px; height: 48px; border-radius: 12px; }
+        }
+
+        /* Very small devices ≤480px */
+        @media (max-width: 480px){
+            .contact-card {
+                grid-template-columns: 40px 1fr;
+                padding: 12px;
+            }
+            .contact-card .icon {
+                width: 40px; height: 40px; border-radius: 10px;
+            }
+        }
+
+        /* Medium-large screens ≥1280px */
+        @media (min-width: 1280px){
+            .contact-wrap { max-width: 1280px; }
+            .contact-card { grid-column: span 3; }
+        }
+        
+        /* Extra large screens ≥1536px */
+        @media (min-width: 1536px){
+            .contact-wrap { max-width: 1440px; } 
+            .contact-card { padding: 22px; }
+        }
+
+
+
+
+    /* الخط والألوان الأساسية الموحدة */
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+        
+        :root {
+            /* الألوان الأساسية لهوية "إيجابيون" */
+            --primary-color: #1e3a8a;  
+            --primary-hover: #1e40af; 
+            --ink: #1f2937; 
+            --bg-contact: #f3f4f6; 
+            --soft-border: #e5e7eb;
+            --text-dim: #4b5563;
+        }
+
+        /* ==================================== */
+        /* التنسيقات العامة للصفحة */
+        /* ==================================== */
+
+        .rawnaq-footer-container {
+            font-family: 'Cairo', sans-serif;
+   
+            background-color: #fff;
+            display: flex;
+            flex-direction: column; 
+            justify-content: flex-start;
+            align-items: center;
+
+        }
+
+
+        /* ==================================== */
+        /* قسم الفوتر - Footer (Rawnaq Styles) */
+        /* ==================================== */
+
+        .rawnaq-footer {
+            background-color: #1e3a8a; /* لون خلفية الفوتر الجديد إيجابيون */
+            padding: 55px 50px 30px; 
+            color: white;
+            direction: rtl;
+            font-family: 'Cairo', sans-serif;
+            text-align: right;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px; 
+            margin-bottom: 30px;
+            max-width: 1300px;
+            margin-inline: auto;
+            text-align: right;
+        }
+
+        .footer-info-col {
+            text-align: right;
+            max-width: 380px;
+            min-width: 250px;
+        }
+
+        .footer-info-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .footer-info-header .img {
+            height: 65px;
+            width: 55px;
+            border-radius: 8px;
+            background: #fff;
+            color: var(--primary-color);
+            font-size: 24px; /* حجم أيقونة الشعار */
+            display: grid;
+            place-items: center;
+        }
+        
+        .footer-info-title h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0;
+            color: white;
+        }
+
+        .footer-info-title .tagline {
+            font-weight: 500;
+            margin-top: 2px;
+            color: #f59e0b; /* ذهبي إيجابيون */
+        }
+
+        .footer-info-text p {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.6;
+            margin: 15px 0 0 0;
+            color: #ddd;
+        }
+
+        .footer-links-col {
+            min-width: 150px;
+            text-align: right;
+        }
+
+        .footer-links-col h3 {
+            margin-bottom: 15px;
+            color: #f59e0b; /* ذهبي إيجابيون */
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .footer-links-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links-col li {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .footer-links-col a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 400;
+        }
+
+        .footer-links-col a:hover {
+            color: #f59e0b; 
+        }
+
+        /* Contact Info Block */
+        .footer-contact-heading {
+            font-size: 22px;
+            color: white;
+            margin-bottom: 20px;
+            margin-top: 40px;
+            text-align: right;
+            font-weight: 700;
+        }
+        
+        .footer-contact-info {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px 40px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #ccc;
+            margin: 20px 0 40px;
+        }
+
+        .contact-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-item i { /* استخدام أيقونات Font Awesome */
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+            color: #f59e0b;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #f59e0b;
+        }
+
+        .footer-divider {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            margin: 30px 0;
+        }
+
+        .footer-copyright {
+            padding-top: 15px;
+            font-size: 14px;
+            color: #ccc;
+            text-align: center;
+        }
+
+        .developed-by{
+            text-decoration: none;
+            color: #ccc;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.3s ease;
+        }
+
+        .developed-by:hover {
+            color: #f59e0b;
+        }
+
+        /* ===== التجاوبية (Media Queries) - Footer Section ===== */
+
+        @media (max-width: 768px) {
+            .rawnaq-footer {
+                padding: 30px 20px;
+            }
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 30px;
+                max-width: 100%;
+                margin: 0;
+            }
+            .footer-info-col,
+            .footer-links-col {
+                text-align: right;
+                width: 100%;
+                max-width: 100%;
+                min-width: auto;
+            }
+            .footer-contact-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+                margin: 20px 0 30px;
+            }
+            .footer-contact-heading {
+                text-align: right;
+            }
+            .footer-divider {
+                margin: 20px 0;
+            }
+            .footer-copyright {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-info-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            .footer-info-title {
+                 text-align: right;
+            }
+            .footer-info-text p {
+                text-align: right;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+  </style>
+
+
+
 <body>
 
-    <header>
-        <div class="nav-container">
-            <a href="index.html" class="logo">إيجابيون <span>للتدريب</span></a>
-            <ul class="nav-links">
-                <li><a href="index.html">الرئيسية</a></li>
-                <li><a href="about.html" class="active">عن المركز</a></li>
-                <li><a href="index.html#courses">الدورات</a></li>
-            </ul>
-            <a href="index.html" class="btn-back"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
-        </div>
-    </header>
 
-    <div class="page-header">
-        <h1>من نحن</h1>
-        <div class="breadcrumb">
-            <a href="index.html">الرئيسية</a> / عن المركز
-        </div>
+
+      <div class="contact-bar">
+  
+    <div class="contact-info">
+      <a href="mailto:info@ejabyoon.com">
+        info@ejabyoon.com
+        <i class="fas fa-envelope"></i> 
+      </a>
+      <a href="tel:+249123456789">
+        +249123456789 
+        <i class="fa-solid fa-phone"></i> 
+      </a>
+    </div>
+    
+    
+    <div class="social-icons">
+      <a href="#" target="_blank" class="facebook"><i class="fab fa-facebook-f"></i></a>
+
+      <a href="#" target="_blank" class="x">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
+    <path d="M20.292 3H23L15.625 10.625L24 21H17.292L11.875 14.042L5.833 21H3L10.792 12.792L2 3H8.875L13.958 9.5L20.292 3Z"/>
+  </svg>
+</a>
+      
+      <a href="#" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" target="_blank" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" target="_blank" class="tiktok"><i class="fab fa-tiktok"></i></a>
     </div>
 
-    <section class="section-padding">
-        <div class="story-container">
-            <div class="story-text">
-                <h3>بداية فكرة مركز إيجابيون</h3>
-                <p>تأسس مركز <strong>إيجابيون للتدريب</strong> في مدينة عطبرة بهدف سد الفجوة بين التعليم الأكاديمي ومتطلبات سوق العمل المتسارعة. نحن نؤمن بأن التدريب العملي والموجه هو المفتاح الحقيقي لنجاح أي مسيرة مهنية.</p>
-                <p>بدأنا كفكرة طموحة لنشر المعرفة في مجالات التقنية (مثل تطوير الويب والبرمجة)، والتحليل الإحصائي (SPSS)، وتطوير كوادر الرعاية الصحية، واليوم نحن نسعى لنكون المنصة الأولى التي يلجأ إليها الشباب لبناء مستقبلهم.</p>
-            </div>
-            <div class="story-image">
-                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="تدريب وتطوير">
-            </div>
+  </div>
+
+   
+  
+
+  <header>
+    <div class="nav-container">
+    
+      <div class="logo-container">
+        <img src="https://i.postimg.cc/Y2v7vw79/full-rawnaq-logo-removebg-preview.png" alt="شعار مركز إيجابيون ">
+        <div class="logo-text">
+          <h1>إيجابيون للتدريب</h1>
+             <p class="your-law-tagline">   </p>
         </div>
+      </div>
+  
+      <div class="menu-toggle" id="menu-toggle" >☰</div>
+  
+      <nav class="main-nav" id="main-nav">
+        <a href="index.html">الرئيسية</a>
+        <a href="about" class="selected">من نحن</a>
+        <a href="#" target="_blank" > المتجر</a>
+        <a href="training-fields" > مجالات التدريب </a>
+        <a href="services" > الخدمات </a>
+        <a href="corporate-request">طلبات الشركات</a>
+        <a href="contact">اتصل بنا</a>
+        <div class="lang-switch">
+          <a href="home-en">English</a>
+        </div>
+      </nav>
+      
+  
+     <div class="lang-switch2">
+       <a href="#"></a>
+        </div>
+      
+    </div>
+  </header>
+  
+
+
+
+
+
+
+
+
+
+    <section class="hero-background">
+
+        <div class="hero-content">
+
+            <h1 class="main-title">
+                من نحن
+            </h1>
+
+            <p class="main-description">
+                مركز إيجابيون للتدريب - رائدون في تطوير المهارات المهنية والطبية
+            </p>
+
+            <div class="stats-container">
+
+                <div class="stat-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="stat-icon">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                    <span class="stat-text">أكثر من 500 متدرب</span>
+                </div>
+
+                <div class="stat-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="stat-icon">
+                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                        <path d="M15 2H9a1 1 0 0 0-1 1v1h8V3a1 1 0 0 0-1-1z"></path>
+                    </svg>
+                    <span class="stat-text">15 مجال تخصصي</span>
+                </div>
+
+                <div class="stat-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="stat-icon">
+                        <circle cx="12" cy="8" r="7"></circle>
+                        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                    </svg>
+                    <span class="stat-text">شهادات معتمدة</span>
+                </div>
+            </div>
+            </div>
+        </section>
+    <section class="about-section-two">
+      <div class="about-container-two">
+
+
+
+        <div class="about-content">
+          <h2> مركز إيجابيون للتدريب</h2>
+          <p>
+            تأسس مركز إيجابيون للتدريب في مدينة عطبرة بهدف سد الفجوة بين التعليم الأكاديمي ومتطلبات سوق العمل المتسارعة. نحن نؤمن بأن التدريب العملي والموجه هو المفتاح الحقيقي لنجاح أي مسيرة مهنية. 
+          </p>
+
+          <div class="about-features">
+            <div class="feature">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <div>
+                <h4>تدريب متخصص</h4>
+                <p>دورات متخصصة في جميع المجالات</p>
+              </div>
+            </div>
+
+            <div class="feature">
+              <i class="fa-solid fa-award"></i>
+              <div>
+                <h4>شهادات معتمدة</h4>
+                <p>معتمدة من الجهات الرسمية</p>
+              </div>
+            </div>
+
+            <div class="feature">
+              <i class="fa-solid fa-book-open"></i>
+              <div>
+                <h4>منهج حديث</h4>
+                <p>أحدث المناهج والتقنيات</p>
+              </div>
+            </div>
+
+            <div class="feature">
+              <i class="fa-solid fa-users"></i>
+              <div>
+                <h4>مدربون خبراء</h4>
+                <p>فريق متخصص وذو خبرة عالية</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+            <div class="about-image">
+          <img src="https://i.postimg.cc/NfSxsYjg/3.jpg" alt="عن مركز إيجابيون">
+          <div class="experience-box">
+            <h3>+15</h3>
+            <p>سنة خبرة</p>
+          </div>
+        </div>
+
+
+      </div>
     </section>
 
-    <section class="vmg-section section-padding">
-        <div class="section-title">
-            <h2>هويتنا المؤسسية</h2>
-        </div>
-        <div class="vmg-grid">
+
+
+       <div class="cards-container-three">
+        <div class="cards-container">
+
+        <div class="card">
             
-            <div class="vmg-card">
-                <div class="vmg-icon"><i class="fas fa-eye"></i></div>
-                <h3>رؤيتنا</h3>
-                <p>أن نكون المركز الرائد والأكثر ابتكاراً في تقديم الحلول التدريبية المتكاملة في السودان، وصناعة جيل من المحترفين القادرين على المنافسة عالمياً.</p>
+            <div class="icon-container">
+                <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="12" r="6"></circle>
+                    <circle cx="12" cy="12" r="2"></circle>
+                </svg>
             </div>
-
-            <div class="vmg-card">
-                <div class="vmg-icon"><i class="fas fa-bullseye"></i></div>
-                <h3>رسالتنا</h3>
-                <p>تقديم برامج تدريبية عالية الجودة تعتمد على التطبيق العملي، من خلال نخبة من المدربين الخبراء، وفي بيئة تعليمية محفزة تدعم الإبداع والتطور المستمر.</p>
-            </div>
-
-            <div class="vmg-card">
-                <div class="vmg-icon"><i class="fas fa-chart-line"></i></div>
-                <h3>أهدافنا</h3>
-                <p>تأهيل المتدربين لسوق العمل بمهارات حقيقية، تقديم استشارات متخصصة، وبناء شراكات استراتيجية مع المؤسسات التعليمية والمهنية.</p>
-            </div>
+            
+            <h3 class="card-title">رسالتنا</h3>
+            
+            <p class="card-text">
+                تقديم برامج تدريبية عالية الجودة تعتمد على التطبيق العملي، من خلال نخبة من المدربين الخبراء، وفي بيئة تعليمية محفزة تدعم الإبداع والتطور المستمر.
+            </p>
 
         </div>
-    </section>
 
-    <section class="stats-section">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <h4 class="counter" data-target="15">0</h4>
-                <p>برنامج تدريبي</p>
+        <div class="card">
+            
+            <div class="icon-container">
+                <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
             </div>
-            <div class="stat-item">
-                <h4 class="counter" data-target="500">0</h4>
-                <p>متدرب خريج</p>
-            </div>
-            <div class="stat-item">
-                <h4 class="counter" data-target="12">0</h4>
-                <p>مدرب معتمد</p>
-            </div>
-            <div class="stat-item">
-                <h4 class="counter" data-target="5">0</h4>
-                <p>شراكات استراتيجية</p>
-            </div>
+            
+            <h3 class="card-title">رؤيتنا</h3>
+            
+            <p class="card-text">
+                أن نكون المركز الرائد والأكثر ابتكاراً في تقديم الحلول التدريبية المتكاملة في السودان، وصناعة جيل من المحترفين القادرين على المنافسة عالمياً.
+            </p>
+
         </div>
-    </section>
 
-    <footer>
-        <p>جميع الحقوق محفوظة &copy; 2026 مركز إيجابيون للتدريب</p>
-    </footer>
+    </div>
 
-    <script>
-        // 1. حركة ظهور الكروت عند النزول (Scroll Animation)
-        const cards = document.querySelectorAll('.vmg-card');
+  </div>
+
+
+
+      <div class="values-section-four">
+      <section class="values-section">
         
-        const observerOptions = {
-            threshold: 0.2, // تظهر لما 20% من الكرت يكون في الشاشة
-            rootMargin: "0px 0px -50px 0px"
-        };
+        <div class="section-header">
+            <h2 class="values-title">قيمنا</h2>
+            <p class="subtitle">القيم التي توجه عملنا وتحدد معايير الجودة والتميز في خدماتنا</p>
+        </div>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // إضافة كلاس يظهر الكرت
-                    entry.target.classList.add('show');
-                    // عشان الكروت تظهر ورا بعض بتأخير بسيط
-                    entry.target.style.transitionDelay = `${Array.from(cards).indexOf(entry.target) * 0.2}s`;
-                    observer.unobserve(entry.target); // إيقاف المراقبة بعد الظهور الأول
-                }
-            });
-        }, observerOptions);
+        <div class="cards-container-values">
 
-        cards.forEach(card => observer.observe(card));
+            <div class="card">
+                <div class="icon-container">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <path d="M9 12l2 2 4-4"></path>
+                    </svg>
+                </div>
+                <h3 class="card-title">الجودة</h3>
+                <p class="card-text">
+                    نلتزم بأعلى معايير الجودة والاحترافية في جميع برامجنا وخدماتنا التدريبية.
+                </p>
+            </div>
 
-        // 2. حركة عداد الأرقام (Counter Animation)
-        const counters = document.querySelectorAll('.counter');
-        const speed = 200; // سرعة العداد
+            <div class="card">
+                <div class="icon-container">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21.43 11v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6"></path>
+                        <path d="M15 15l6.43-4.43C21.8 10.3 22 9.87 22 9.42V4a1 1 0 0 0-1-1h-6.5l-.94 2.82A1 1 0 0 1 13.5 6h-3a1 1 0 0 1-.94-.74L8.5 3H2a1 1 0 0 0-1 1v5.42c0 .45.2.88.57 1.15L8 15"></path>
+                    </svg>
+                </div>
+                <h3 class="card-title">التطوير المستمر</h3>
+                <p class="card-text">
+                    نحرص على تحديث برامجنا ومنهجياتنا باستمرار لمواكبة أحدث التطورات العالمية.
+                </p>
+            </div>
 
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counter = entry.target;
-                    const updateCount = () => {
-                        const target = +counter.getAttribute('data-target');
-                        const count = +counter.innerText;
-                        const inc = target / speed;
+            <div class="card">
+                <div class="icon-container">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <h3 class="card-title">الشراكة</h3>
+                <p class="card-text">
+                    نؤمن بأهمية بناء شراكات متينة مع عملائنا ومدربينا لتحقيق النجاح المشترك.
+                </p>
+            </div>
 
-                        if (count < target) {
-                            counter.innerText = Math.ceil(count + inc);
-                            setTimeout(updateCount, 15);
-                        } else {
-                            counter.innerText = target;
-                            if(target > 100) counter.innerText += "+"; // إضافة علامة + للأرقام الكبيرة
-                        }
-                    };
-                    updateCount();
-                    counterObserver.unobserve(counter);
-                }
-            });
-        }, { threshold: 0.5 });
+            <div class="card">
+                <div class="icon-container">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="12" r="6"></circle>
+                        <circle cx="12" cy="12" r="2"></circle>
+                    </svg>
+                </div>
+                <h3 class="card-title">التميز</h3>
+                <p class="card-text">
+                    نسعى دائماً لتقديم مستويات تدريب تتجاوز التوقعات وتصنع الفارق الملموس.
+                </p>
+            </div>
 
-        counters.forEach(counter => counterObserver.observe(counter));
-    </script>
+        </div>
+
+    </section>
+</div>
+
+
+
+
+
+
+   <div class="choose-us-section-five">
+    <section class="choose-us-section">
+        
+        <div class="section-header-five">
+            <h2 class="main-title-five">لماذا تختارنا؟</h2>
+            <p class="subtitle-five">اكتشف الأسباب التي تجعل إيجابيون الخيار الأفضل لتطوير مهاراتك المهنية</p>
+        </div>
+
+        <div class="cards-container-choose-us">
+
+            <div class="card">
+                <div class="icon-container">
+                    
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+                        <circle cx="12" cy="8" r="6"></circle>
+                    </svg>
+
+                </div>
+                <h3 class="card-title">شهادات معتمدة</h3>
+                <p class="card-text">
+                    شهادات معتمدة ومعترف بها في السوق المحلي والإقليمي تعزز من فرصك المهنية بقوة.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <h3 class="card-title">نخبة المدربين</h3>
+                <p class="card-text">
+                    فريق يجمع بين الخبرة الأكاديمية العميقة والممارسة العملية في سوق العمل.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="20" height="15" x="2" y="3" rx="2"></rect>
+                        <path d="M12 18v4"></path>
+                        <path d="M8 22h8"></path>
+                    </svg>
+                </div>
+                <h3 class="card-title">منهجية عملية</h3>
+                <p class="card-text">
+                    نركز على المشاريع الواقعية وورش العمل التطبيقية لضمان الاستيعاب الكامل.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+  </div>
+
+
+
+
+
+  
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+
+
+<section class="contact-pro" dir="rtl">
+  <div class="contact-wrap">
+    <div class="contact-head">
+      <h2 class="contactus-text-animate">تواصل معنا</h2>
+      <p> نحن جاهزون للإجابة على استفساراتك وتلبية احتياجاتك التدريبية.  </p>
+    </div>
+
+    <div class="contact-grid">
+      <a class="contact-card" href="tel:+249123456789" aria-label="اتصال هاتفي">
+        <div class="icon"><i class="fa-solid fa-phone"></i></div>
+        <div class="info">
+          <h3>اتصال مباشر</h3>
+          <p>+249123456789</p>
+        </div>
+        <span class="cta">اتصل الآن</span>
+      </a>
+
+      <a class="contact-card" href="https://wa.me/249123456789" target="_blank" rel="noopener" aria-label="محادثة واتساب">
+        <div class="icon"><i class="fa-brands fa-whatsapp"></i></div>
+        <div class="info">
+          <h3>واتساب</h3>
+          <p>رد سريع خلال ساعات العمل</p>
+        </div>
+        <span class="cta">ابدأ المحادثة</span>
+      </a>
+
+      <a class="contact-card" href="mailto:info@ejabyoon.com" aria-label="إرسال بريد إلكتروني">
+        <div class="icon"><i class="fa-solid fa-envelope"></i></div>
+        <div class="info">
+          <h3>البريد الإلكتروني</h3>
+          
+          <p>info@ejabyoon.com</p>
+        </div>
+        <span class="cta">أرسل رسالة</span>
+      </a>
+
+      <a class="contact-card" href="#" target="_blank" rel="noopener" aria-label="الموقع على الخريطة">
+        <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
+        <div class="info">
+          <h3>مقرنا</h3>
+          <p>السودان - عطبرة</p>
+        </div>
+        <span class="cta">افتح الخريطة</span>
+      </a>
+    </div>
+
+ 
+  </div>
+</section>
+
+
+
+
+
+<link rel="stylesheet" href="whatsapp.css">
+<script src="whatsapp.js"></script>
+
+
+
+
+    <div class="rawnaq-footer-container">
+    <footer class="rawnaq-footer">
+        <div class="footer-content">
+            
+            <div class="footer-info-col">
+                <div class="footer-info-header">
+                    <div class="logo-container">
+                            <img src="https://i.postimg.cc/Y2v7vw79/full-rawnaq-logo-removebg-preview.png" alt="شعار ">
+                            <div class="logo-text">
+                            <h1>إيجابيون للتدريب</h1>
+                                <p class="your-law-tagline">   </p>
+                            </div>
+                        </div>
+                    
+                </div>
+
+                <div class="footer-info-text">
+                    <div class="footer-info-title">   <p class="tagline">شريكك نحو التميز المهني</p> </div>
+                    <p>مؤسسة تدريبية متخصصة في تقديم حلول تدريبية عالية الجودة لتطوير الكفاءات الإدارية والقيادية والمهنية في مختلف القطاعات.</p>
+                </div>
+            </div>
+            
+            <div class="footer-links-col">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="about">من نحن</a></li>
+                    <li><a href="#" target="_blank"> المتجر</a></li>
+                    <li><a href="training-fields"> مجالات التدريب</a></li>
+                    <li><a href="services"> الخدمات </a></li>
+                    <li><a href="corporate-request"> طلبات الشركات</a></li>
+                    <li><a href="contact">اتصل بنا </a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links-col">
+                <h3>روابط مفيدة </h3>
+                <ul>
+                    <li><a href="#" target="_blank"> الدورات </a></li>
+                    <li><a href="services">حلول التدريب للمجالات الطبية </a></li>
+                    <li><a href="services"> استشارات الشركات والمؤسسات</a></li>
+                       <li><a href="contact">  مقرنا  </a></li>
+                    <li><a href="contact">  الأسئلة الشائعة</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <hr class="footer-divider">
+
+        <h3 class="footer-contact-heading">معلومات الاتصال</h3>
+        
+        <div class="footer-contact-info">
+            
+            <span class="contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <a href="tel:+249123456789"> +249 123 456 789  </a>
+            </span>
+             <span class="contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <a href="tel:+249987654321"> +249 987 654 321   </a>
+            </span>
+
+            <span class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:info@ejabyoon.com"> info@ejabyoon.com </a>
+            </span>
+            
+            <span class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <a href="#" target="_blank"> السودان - عطبرة </a>
+            </span> 
+        </div>
+        
+        <hr class="footer-divider">
+        
+        <div class="footer-copyright">
+            <p>
+                مركز إيجابيون للتدريب. جميع الحقوق محفوظة 2026 ©.
+            </p>
+            <p> 
+                تصميم وبرمجة:
+                <a class="developed-by" href="#" target="_blank">إدارة التقنية</a>
+            </p> 
+        </div>
+    </footer>
+    </div>
+
+
+
+
+
+  <script>
+
+    
+   //    قسم الهيدر   
+const menuToggle = document.getElementById("menu-toggle");
+  const mainNav = document.getElementById("main-nav");
+
+  menuToggle.addEventListener("click", () => {
+    mainNav.classList.toggle("active");
+  });
+  
+
+
+    // استهداف جميع روابط القائمة
+  
+// استهداف جميع روابط القائمة
+const navLinks = document.querySelectorAll('.main-nav a');
+
+// تحديد الصفحة الحالية
+let currentPage = window.location.pathname.split("/").pop();
+if (currentPage === "" || currentPage === "index.html") {
+  currentPage = "index.html"; // اعتبرها الرئيسية
+}
+
+navLinks.forEach(link => {
+  const linkHref = link.getAttribute("href");
+
+  // إذا الرابط يساوي الصفحة الحالية
+  if (linkHref === currentPage) {
+    link.classList.add("selected");
+  }
+});
+  
+
+
+  //    الصفحة الرئيسية header   
+
+  function toggleMenu() {
+    const nav = document.querySelector('.main-nav');
+    nav.classList.toggle('show');
+  }
+
+
+  </script>
+
+
 </body>
+
 </html>

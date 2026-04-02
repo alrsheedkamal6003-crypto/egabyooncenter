@@ -3,230 +3,572 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مركز إيجابيون | فريق المدربين والانضمام</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <title>مركز إيجابيون | فريق المدربين والانضمام (النسخة الأسطورية)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* ================= المتغيرات الأساسية ================= */
+        /* ==========================================================================
+           1. نظام المتغيرات الشامل (Advanced Global Variables)
+           ========================================================================== */
         :root {
-            --primary-color: #1e3a8a;
-            --primary-light: #3b82f6;
-            --secondary-color: #f59e0b;
-            --text-dark: #1f2937;
-            --text-light: #6b7280;
-            --bg-light: #f3f4f6;
+            /* هوية مركز إيجابيون للتدريب */
+            --primary-color: #1e3a8a;      /* أزرق داكن ملكي */
+            --primary-light: #3b82f6;      /* أزرق مشرق */
+            --primary-dark: #0f172a;       /* أزرق ليلي عميق */
+            --primary-glow: rgba(59, 130, 246, 0.6);
+            
+            --secondary-color: #f59e0b;    /* ذهبي نقي */
+            --secondary-light: #fbbf24;
+            --secondary-dark: #b45309;
+            --secondary-glow: rgba(245, 158, 11, 0.7);
+            
+            /* ألوان النصوص والأساسيات */
+            --text-dark: #0f172a;
+            --text-light: #64748b;
+            --text-muted: #94a3b8;
+            --bg-light: #f8fafc;
+            --bg-dark: #020617;
             --white: #ffffff;
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --success-color: #10b981;
+            
+            /* تأثيرات الزجاج (Glassmorphism Dynamics) */
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-bg-dark: rgba(15, 23, 42, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glass-highlight: rgba(255, 255, 255, 0.8);
+            --glass-shadow: 0 8px 32px 0 rgba(30, 58, 138, 0.15);
+            
+            /* الظلال والأبعاد (Layered Shadows) */
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 25px -5px rgba(30, 58, 138, 0.1);
+            --shadow-lg: 0 25px 50px -12px rgba(30, 58, 138, 0.25);
+            --shadow-gold: 0 10px 30px -5px var(--secondary-glow);
+            --shadow-neon: 0 0 20px var(--primary-glow), 0 0 40px var(--primary-glow);
+            
+            /* التوقيتات والحركات (Timing Functions) */
+            --transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-fast: all 0.3s ease;
+            --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --transition-smooth: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ================= التنسيق العام ================= */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; scroll-behavior: smooth; }
+        /* ==========================================================================
+           2. إعادة الضبط والتنسيق الهيكلي (Reset & Global Structure)
+           ========================================================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; cursor: none; /* تفعيل الماوس المخصص */ }
+        
+        body { 
+            background-color: var(--bg-light); 
+            color: var(--text-dark); 
+            overflow-x: hidden; 
+            scroll-behavior: smooth;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(245, 158, 11, 0.05), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(30, 58, 138, 0.05), transparent 25%);
+            background-attachment: fixed;
+        }
+
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
+        ::selection { background: var(--secondary-color); color: var(--white); }
 
-        /* ================= شريط التنقل (Navbar) ================= */
-        header {
-            background-color: var(--white); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            position: fixed; width: 100%; top: 0; z-index: 1000; transition: var(--transition);
+        /* شريط التمرير المخصص */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--primary-color), var(--secondary-color)); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(var(--secondary-color), var(--primary-color)); }
+
+        /* ==========================================================================
+           3. مؤشر الماوس المخصص (Custom Cursor & Effects)
+           ========================================================================== */
+        .cursor-dot {
+            width: 8px; height: 8px; background-color: var(--secondary-color);
+            border-radius: 50%; position: fixed; top: 0; left: 0;
+            pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px var(--secondary-glow); transition: width 0.2s, height 0.2s;
         }
+        .cursor-outline {
+            width: 40px; height: 40px; border: 2px solid var(--primary-light);
+            border-radius: 50%; position: fixed; top: 0; left: 0;
+            pointer-events: none; z-index: 9998; transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        /* ==========================================================================
+           4. مكتبة الحركات المتقدمة (Mega Animation Library)
+           ========================================================================== */
+        @keyframes floatY {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes floatX {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(20px); }
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 var(--secondary-glow); }
+            70% { box-shadow: 0 0 0 20px rgba(245, 158, 11, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(60px); filter: blur(10px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes shineSweep {
+            0% { left: -100%; opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { left: 200%; opacity: 0; }
+        }
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes rotateSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes textNeon {
+            0%, 100% { text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px var(--secondary-color); }
+            50% { text-shadow: 0 0 20px rgba(255,255,255,1), 0 0 40px var(--secondary-color), 0 0 60px var(--secondary-dark); }
+        }
+        @keyframes borderMarch {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        /* كلاسات مساعدة للانيميشن عند التمرير */
+        .reveal-up { opacity: 0; transform: translateY(50px); transition: var(--transition-smooth); }
+        .reveal-up.active { opacity: 1; transform: translateY(0); }
+        .reveal-scale { opacity: 0; transform: scale(0.8); transition: var(--transition-bounce); }
+        .reveal-scale.active { opacity: 1; transform: scale(1); }
+
+        /* ==========================================================================
+           5. شريط التنقل (Glassmorphism Navbar)
+           ========================================================================== */
+        header {
+            background-color: var(--glass-bg); 
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            position: fixed; width: 100%; top: 0; z-index: 1000; 
+            transition: padding 0.5s ease, background 0.5s ease;
+            animation: slideInUp 1s ease-out;
+        }
+
+        header.scrolled {
+            padding: 5px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow-lg);
+        }
+
         .nav-container {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 5%; max-width: 1400px; margin: 0 auto;
+            padding: 15px 5%; max-width: 1500px; margin: 0 auto;
         }
-        .logo { font-size: 28px; font-weight: 800; color: var(--primary-color); }
+
+        .logo { 
+            font-size: 34px; font-weight: 900; color: var(--primary-color); 
+            display: flex; align-items: center; gap: 10px; position: relative;
+        }
+        .logo i { color: var(--secondary-color); animation: floatY 4s ease-in-out infinite; }
         .logo span { color: var(--secondary-color); }
-        .nav-links { display: flex; gap: 20px; align-items: center;}
-        .nav-links a { font-weight: 600; transition: var(--transition); color: var(--text-dark); padding: 5px 10px; border-radius: 8px;}
-        .nav-links a:hover { color: var(--primary-color); background: rgba(30, 58, 138, 0.05); }
-        .nav-links a.active { color: var(--secondary-color); }
         
+        /* تأثير خط تحت اللوجو */
+        .logo::after {
+            content: ''; position: absolute; bottom: -5px; right: 0; width: 30%; height: 4px;
+            background: linear-gradient(90deg, var(--secondary-color), transparent);
+            border-radius: 5px; transition: var(--transition-bounce);
+        }
+        .logo:hover::after { width: 100%; background: linear-gradient(90deg, var(--secondary-color), var(--primary-color)); }
+
+        .nav-links { display: flex; gap: 25px; align-items: center;}
+        
+        .nav-links a { 
+            font-weight: 800; font-size: 1.1rem;
+            transition: var(--transition); color: var(--text-dark); 
+            padding: 10px 18px; border-radius: 12px;
+            position: relative; overflow: hidden; z-index: 1;
+        }
+
+        .nav-links a::before {
+            content: ''; position: absolute; top: 0; right: 0; width: 100%; height: 100%;
+            background: rgba(30, 58, 138, 0.05); border-radius: 12px;
+            transform: scaleX(0); transform-origin: right; transition: var(--transition-bounce); z-index: -1;
+        }
+        .nav-links a:hover::before { transform: scaleX(1); transform-origin: left; }
+        .nav-links a:hover { color: var(--primary-color); transform: translateY(-2px); }
+        
+        .nav-links a.active { color: var(--secondary-color); background: transparent; padding-bottom: 5px;}
+        .nav-links a.active::after {
+            content: ''; position: absolute; bottom: 0; left: 15%; width: 70%; height: 4px;
+            background: var(--secondary-color); border-radius: 5px; box-shadow: 0 -2px 10px var(--secondary-glow);
+        }
+        
+        /* زر الانضمام في الهيدر */
         .btn-join-nav {
-            background: var(--primary-color); color: var(--white) !important;
-            padding: 8px 20px !important; border-radius: 50px !important; font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)) !important;
+            color: var(--white) !important; padding: 12px 25px !important; 
+            border-radius: 50px !important; font-weight: 800; box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255,255,255,0.2); position: relative; overflow: hidden;
         }
-        .btn-join-nav:hover { background: var(--secondary-color) !important; color: var(--text-dark) !important; }
+        .btn-join-nav::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: rgba(255,255,255,0.2); transform: rotate(45deg); transition: var(--transition); opacity: 0;
+        }
+        .btn-join-nav:hover::after { left: 100%; opacity: 1; transition: left 0.6s ease; }
+        .btn-join-nav:hover { background: linear-gradient(135deg, var(--secondary-color), var(--secondary-dark)) !important; box-shadow: var(--shadow-gold) !important; transform: translateY(-3px) scale(1.05);}
 
-        /* ================= الترويسة (Hero Section) ================= */
+        /* ==========================================================================
+           6. الترويسة الأسطورية (Hero Section with Particles & 3D Orbs)
+           ========================================================================== */
         .page-header {
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(23, 37, 84, 0.95) 100%), url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
-            color: var(--white); padding: 160px 5% 80px; text-align: center; position: relative;
+            background: linear-gradient(-45deg, var(--primary-dark), #0f2e2f, var(--primary-color), var(--primary-dark));
+            background-size: 400% 400%; animation: gradientFlow 20s ease infinite;
+            color: var(--white); padding: 220px 5% 120px; text-align: center; position: relative;
+            overflow: hidden; z-index: 1;
         }
-        .page-header h1 { font-size: 3.5rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        .page-header p { font-size: 1.2rem; color: #cbd5e1; max-width: 800px; margin: 0 auto 30px; line-height: 1.8; }
 
-        /* ================= قسم عرض المدربين الحالىين ================= */
-        .instructors-section { padding: 80px 5%; max-width: 1400px; margin: 0 auto; }
-        .section-title { text-align: center; margin-bottom: 60px; }
-        .section-title h2 { font-size: 2.5rem; color: var(--primary-color); position: relative; display: inline-block; }
+        #hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.8; }
+
+        /* الكرات المضيئة في الخلفية */
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); z-index: -1; }
+        .orb-1 { width: 500px; height: 500px; background: var(--secondary-color); top: -150px; right: -150px; animation: floatY 12s ease-in-out infinite; opacity: 0.3; }
+        .orb-2 { width: 600px; height: 600px; background: var(--primary-light); bottom: -200px; left: -200px; animation: floatX 15s ease-in-out infinite reverse; opacity: 0.2; }
+
+        .page-header h1 { 
+            font-size: 4.5rem; margin-bottom: 25px; font-weight: 900; 
+            animation: slideInUp 1s ease-out, textNeon 3s infinite alternate;
+            letter-spacing: -1px; position: relative; z-index: 2;
+        }
+        .page-header p { 
+            font-size: 1.4rem; color: #e2e8f0; max-width: 900px; margin: 0 auto 40px; 
+            line-height: 1.9; animation: slideInUp 1.3s ease-out; font-weight: 600;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5); position: relative; z-index: 2;
+        }
+
+        /* سهم النزول للأسفل */
+        .scroll-down-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 60px; height: 60px; border-radius: 50%; background: var(--glass-bg-dark);
+            backdrop-filter: blur(10px); border: 1px solid var(--glass-border);
+            color: var(--secondary-color); font-size: 1.5rem; box-shadow: var(--shadow-lg);
+            animation: slideInUp 1.6s ease-out, floatY 2s infinite ease-in-out;
+            transition: var(--transition-bounce); cursor: pointer; position: relative; z-index: 2;
+        }
+        .scroll-down-btn:hover { background: var(--secondary-color); color: var(--white); box-shadow: var(--shadow-gold); transform: scale(1.1); }
+
+        /* ==========================================================================
+           7. قسم المدربين (3D Cards Grid & Glass Effects)
+           ========================================================================== */
+        .instructors-section { padding: 100px 5%; max-width: 1500px; margin: 0 auto; position: relative; z-index: 5;}
+        
+        .section-title { text-align: center; margin-bottom: 80px; animation: slideInUp 1s ease-out; }
+        .section-title h2 { 
+            font-size: 3rem; color: var(--primary-dark); position: relative; display: inline-block; 
+            font-weight: 900; letter-spacing: -1px;
+        }
         .section-title h2::after {
-            content: ''; position: absolute; width: 50px; height: 4px;
-            background-color: var(--secondary-color); bottom: -10px; left: 50%; transform: translateX(-50%); border-radius: 2px;
+            content: ''; position: absolute; width: 80px; height: 6px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color)); 
+            bottom: -15px; left: 50%; transform: translateX(-50%); border-radius: 5px;
+            box-shadow: 0 5px 15px var(--secondary-glow);
         }
 
         .instructors-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 50px;
+            perspective: 2000px; /* تفعيل البعد الثالث */
         }
 
-        /* كارت المدرب الفاخر */
+        /* كارت المدرب الفاخر (3D Tilt & Glass) */
         .instructor-card {
-            background: var(--white); border-radius: 20px; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: var(--transition);
-            text-align: center; position: relative; border: 1px solid #f3f4f6;
+            background: var(--glass-bg); backdrop-filter: blur(10px); border-radius: 25px; 
+            overflow: hidden; box-shadow: var(--shadow-md); transition: var(--transition);
+            text-align: center; position: relative; border: 1px solid var(--glass-border);
+            transform-style: preserve-3d; /* 3D */
         }
-        .instructor-card:hover { transform: translateY(-15px); box-shadow: 0 20px 40px rgba(30, 58, 138, 0.1); }
+        
+        /* لمعة زجاجية تتحرك باستمرار على الكارت */
+        .instructor-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.8), transparent);
+            transform: skewX(-25deg); z-index: 10; pointer-events: none; opacity: 0; transition: opacity 0.3s;
+        }
+
+        .instructor-card:hover { 
+            box-shadow: var(--shadow-lg), 0 25px 50px rgba(245, 158, 11, 0.15); 
+            border-color: rgba(245, 158, 11, 0.4); z-index: 100;
+        }
+        .instructor-card:hover::before { animation: shineSweep 2.5s infinite; opacity: 1; }
         
         .instructor-img-wrapper {
-            width: 100%; height: 250px; background: #e5e7eb; position: relative; overflow: hidden;
-            display: flex; align-items: center; justify-content: center;
+            width: 100%; height: 280px; background: linear-gradient(135deg, var(--primary-dark), var(--primary-color)); 
+            position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
+            transform: translateZ(30px); /* 3D Pop */
         }
-        /* خلفية أيقونية في حال عدم وجود صورة للمدرب */
-        .instructor-img-wrapper i { font-size: 6rem; color: var(--primary-light); opacity: 0.5; transition: var(--transition); }
-        .instructor-card:hover .instructor-img-wrapper i { transform: scale(1.1); color: var(--primary-color); }
         
-        /* شكل منحنى أسفل الصورة */
+        /* أيقونة ضخمة بديل الصورة */
+        .instructor-img-wrapper i { 
+            font-size: 8rem; color: var(--white); opacity: 0.8; transition: var(--transition-bounce); 
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
+        }
+        .instructor-card:hover .instructor-img-wrapper i { transform: scale(1.2) translateZ(50px); color: var(--secondary-color); opacity: 1;}
+        
+        /* شبكة في خلفية الصورة */
+        .instructor-img-wrapper::before {
+            content: ''; position: absolute; inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.1) 2px, transparent 2px);
+            background-size: 20px 20px; z-index: 0;
+        }
+
+        /* شكل منحنى أسفل الصورة المطور */
         .instructor-img-wrapper::after {
-            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 50px;
-            background: var(--white); clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 100%);
+            content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 60px;
+            background: var(--white); clip-path: polygon(0 100%, 100% 100%, 100% 0, 50% 100%, 0 0);
+            transition: var(--transition-bounce);
         }
+        .instructor-card:hover .instructor-img-wrapper::after { height: 30px; clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 100%); }
 
-        .instructor-info { padding: 20px 25px 30px; position: relative; z-index: 2; }
-        .instructor-info h3 { font-size: 1.4rem; color: var(--primary-color); margin-bottom: 5px; font-weight: 800; }
-        .instructor-role { color: var(--secondary-color); font-weight: 700; font-size: 0.95rem; margin-bottom: 15px; display: block; }
-        .instructor-desc { color: var(--text-light); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.6; }
+        .instructor-info { padding: 30px 25px 40px; position: relative; z-index: 2; transform: translateZ(20px); background: var(--white);}
+        .instructor-info h3 { font-size: 1.7rem; color: var(--primary-dark); margin-bottom: 8px; font-weight: 900; transition: var(--transition);}
+        .instructor-card:hover .instructor-info h3 { color: var(--primary-color); }
+        
+        .instructor-role { 
+            color: var(--secondary-color); font-weight: 800; font-size: 1rem; margin-bottom: 20px; 
+            display: inline-block; background: rgba(245, 158, 11, 0.1); padding: 5px 15px; border-radius: 20px;
+        }
+        .instructor-desc { color: var(--text-light); font-size: 1.05rem; margin-bottom: 25px; line-height: 1.8; font-weight: 600;}
 
-        .instructor-social { display: flex; justify-content: center; gap: 15px; }
+        .instructor-social { display: flex; justify-content: center; gap: 15px; transform: translateZ(40px);}
         .instructor-social a {
-            width: 35px; height: 35px; border-radius: 50%; background: var(--bg-light);
-            display: flex; align-items: center; justify-content: center; color: var(--text-dark);
-            transition: var(--transition);
+            width: 45px; height: 45px; border-radius: 50%; background: var(--bg-light); border: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: center; color: var(--primary-light); font-size: 1.2rem;
+            transition: var(--transition-bounce); position: relative; overflow: hidden;
         }
-        .instructor-social a:hover { background: var(--primary-color); color: var(--white); transform: translateY(-3px); }
+        .instructor-social a::before {
+            content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 100%;
+            background: var(--primary-color); transition: var(--transition); z-index: -1; border-radius: 50%;
+        }
+        .instructor-social a:hover::before { top: 0; }
+        .instructor-social a:hover { color: var(--white); border-color: transparent; box-shadow: var(--shadow-md); transform: translateY(-5px) scale(1.1); }
 
-        /* ================= قسم الانضمام كمدرب (Form Section) ================= */
+        /* ==========================================================================
+           8. قسم الانضمام كمدرب (Advanced Glass Form Section)
+           ========================================================================== */
         .join-section {
-            background: var(--white); padding: 80px 5%; position: relative;
-            border-top: 1px solid #e5e7eb;
+            background: linear-gradient(to bottom, var(--white), var(--bg-light)); padding: 100px 5%; position: relative;
+            border-top: 1px solid #e5e7eb; overflow: hidden;
         }
+        
+        /* عناصر هندسية تطفو في الخلفية */
+        .shape-1 { position: absolute; top: 10%; left: 5%; width: 150px; height: 150px; border: 20px solid rgba(59, 130, 246, 0.05); border-radius: 30%; animation: rotateSlow 20s linear infinite; }
+        .shape-2 { position: absolute; bottom: 10%; right: 5%; width: 200px; height: 200px; border: 20px solid rgba(245, 158, 11, 0.05); border-radius: 50%; animation: floatY 8s ease-in-out infinite; }
+
         .join-container {
-            max-width: 1000px; margin: 0 auto; background: var(--bg-light);
-            border-radius: 20px; padding: 50px; box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
-            display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;
+            max-width: 1400px; margin: 0 auto; background: var(--glass-bg); backdrop-filter: blur(20px);
+            border-radius: 30px; padding: 60px; box-shadow: var(--shadow-lg); border: 1px solid var(--glass-border);
+            display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 2;
         }
         
-        .join-text h3 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 20px; }
-        .join-text p { color: var(--text-light); font-size: 1.1rem; margin-bottom: 30px; line-height: 1.8; }
+        .join-text h3 { font-size: 3rem; color: var(--primary-dark); margin-bottom: 25px; font-weight: 900; line-height: 1.3;}
+        .join-text h3 span { color: var(--secondary-color); position: relative; display: inline-block;}
+        .join-text h3 span::after { content: ''; position: absolute; bottom: 5px; left: 0; width: 100%; height: 10px; background: rgba(245, 158, 11, 0.2); z-index: -1;}
         
+        .join-text p { color: var(--text-light); font-size: 1.25rem; margin-bottom: 40px; line-height: 1.9; font-weight: 600;}
+        
+        .benefits-list { display: grid; gap: 20px; }
         .benefits-list li {
-            display: flex; align-items: center; gap: 15px; margin-bottom: 15px;
-            color: var(--text-dark); font-weight: 600;
+            display: flex; align-items: center; gap: 20px; background: var(--white); padding: 20px;
+            border-radius: 15px; color: var(--text-dark); font-weight: 700; font-size: 1.1rem;
+            box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); transition: var(--transition-bounce);
         }
+        .benefits-list li:hover { transform: translateX(-10px); border-color: var(--secondary-light); box-shadow: var(--shadow-md); }
         .benefits-list li i {
-            width: 40px; height: 40px; background: rgba(245, 158, 11, 0.1); color: var(--secondary-color);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+            width: 50px; height: 50px; background: linear-gradient(135deg, var(--secondary-color), var(--secondary-dark)); color: var(--white);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: var(--shadow-gold);
         }
 
-        /* فورم التقديم الفاخر */
-        .join-form { background: var(--white); padding: 40px; border-radius: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
+        /* فورم التقديم النيون الفاخر */
+        .join-form { 
+            background: var(--white); padding: 50px; border-radius: 25px; 
+            box-shadow: var(--shadow-lg); border-top: 8px solid var(--primary-color); position: relative;
+        }
         
-        .input-group { position: relative; margin-bottom: 25px; }
+        .join-form::before {
+            content: 'نموذج التسجيل'; position: absolute; top: -35px; right: 40px;
+            background: var(--primary-color); color: var(--white); padding: 5px 20px;
+            border-radius: 10px 10px 0 0; font-weight: 800; font-size: 1.1rem;
+        }
+
+        .input-group { position: relative; margin-bottom: 30px; }
         .input-field {
-            width: 100%; padding: 15px; background: transparent; border: 2px solid #e5e7eb;
-            border-radius: 8px; font-size: 1rem; color: var(--text-dark); transition: var(--transition);
-            outline: none;
+            width: 100%; padding: 18px 20px; background: var(--bg-light); border: 2px solid #e2e8f0;
+            border-radius: 12px; font-size: 1.1rem; color: var(--text-dark); transition: var(--transition);
+            outline: none; font-weight: 600;
         }
-        .input-field:focus { border-color: var(--primary-light); background: #f8fafc; }
+        .input-field::placeholder { color: #94a3b8; }
+        .input-field:focus { 
+            border-color: var(--primary-light); background: var(--white); 
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); transform: translateY(-2px);
+        }
         
-        /* منطقة رفع السيرة الذاتية (Drag & Drop UI) */
+        /* منطقة الرفع الجذابة (Drag & Drop) */
         .file-upload-wrapper {
-            border: 2px dashed var(--primary-light); border-radius: 8px; padding: 30px 20px;
+            border: 3px dashed #cbd5e1; border-radius: 15px; padding: 40px 20px;
             text-align: center; cursor: pointer; transition: var(--transition);
-            background: rgba(59, 130, 246, 0.02); margin-bottom: 25px; position: relative;
-        }
-        .file-upload-wrapper:hover { background: rgba(59, 130, 246, 0.05); border-color: var(--primary-color); }
-        .file-upload-wrapper i { font-size: 2.5rem; color: var(--primary-light); margin-bottom: 10px; }
-        .file-upload-wrapper p { color: var(--text-light); font-size: 0.95rem; font-weight: 600; }
-        .file-upload-wrapper span { display: block; font-size: 0.8rem; color: #9ca3af; margin-top: 5px; }
-        
-        /* إخفاء زر الرفع الافتراضي القبيح */
-        .file-upload-wrapper input[type="file"] {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;
+            background: #f8fafc; margin-bottom: 35px; position: relative; overflow: hidden;
         }
         
-        /* اسم الملف بعد اختياره */
-        .file-name-display { color: var(--success-color); font-weight: 700; margin-top: 10px; display: none; }
+        /* تأثير سريان لون على حدود منطقة الرفع عند التمرير */
+        .file-upload-wrapper::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 200%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            animation: borderMarch 2s linear infinite; pointer-events: none;
+        }
 
-        /* زر التقديم التفاعلي */
+        .file-upload-wrapper:hover, .file-upload-wrapper.dragover { 
+            background: #eff6ff; border-color: var(--primary-color); transform: scale(1.02);
+        }
+        .file-upload-wrapper i { font-size: 3.5rem; color: var(--primary-light); margin-bottom: 15px; transition: var(--transition-bounce);}
+        .file-upload-wrapper:hover i { transform: translateY(-5px); color: var(--primary-color);}
+        
+        .file-upload-wrapper p { color: var(--primary-dark); font-size: 1.2rem; font-weight: 800; margin-bottom: 5px;}
+        .file-upload-wrapper span { display: block; font-size: 0.95rem; color: var(--text-light); font-weight: 600;}
+        
+        .file-upload-wrapper input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10;}
+        
+        .file-name-display { 
+            background: #ecfdf5; color: var(--success-color); padding: 15px; border-radius: 10px;
+            font-weight: 800; margin-top: 15px; display: none; border: 1px solid #a7f3d0; font-size: 1.1rem;
+            animation: scaleIn 0.3s ease;
+        }
+
+        /* زر الإرسال المضيء (Ultimate Submit Button) */
         .btn-submit {
-            width: 100%; padding: 16px; border: none; border-radius: 8px;
-            background: var(--primary-color); color: var(--white); font-size: 1.2rem; font-weight: 800;
-            cursor: pointer; transition: var(--transition); position: relative; overflow: hidden;
-            display: flex; justify-content: center; align-items: center; gap: 10px;
+            width: 100%; padding: 20px; border: none; border-radius: 12px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-dark));
+            color: var(--white); font-size: 1.4rem; font-weight: 900;
+            cursor: pointer; transition: var(--transition-bounce); position: relative; overflow: hidden;
+            display: flex; justify-content: center; align-items: center; gap: 15px;
+            box-shadow: var(--shadow-gold); z-index: 1;
         }
         .btn-submit::after {
-            content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0;
-            background: rgba(255,255,255,0.2); border-radius: 50%; transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-25deg); animation: shine 3s infinite; z-index: -1;
         }
-        .btn-submit:hover::after { width: 300px; height: 300px; }
-        .btn-submit:hover { background: var(--secondary-color); color: var(--text-dark); box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3); }
+        .btn-submit:hover { 
+            transform: translateY(-5px); box-shadow: 0 20px 40px rgba(245, 158, 11, 0.4); 
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        }
+        .btn-submit i { transition: transform 0.3s ease; }
+        .btn-submit:hover i { transform: translateX(-10px) translateY(-5px); }
 
-        /* رسالة النجاح المنبثقة (Toast) */
+        /* رسالة النجاح (Toast Notification) */
         .toast {
             position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
-            background: #10b981; color: var(--white); padding: 15px 30px; border-radius: 50px;
-            font-weight: 700; display: flex; align-items: center; gap: 10px;
-            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3); transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            z-index: 2000;
+            background: linear-gradient(135deg, #10b981, #047857); color: var(--white); 
+            padding: 20px 40px; border-radius: 50px; font-weight: 800; font-size: 1.2rem;
+            display: flex; align-items: center; gap: 15px;
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4); transition: bottom 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 9999; border: 2px solid rgba(255,255,255,0.2);
         }
-        .toast.show { bottom: 40px; }
+        .toast.show { bottom: 50px; }
+        .toast i { font-size: 1.5rem; animation: rotateSlow 4s linear infinite;}
 
-        /* ================= التذييل ================= */
-        footer { background-color: #111827; color: #9ca3af; text-align: center; padding: 25px; font-size: 0.9rem; }
+        /* ==========================================================================
+           9. التذييل (Footer with Wave)
+           ========================================================================== */
+        footer { 
+            background: linear-gradient(to top, var(--primary-dark), #172554); 
+            color: #94a3b8; text-align: center; padding: 60px 20px 30px; font-size: 1.1rem; 
+            position: relative; border-top: 5px solid var(--secondary-color);
+            font-weight: 600; overflow: hidden;
+        }
+        footer::before {
+            content: ''; position: absolute; top: -50px; left: 0; width: 100%; height: 100px;
+            background: radial-gradient(ellipse at center, rgba(30, 58, 138, 0.5) 0%, transparent 70%);
+        }
+        footer p { position: relative; z-index: 2; margin-bottom: 10px;}
+        footer p span { color: var(--secondary-light); }
 
-        /* Responsive */
-        @media (max-width: 992px) {
-            .join-container { grid-template-columns: 1fr; padding: 30px; gap: 30px; }
+        /* ==========================================================================
+           10. استجابة الشاشات (Responsive Design)
+           ========================================================================== */
+        @media (max-width: 1200px) {
+            .page-header h1 { font-size: 3.5rem; }
+            .join-container { grid-template-columns: 1fr; gap: 40px; padding: 40px; }
+            .join-text { text-align: center; }
+            .benefits-list li { justify-content: center; text-align: right; }
+        }
+
+        @media (max-width: 768px) {
             .nav-links { display: none; }
-            .page-header h1 { font-size: 2.5rem; }
+            .page-header { padding: 160px 5% 80px; }
+            .page-header h1 { font-size: 2.8rem; }
+            .section-title h2 { font-size: 2.2rem; }
+            .instructors-grid { grid-template-columns: 1fr; }
+            .join-form { padding: 30px 20px; }
+            .btn-submit { font-size: 1.2rem; padding: 15px; }
+            .cursor-dot, .cursor-outline { display: none; } /* تعطيل الماوس المخصص على الجوال */
+            * { cursor: auto; }
+            .instructor-card { transform: none !important; } /* إيقاف 3D للأداء */
         }
     </style>
 </head>
 <body>
 
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-outline" id="cursorOutline"></div>
+
     <header id="mainHeader">
         <div class="nav-container">
-            <a href="index.html" class="logo">إيجابيون <span>للتدريب</span></a>
+            <a href="index.html" class="logo"><i class="fas fa-graduation-cap"></i> إيجابيون <span>للتدريب</span></a>
             <ul class="nav-links">
-                <li><a href="index.html">الرئيسية</a></li>
-                <li><a href="courses.html">الدورات</a></li>
-                <li><a href="instructors.html" class="active">المدربين</a></li>
-                <li><a href="certificates.html">الشهادات</a></li>
+                <li><a href="index.html"><i class="fas fa-home" style="margin-left: 5px;"></i>الرئيسية</a></li>
+                <li><a href="courses.html"><i class="fas fa-book-open" style="margin-left: 5px;"></i>الدورات</a></li>
+                <li><a href="instructors.html" class="active"><i class="fas fa-chalkboard-teacher" style="margin-left: 5px;"></i>المدربين</a></li>
+                <li><a href="certificates.html"><i class="fas fa-award" style="margin-left: 5px;"></i>الشهادات</a></li>
                 <li><a href="#join-section" class="btn-join-nav">انضم كمدرب <i class="fas fa-arrow-left" style="margin-right: 5px;"></i></a></li>
             </ul>
         </div>
     </header>
 
     <section class="page-header">
+        <canvas id="hero-canvas"></canvas>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        
         <h1>خبراء صناعة المستقبل</h1>
-        <p>نفخر في مركز إيجابيون بامتلاك نخبة من المدربين الأكاديميين والمهنيين ذوي الخبرة العالية في مجالات التقنية، الرعاية الصحية، والتحليل الإحصائي لتوجيهك نحو القمة.</p>
+        <p>نفخر في مركز إيجابيون بامتلاك نخبة من كبار المدربين الأكاديميين والمهنيين ذوي الخبرة العالمية في مجالات التقنية، الرعاية الصحية، والتحليل الإحصائي لتوجيهك بخطى ثابتة نحو القمة والاحتراف.</p>
+        
+        <a href="#instructors-list" class="scroll-down-btn"><i class="fas fa-chevron-down"></i></a>
     </section>
 
-    <section class="instructors-section">
-        <div class="section-title">
-            <h2>نخبة من خبرائنا</h2>
+    <section class="instructors-section" id="instructors-list">
+        <div class="section-title reveal-up">
+            <h2>نخبة من خبرائنا المعتمدين</h2>
         </div>
 
         <div class="instructors-grid">
-            <div class="instructor-card">
+            
+            <div class="instructor-card reveal-up">
                 <div class="instructor-img-wrapper">
                     <i class="fas fa-user-tie"></i>
                 </div>
                 <div class="instructor-info">
                     <h3>م. الرشيد كمال</h3>
-                    <span class="instructor-role">مطور برمجيات ومدرب تقني</span>
-                    <p class="instructor-desc">خبير في تطوير تطبيقات الويب، أنظمة سطح المكتب (VB.NET)، والتحليل الإحصائي، ومؤسس مشاريع رقمية رائدة في السودان.</p>
+                    <span class="instructor-role"><i class="fas fa-laptop-code"></i> مطور برمجيات ومدرب تقني</span>
+                    <p class="instructor-desc">مهندس برمجيات (Full-Stack). خبير في تطوير تطبيقات الويب، أنظمة سطح المكتب (VB.NET)، والتحليل الإحصائي، ومؤسس مشاريع رقمية رائدة في السودان.</p>
                     <div class="instructor-social">
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#"><i class="fab fa-github"></i></a>
@@ -235,14 +577,76 @@
                 </div>
             </div>
 
-            <div class="instructor-card">
+            <div class="instructor-card reveal-up">
                 <div class="instructor-img-wrapper">
-                    <i class="fas fa-user-md"></i>
+                    <i class="fas fa-user-md" style="color: #ef4444;"></i>
                 </div>
                 <div class="instructor-info">
                     <h3>د. أحمد مصطفى</h3>
-                    <span class="instructor-role">استشاري تدريب صحي</span>
-                    <p class="instructor-desc">متخصص في تدريب الكوادر الطبية والممرضين على أحدث معايير الرعاية السريرية والتعامل مع الحالات الطارئة بكفاءة عالية.</p>
+                    <span class="instructor-role"><i class="fas fa-heartbeat"></i> استشاري تدريب صحي</span>
+                    <p class="instructor-desc">أخصائي طوارئ وإصابات. متخصص في تدريب الكوادر الطبية والممرضين على أحدث معايير الرعاية السريرية والتعامل مع الحالات الطارئة بكفاءة عالية.</p>
+                    <div class="instructor-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="instructor-card reveal-up">
+                <div class="instructor-img-wrapper">
+                    <i class="fas fa-chalkboard-teacher" style="color: #10b981;"></i>
+                </div>
+                <div class="instructor-info">
+                    <h3>أ. سارة عبد الرحمن</h3>
+                    <span class="instructor-role"><i class="fas fa-microscope"></i> مدربة مهارات وبحث علمي</span>
+                    <p class="instructor-desc">باحثة أكاديمية ومحللة بيانات. خبرة واسعة في مساعدة الطلاب على إعداد وتنسيق مشاريع التخرج، واستخدام SPSS لكتابة الأوراق البحثية للمجلات العلمية.</p>
+                    <div class="instructor-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-globe"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="instructor-card reveal-up">
+                <div class="instructor-img-wrapper">
+                    <i class="fas fa-chart-pie" style="color: #f59e0b;"></i>
+                </div>
+                <div class="instructor-info">
+                    <h3>د. عثمان البشير</h3>
+                    <span class="instructor-role"><i class="fas fa-database"></i> خبير تحليل بيانات (Data Scientist)</span>
+                    <p class="instructor-desc">متخصص في الذكاء الاصطناعي وتعلم الآلة. يقدم دورات متقدمة في تحليل وتصور البيانات باستخدام Power BI و Python للشركات والمؤسسات.</p>
+                    <div class="instructor-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="instructor-card reveal-up">
+                <div class="instructor-img-wrapper">
+                    <i class="fas fa-shield-alt" style="color: #8b5cf6;"></i>
+                </div>
+                <div class="instructor-info">
+                    <h3>م. خالد إبراهيم</h3>
+                    <span class="instructor-role"><i class="fas fa-lock"></i> استشاري أمن سيبراني</span>
+                    <p class="instructor-desc">مختبر اختراق أخلاقي معتمد (CEH). يدرب الكوادر التقنية على حماية الشبكات، اكتشاف الثغرات، وتطبيق سياسات الأمان في الشركات الكبرى.</p>
+                    <div class="instructor-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="instructor-card reveal-up">
+                <div class="instructor-img-wrapper">
+                    <i class="fas fa-user-nurse" style="color: #ec4899;"></i>
+                </div>
+                <div class="instructor-info">
+                    <h3>د. فاطمة عثمان</h3>
+                    <span class="instructor-role"><i class="fas fa-clinic-medical"></i> رئيسة قسم التمريض السريري</span>
+                    <p class="instructor-desc">تمتلك خبرة 15 عاماً في إدارة الجودة الطبية. تدرب الطاقم التمريضي على أحدث بروتوكولات مكافحة العدوى والتعامل المباشر مع المرضى.</p>
                     <div class="instructor-social">
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#"><i class="fas fa-envelope"></i></a>
@@ -250,65 +654,101 @@
                 </div>
             </div>
 
-            <div class="instructor-card">
+            <div class="instructor-card reveal-up">
                 <div class="instructor-img-wrapper">
-                    <i class="fas fa-chalkboard-teacher"></i>
+                    <i class="fas fa-bullhorn" style="color: #06b6d4;"></i>
                 </div>
                 <div class="instructor-info">
-                    <h3>أ. سارة عبد الرحمن</h3>
-                    <span class="instructor-role">مدربة مهارات وبحث علمي</span>
-                    <p class="instructor-desc">خبرة واسعة في مساعدة الطلاب على إعداد وتنسيق مشاريع التخرج وكتابة الأوراق البحثية للمجلات العلمية.</p>
+                    <h3>أ. مصطفى كمال</h3>
+                    <span class="instructor-role"><i class="fas fa-ad"></i> خبير تسويق رقمي</span>
+                    <p class="instructor-desc">مدير حملات إعلانية. يدرب المتدربين على استراتيجيات التسويق الحديثة، إدارة حسابات التواصل الاجتماعي، وتحليل سلوك المستهلك لزيادة المبيعات.</p>
                     <div class="instructor-social">
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
+
+            <div class="instructor-card reveal-up">
+                <div class="instructor-img-wrapper">
+                    <i class="fas fa-users-cog" style="color: #f43f5e;"></i>
+                </div>
+                <div class="instructor-info">
+                    <h3>أ. زينب منصور</h3>
+                    <span class="instructor-role"><i class="fas fa-briefcase"></i> استشارية موارد بشرية (HR)</span>
+                    <p class="instructor-desc">مديرة موارد بشرية سابقة. تقدم دورات في السلوك التنظيمي، إدارة الرواتب، وتقييم الأداء لتأهيل مسؤولي الـ HR لسوق العمل.</p>
+                    <div class="instructor-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="instructor-card reveal-up">
+                <div class="instructor-img-wrapper">
+                    <i class="fas fa-mobile-alt" style="color: #14b8a6;"></i>
+                </div>
+                <div class="instructor-info">
+                    <h3>م. عمر الشريف</h3>
+                    <span class="instructor-role"><i class="fab fa-android"></i> مهندس تطبيقات هواتف (Flutter)</span>
+                    <p class="instructor-desc">مطور تطبيقات (Cross-Platform). يركز تدريبه على بناء تطبيقات سريعة، تصميم واجهات جذابة، وربطها بالخوادم باستخدام إطار عمل Flutter.</p>
+                    <div class="instructor-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <section class="join-section" id="join-section">
-        <div class="join-container">
+        <div class="shape-1"></div>
+        <div class="shape-2"></div>
+        
+        <div class="join-container reveal-scale">
             
             <div class="join-text">
-                <h3>هل أنت خبير في مجالك؟ <br><span style="color: var(--secondary-color);">انضم لفريقنا الآن!</span></h3>
-                <p>نحن في مركز إيجابيون بمدينة عطبرة نبحث دائماً عن الكفاءات العالية والمدربين المتميزين لتقديم دورات احترافية تلبي احتياجات سوق العمل المتزايدة.</p>
+                <h3>هل أنت خبير ومتميز في مجالك؟ <br><span>انضم لفريق إيجابيون الآن!</span></h3>
+                <p>نحن في مركز إيجابيون للتدريب بمدينة عطبرة، نؤمن بأن المعرفة قوة. نبحث دائماً عن الكفاءات العالية والمدربين المتميزين والشغوفين بنقل معرفتهم لتقديم دورات احترافية تلبي وتتجاوز احتياجات سوق العمل المتزايدة.</p>
                 
                 <ul class="benefits-list">
-                    <li><i class="fas fa-handshake"></i> بيئة عمل احترافية ومجهزة بأحدث التقنيات.</li>
-                    <li><i class="fas fa-chart-line"></i> تسويق احترافي لدوراتك ووصول لعدد كبير من المتدربين.</li>
-                    <li><i class="fas fa-money-bill-wave"></i> عوائد مالية مجزية ومرونة في أوقات التدريب.</li>
+                    <li><i class="fas fa-laptop-house"></i> بيئة عمل احترافية، مجهزة بأحدث التقنيات الحديثة واستديوهات للتسجيل.</li>
+                    <li><i class="fas fa-bullseye"></i> تسويق إعلاني احترافي لدوراتك لضمان الوصول لأكبر عدد من المتدربين.</li>
+                    <li><i class="fas fa-hand-holding-usd"></i> عوائد وحوافز مالية مجزية جداً مع مرونة تامة في تحديد أوقات التدريب.</li>
+                    <li><i class="fas fa-certificate"></i> إصدار شهادات معتمدة لطلابك تعزز من مصداقيتك واسمك في السوق.</li>
                 </ul>
             </div>
 
             <div class="join-form">
                 <form id="instructorForm">
                     <div class="input-group">
-                        <input type="text" class="input-field" placeholder="الاسم الرباعي" required>
+                        <input type="text" class="input-field" placeholder="الاسم الرباعي الكامل" required>
                     </div>
                     
                     <div class="input-group">
-                        <input type="tel" class="input-field" placeholder="رقم الهاتف الأساسي" required>
+                        <input type="tel" class="input-field" placeholder="رقم الهاتف الأساسي (واتساب)" required>
                     </div>
 
                     <div class="input-group">
-                        <input type="text" class="input-field" placeholder="مجال التخصص (مثال: برمجة، تمريض، إدارة)" required>
+                        <input type="text" class="input-field" placeholder="مجال التخصص الدقيق (مثال: برمجة ويب، طوارئ، إدارة)" required>
                     </div>
 
                     <div class="input-group">
-                        <textarea class="input-field" placeholder="نبذة مختصرة عن خبرتك التدريبية (اختياري)..." style="height: 100px; resize: none;"></textarea>
+                        <textarea class="input-field" placeholder="نبذة مختصرة عن مسيرتك وخبرتك التدريبية، وأبرز الإنجازات (اختياري ولكن مفضل)..." style="height: 120px; resize: none;"></textarea>
                     </div>
 
                     <div class="file-upload-wrapper" id="dropArea">
                         <i class="fas fa-cloud-upload-alt"></i>
-                        <p>اضغط هنا أو اسحب السيرة الذاتية (CV) لإرفاقها</p>
-                        <span>(صيغ مقبولة: PDF, DOCX بحد أقصى 5MB)</span>
+                        <p>اضغط هنا أو اسحب السيرة الذاتية (CV) للرفع</p>
+                        <span>(نقبل صيغ: PDF, DOC, DOCX بحد أقصى 10MB)</span>
                         <input type="file" id="cvUpload" accept=".pdf,.doc,.docx" required>
-                        <div class="file-name-display" id="fileName"><i class="fas fa-check"></i> تم إرفاق: <span id="nameText"></span></div>
+                        <div class="file-name-display" id="fileName"><i class="fas fa-check-circle"></i> تم الرفع بنجاح: <span id="nameText"></span></div>
                     </div>
 
                     <button type="submit" class="btn-submit" id="submitBtn">
-                        <span class="btn-text">إرسال طلب الانضمام</span>
+                        <span class="btn-text">إرسال طلب الانضمام المبدئي</span>
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </form>
@@ -318,33 +758,188 @@
     </section>
 
     <div class="toast" id="toastMsg">
-        <i class="fas fa-check-circle"></i> تم إرسال طلبك بنجاح! ستتواصل معك الإدارة قريباً.
+        <i class="fas fa-check-circle"></i> 
+        <div>
+            <span style="display:block; font-size:1rem; opacity:0.9;">مرحباً بك في إيجابيون</span>
+            تم إرسال طلبك وسيتم مراجعته بعناية. ستتواصل معك إدارة الموارد البشرية قريباً!
+        </div>
     </div>
 
     <footer>
-        <p>جميع الحقوق محفوظة &copy; 2026 مركز إيجابيون للتدريب | قسم الموارد البشرية</p>
+        <p>المركز الرائد في صناعة الكفاءات - مركز إيجابيون للتدريب <span>&copy; 2026</span></p>
+        <p style="font-size: 0.95rem; font-weight: 400; margin-top: 10px; color: var(--text-light);">تصميم، برمجة، وتطوير حصري بواسطة الإدارة التقنية المركزية - جميع الحقوق محفوظة.</p>
+        
+        <div style="display: flex; justify-content: center; gap: 25px; margin-top: 25px; position: relative; z-index: 2;">
+            <a href="#" style="color: var(--white); font-size: 1.8rem; transition: var(--transition-bounce);" class="social-footer"><i class="fab fa-facebook-square" onmouseover="this.style.color='var(--secondary-color)'; this.style.transform='scale(1.2)'" onmouseout="this.style.color='var(--white)'; this.style.transform='scale(1)'"></i></a>
+            <a href="#" style="color: var(--white); font-size: 1.8rem; transition: var(--transition-bounce);" class="social-footer"><i class="fab fa-twitter" onmouseover="this.style.color='var(--secondary-color)'; this.style.transform='scale(1.2)'" onmouseout="this.style.color='var(--white)'; this.style.transform='scale(1)'"></i></a>
+            <a href="#" style="color: var(--white); font-size: 1.8rem; transition: var(--transition-bounce);" class="social-footer"><i class="fab fa-linkedin" onmouseover="this.style.color='var(--secondary-color)'; this.style.transform='scale(1.2)'" onmouseout="this.style.color='var(--white)'; this.style.transform='scale(1)'"></i></a>
+            <a href="#" style="color: var(--white); font-size: 1.8rem; transition: var(--transition-bounce);" class="social-footer"><i class="fab fa-youtube" onmouseover="this.style.color='var(--secondary-color)'; this.style.transform='scale(1.2)'" onmouseout="this.style.color='var(--white)'; this.style.transform='scale(1)'"></i></a>
+        </div>
     </footer>
 
     <script>
-        // 1. تفاعل منطقة رفع الملفات (Drag & Drop UI)
+        /* -----------------------------------------------------------
+           1. نظام الماوس المخصص (Custom Cursor Follower)
+           ----------------------------------------------------------- */
+        const cursorDot = document.getElementById('cursorDot');
+        const cursorOutline = document.getElementById('cursorOutline');
+        
+        // تعطيل الماوس المخصص على الشاشات اللمسية لتجنب المشاكل
+        if (window.matchMedia("(pointer: fine)").matches) {
+            window.addEventListener('mousemove', function(e) {
+                const posX = e.clientX;
+                const posY = e.clientY;
+                
+                // تحديث النقطة المركزية فورياً
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+                
+                // تحديث الدائرة الخارجية بتأخير خفيف (Lag Effect)
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: "forwards" });
+            });
+
+            // تكبير الماوس عند التمرير على الأزرار والروابط
+            const interactiveElements = document.querySelectorAll('a, button, .instructor-card, .file-upload-wrapper');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorOutline.style.width = '60px';
+                    cursorOutline.style.height = '60px';
+                    cursorOutline.style.backgroundColor = 'rgba(245, 158, 11, 0.1)';
+                    cursorDot.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorOutline.style.width = '40px';
+                    cursorOutline.style.height = '40px';
+                    cursorOutline.style.backgroundColor = 'transparent';
+                    cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+                });
+            });
+        }
+
+        /* -----------------------------------------------------------
+           2. تأثير السكرول وانيميشن الهيدر (Scroll & Reveal Engine)
+           ----------------------------------------------------------- */
+        const header = document.getElementById('mainHeader');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer لإظهار العناصر بسلاسة عند النزول (Scroll Reveal)
+        const revealElements = document.querySelectorAll('.reveal-up, .reveal-scale');
+        
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach((entry, index) => {
+                if (!entry.isIntersecting) return;
+                // إضافة تأخير متسلسل للعناصر في الشبكة (Stagger Effect)
+                setTimeout(() => {
+                    entry.target.classList.add('active');
+                }, index * 100);
+                observer.unobserve(entry.target);
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => {
+            revealOnScroll.observe(el);
+        });
+
+        /* -----------------------------------------------------------
+           3. محرك الأبعاد الثلاثية للكروت (3D Tilt Engine Vanilla JS)
+           ----------------------------------------------------------- */
+        const cards = document.querySelectorAll('.instructor-card');
+        
+        if (window.matchMedia("(pointer: fine)").matches) {
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left; 
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    // درجة الميلان القصوى 15 درجة
+                    const rotateX = ((y - centerY) / centerY) * -15; 
+                    const rotateY = ((x - centerX) / centerX) * 15;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+                    card.style.transition = 'none'; // للحركة الفورية
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                    card.style.transition = `all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)`;
+                });
+                
+                card.addEventListener('mouseenter', () => {
+                    card.style.transition = `all 0.1s ease`;
+                });
+            });
+        }
+
+        /* -----------------------------------------------------------
+           4. نظام رفع الملفات المتقدم (Advanced Drag & Drop UI)
+           ----------------------------------------------------------- */
         const cvUpload = document.getElementById('cvUpload');
         const fileNameDisplay = document.getElementById('fileName');
         const nameText = document.getElementById('nameText');
         const dropArea = document.getElementById('dropArea');
 
+        // تأثيرات السحب والإفلات
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, () => dropArea.classList.add('dragover'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, () => dropArea.classList.remove('dragover'), false);
+        });
+
+        dropArea.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }
+
         cvUpload.addEventListener('change', function() {
-            if (this.files && this.files.length > 0) {
-                const fileName = this.files[0].name;
+            handleFiles(this.files);
+        });
+
+        function handleFiles(files) {
+            if (files && files.length > 0) {
+                const fileName = files[0].name;
                 nameText.textContent = fileName;
                 fileNameDisplay.style.display = 'block';
                 dropArea.style.borderColor = 'var(--success-color)';
+                dropArea.style.background = '#ecfdf5';
                 dropArea.querySelector('i').style.color = 'var(--success-color)';
+                dropArea.querySelector('i').className = 'fas fa-file-signature'; // تغيير الأيقونة
                 dropArea.querySelector('p').style.display = 'none';
                 dropArea.querySelector('span').style.display = 'none';
             }
-        });
+        }
 
-        // 2. تفاعل فورم التقديم
+        /* -----------------------------------------------------------
+           5. محاكي إرسال البيانات وإشعارات التوست (Form Submission Simulator)
+           ----------------------------------------------------------- */
         const form = document.getElementById('instructorForm');
         const submitBtn = document.getElementById('submitBtn');
         const toast = document.getElementById('toastMsg');
@@ -352,41 +947,145 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // تغيير الزر لحالة التحميل
+            // إضافة تأثير نبض للزر أثناء التحميل
             const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري إرسال الطلب...';
+            submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> جاري تشفير وإرسال البيانات...';
             submitBtn.style.background = 'var(--text-light)';
+            submitBtn.style.boxShadow = 'none';
+            submitBtn.style.pointerEvents = 'none';
             
+            // محاكاة اتصال بالخادم (تأخير 2.5 ثانية)
             setTimeout(() => {
-                // إرجاع الزر وتفريغ الفورم
                 submitBtn.innerHTML = originalText;
                 submitBtn.style.background = '';
+                submitBtn.style.pointerEvents = 'auto';
                 form.reset();
                 
                 // إعادة شكل منطقة الرفع للوضع الافتراضي
                 fileNameDisplay.style.display = 'none';
-                dropArea.style.borderColor = 'var(--primary-light)';
+                dropArea.style.borderColor = '#cbd5e1';
+                dropArea.style.background = '#f8fafc';
                 dropArea.querySelector('i').style.color = 'var(--primary-light)';
+                dropArea.querySelector('i').className = 'fas fa-cloud-upload-alt';
                 dropArea.querySelector('p').style.display = 'block';
                 dropArea.querySelector('span').style.display = 'block';
                 
-                // إظهار رسالة النجاح
+                // إظهار التوست (رسالة النجاح) مع تأثير صوتي أو اهتزاز
                 toast.classList.add('show');
-                setTimeout(() => toast.classList.remove('show'), 4000);
-            }, 2000);
+                if(navigator.vibrate) navigator.vibrate(200); // اهتزاز الهاتف إن أمكن
+                
+                setTimeout(() => toast.classList.remove('show'), 5000);
+            }, 2500);
         });
 
-        // 3. تأثير ظل للهيدر عند النزول بالصفحة
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('mainHeader');
-            if (window.scrollY > 50) {
-                header.style.padding = '10px 5%';
-                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
-            } else {
-                header.style.padding = '15px 5%';
-                header.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
-            }
+        /* -----------------------------------------------------------
+           6. محرك الجسيمات التفاعلية للهيرو (Canvas Particle Engine 2.0)
+           ----------------------------------------------------------- */
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+
+        // ضبط أبعاد اللوحة بناءً على الترويسة
+        function setCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = document.querySelector('.page-header').offsetHeight;
+        }
+        setCanvasSize();
+        window.addEventListener('resize', () => { setCanvasSize(); initParticles(); });
+
+        let mouse = { x: null, y: null, radius: 120 }
+        
+        document.querySelector('.page-header').addEventListener('mousemove', function(event) {
+            mouse.x = event.x;
+            mouse.y = event.y;
         });
+        document.querySelector('.page-header').addEventListener('mouseleave', function() {
+            mouse.x = undefined; mouse.y = undefined;
+        });
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x; this.y = y; this.directionX = directionX;
+                this.directionY = directionY; this.size = size; this.color = color;
+                this.baseX = this.x; this.baseY = this.y; // لحفظ الموقع الأصلي
+            }
+            draw() {
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color; ctx.fill();
+            }
+            update() {
+                // الارتداد
+                if (this.x > canvas.width || this.x < 0) { this.directionX = -this.directionX; }
+                if (this.y > canvas.height || this.y < 0) { this.directionY = -this.directionY; }
+
+                // التفاعل العكسي مع الماوس (تنافر)
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx*dx + dy*dy);
+                let forceDirectionX = dx / distance;
+                let forceDirectionY = dy / distance;
+                let maxDistance = mouse.radius;
+                let force = (maxDistance - distance) / maxDistance;
+                let directionX = forceDirectionX * force * 5;
+                let directionY = forceDirectionY * force * 5;
+
+                if (distance < mouse.radius) {
+                    this.x -= directionX;
+                    this.y -= directionY;
+                } else {
+                    // العودة البطيئة للمسار
+                    if(this.x !== this.baseX) { let dx = this.x - this.baseX; this.x -= dx/20; }
+                    if(this.y !== this.baseY) { let dy = this.y - this.baseY; this.y -= dy/20; }
+                }
+
+                this.x += this.directionX; this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            // تحديد كثافة بناءً على حجم الشاشة لتفادي البطء
+            let numberOfParticles = (canvas.height * canvas.width) / 12000; 
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 0.5;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 0.5) - 0.25;
+                let directionY = (Math.random() * 0.5) - 0.25;
+                let color = 'rgba(255, 255, 255, 0.5)';
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        function connectParticles() {
+            let opacityValue = 1;
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width / 10) * (canvas.height / 10)) {
+                        opacityValue = 1 - (distance / 10000);
+                        ctx.strokeStyle = 'rgba(245, 158, 11,' + opacityValue + ')'; // خطوط ربط ذهبية
+                        ctx.lineWidth = 0.5; ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            requestAnimationFrame(animateParticles);
+            ctx.clearRect(0, 0, innerWidth, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); }
+            connectParticles();
+        }
+        
+        initParticles();
+        animateParticles();
+
     </script>
 </body>
 </html>
